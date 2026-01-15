@@ -1,8 +1,13 @@
+// ignore_for_file: unnecessary_import
+
 import 'package:birthdaycounter/config/Colors/colors.dart';
+import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/widgets/custom_drawer.dart';
 import 'package:birthdaycounter/widgets/custom_reminder_card.dart';
 import 'package:birthdaycounter/widgets/custom_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -133,6 +138,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           // Expanded(child: Center(child: Image.asset("assets/fileimg.png")))
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.primary,
+        shape: CircleBorder(),
+        child: Icon(Icons.add, color: AppColors.white, size: 30),
+        onPressed: () {
+          Get.toNamed(AppRoutesName.addReminder);
+        },
       ),
     );
   }

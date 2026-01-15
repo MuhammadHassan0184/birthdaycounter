@@ -16,28 +16,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-
       debugShowCheckedModeBanner: false,
 
       // home: SplashScreen(),
-      // home: Onboarding1(),
-      // home: Onboarding2(),
-      // home: Onboarding3(),
-      // home: OnboardingSlider(),
-      // home: Login(),
-      // home: SignUp(),
-
-       getPages: AppRoutes.routes(),
-       initialRoute: AppRoutesName.onboardingSlider,
-
+      
+      getPages: AppRoutes.routes(),
+      initialRoute: AppRoutesName.onboardingSlider,
 
       title: 'Flutter Demo',
       theme: ThemeData(
-        
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
       // getPages: AppRoutes.routes(),
     );
   }
 }
-

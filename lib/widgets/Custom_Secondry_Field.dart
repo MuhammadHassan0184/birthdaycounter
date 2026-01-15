@@ -1,17 +1,17 @@
-
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, file_names
 
 import 'package:birthdaycounter/config/Colors/colors.dart';
+import 'package:birthdaycounter/widgets/custom_form_field.dart';
 import 'package:flutter/material.dart';
 
-class CustomFormField extends StatefulWidget {
+class CustomSecondryField extends StatefulWidget {
   final String label;
   final IconData icon;
   final IconData? suicon;
   final String? Function(String?)? validation;
 
 
-   const CustomFormField({
+   const CustomSecondryField({
     super.key,
     required this.label, 
     required this.icon, 
@@ -20,10 +20,10 @@ class CustomFormField extends StatefulWidget {
     });
 
   @override
-  State<CustomFormField> createState() => _CustomFormFieldState();
+  _CustomSecondryFieldState createState() => _CustomSecondryFieldState();
 }
 
-class _CustomFormFieldState extends State<CustomFormField> {
+class _CustomSecondryFieldState extends State<CustomFormField> {
   bool showpass = false;
   @override
   Widget build(BuildContext context) {
@@ -34,12 +34,9 @@ class _CustomFormFieldState extends State<CustomFormField> {
       // keyboardType:
       //     widget.isPassword ? TextInputType.text : TextInputType.emailAddress,
       decoration: InputDecoration(
-        filled: true,
-        fillColor: AppColors.bggrey, // light grey bg
-    
         prefixIcon: Icon(
           widget.icon,
-          color: AppColors.grey,
+          color: AppColors.primary,
           size: 20,
         ),
     
@@ -77,4 +74,3 @@ class _CustomFormFieldState extends State<CustomFormField> {
       );
   }
 }
-
