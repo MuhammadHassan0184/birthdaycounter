@@ -77,7 +77,9 @@ class _LoginState extends State<Login> {
             ),
             SizedBox(height: 25,),
             // login button
-            CustomButton(label: "Login"),
+            CustomButton(label: "Login", onTap: () {
+              Get.offAllNamed(AppRoutesName.homeScreen);
+            },),
             SizedBox(height: 25,),
             Text("-------- Or Signin with --------",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.grey),),
             SizedBox(height: 25,),
