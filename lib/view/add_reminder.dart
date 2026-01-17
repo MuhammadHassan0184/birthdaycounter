@@ -1,96 +1,160 @@
-import 'package:birthdaycounter/config/Colors/colors.dart';
-import 'package:birthdaycounter/widgets/Custom_Secondry_Field.dart';
-import 'package:birthdaycounter/widgets/custom_form_field.dart';
-import 'package:flutter/material.dart';
+// ignore_for_file: unnecessary_import, avoid_print
 
-class AddReminder extends StatelessWidget {
+import 'package:birthdaycounter/config/Colors/colors.dart';
+import 'package:birthdaycounter/config/Routes/routes_name.dart';
+import 'package:birthdaycounter/controllers/image_picker_controller.dart';
+import 'package:birthdaycounter/widgets/Custom_Secondry_Field.dart';
+import 'package:birthdaycounter/widgets/Profile_Image/custom_profile_image.dart';
+import 'package:birthdaycounter/widgets/custom_button.dart';
+import 'package:birthdaycounter/widgets/custom_date_field.dart';
+import 'package:birthdaycounter/widgets/custom_dropdown_field.dart';
+import 'package:birthdaycounter/widgets/custom_time_field.dart';
+import 'package:birthdaycounter/widgets/custom_wish_field.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/state_manager.dart';
+
+class AddReminder extends StatefulWidget {
   const AddReminder({super.key});
 
+  @override
+  State<AddReminder> createState() => _AddReminderState();
+}
+
+class _AddReminderState extends State<AddReminder> {
+
+  final ImagePickerController imageController = ImagePickerController();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.offNamed(AppRoutesName.homeScreen);
+          },
           icon: Icon(Icons.arrow_back, color: AppColors.white),
         ),
         title: Text(
-          "Birthday Reminder",
+          "Add Reminder",
           style: TextStyle(color: AppColors.white, fontWeight: FontWeight.w400),
         ),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          SizedBox(height: 30),
-          Center(
-            child: Stack(
-              alignment: Alignment.center,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 30),
+
+            ProfileImagePicker(controller: imageController),
+
+            SizedBox(height: 25),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: CustomSecondryField(
+                label: "Full Name",
+                icon: Icons.person_2,
+              ),
+            ),
+
+            SizedBox(height: 12),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: CustomSecondaryDropdown(
+                hint: "Relationship",
+                icon: Icons.favorite_rounded,
+                items: [
+                  "Brother",
+                  "Sister",
+                  "Father",
+                  "Mother",
+                  "Friend",
+                  "Best Friend",
+                ],
+                validation: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please select relation";
+                  }
+                  return null;
+                },
+                onChanged: (value) {
+                  print("Selected: $value");
+                },
+              ),
+            ),
+
+            SizedBox(height: 12),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: CustomSecondryField(
+                label: "Phone (Optional)",
+                icon: Icons.call,
+              ),
+            ),
+
+            SizedBox(height: 12),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: CustomSecondryField(
+                label: "Email (Optional)",
+                icon: Icons.email,
+              ),
+            ),
+
+            SizedBox(height: 12),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: CustomSecondaryDropdown(
+                hint: "Reminder Type",
+                icon: Icons.cake_rounded,
+                items: ["Birthday", "Engagement", "Anniversary"],
+                validation: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please select relation";
+                  }
+                  return null;
+                },
+                onChanged: (value) {
+                  print("Selected: $value");
+                },
+              ),
+            ),
+
+            SizedBox(height: 12),
+
+            Column(
               children: [
-                // Outer Circle
-                Container(
-                  width: 150,
-                  height: 150,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.grey.shade300, width: 2),
-                  ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: dateField(context),
                 ),
-                // Middle Circle
-                Container(
-                  width: 130,
-                  height: 130,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.grey.shade200, width: 2),
-                  ),
+                SizedBox(height: 12),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: timeField(context),
                 ),
-                // Inner Circle with Image
-                Container(
-                  width: 110,
-                  height: 110,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: AssetImage("assets/my.jpg"), // or NetworkImage
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                SizedBox(height: 12),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: wishField(),
                 ),
-                // Bottom overlay icon
-                Positioned(
-                  bottom: 0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                    ),
-                    padding: const EdgeInsets.all(5),
-                    child: Icon(
-                      Icons.image, // replace with your desired icon
-                      color: Colors.blue,
-                      size: 20,
-                    ),
-                  ),
+
+                SizedBox(height: 20,),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  child: CustomButton(label: "Add"),
                 ),
+                SizedBox(height: 20,)
               ],
             ),
-          ),
-          SizedBox(height: 20,),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 15),
-          //   child: CustomSecondryField(label: "Full Name", icon: Icons.person_2),
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 15),
-          //   child: CustomSecondryField(label: "Phone (Optional)", icon: Icons.call),
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 15),
-          //   child: CustomSecondryField(label: "Email (Optional)", icon: Icons.email),
-          // ),
-        ],
+          ],
+        ),
       ),
     );
   }

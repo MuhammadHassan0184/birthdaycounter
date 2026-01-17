@@ -1,7 +1,5 @@
 import 'package:birthdaycounter/config/Routes/routes.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
-import 'package:birthdaycounter/view/Auth/sign_up.dart';
-import 'package:birthdaycounter/view/Onboarding/onboarding1.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
@@ -19,8 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
 
       // home: SplashScreen(),
-      
-      getPages: AppRoutes.routes(),
+      getPages: AppRoutes.routes,
       initialRoute: AppRoutesName.onboardingSlider,
 
       title: 'Flutter Demo',

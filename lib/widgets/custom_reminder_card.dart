@@ -1,5 +1,10 @@
+// ignore_for_file: unused_element
+
 import 'package:birthdaycounter/config/Colors/colors.dart';
+import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/utils.dart';
 
 class CustomReminderCard extends StatelessWidget {
   const CustomReminderCard({super.key});
@@ -78,7 +83,9 @@ class CustomReminderCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _showReminderMenu(context);
+                      },
                       icon: const Icon(Icons.more_vert),
                     ),
                     SizedBox(
@@ -107,4 +114,76 @@ class CustomReminderCard extends StatelessWidget {
             ),
           );
   }
+}
+
+void _showReminderMenu(BuildContext context) async {
+  final RenderBox button = context.findRenderObject() as RenderBox;
+  final RenderBox overlay =
+      Overlay.of(context).context.findRenderObject() as RenderBox;
+
+  final RelativeRect position = RelativeRect.fromRect(
+    Rect.fromPoints(
+      button.localToGlobal(Offset.zero, ancestor: overlay),
+      button.localToGlobal(
+        button.size.bottomRight(Offset.zero),
+        ancestor: overlay,
+      ),
+    ),
+    Offset.zero & overlay.size,
+  );
+
+  await showMenu(
+    context: context,
+    position: position,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
+    ),
+    items: [
+      PopupMenuItem(
+        child:  Text("Robert Fox", style: TextStyle(fontWeight: FontWeight.bold),),
+      ),
+      
+      PopupMenuItem(
+        value: 'edit',
+        child: Row(
+          children: [
+            Icon(Icons.edit, color: AppColors.primary, size: 18),
+            SizedBox(width: 10),
+            Text("Edit Reminder"),
+          ],
+        ),
+      ),
+      PopupMenuItem(
+        value: 'delete',
+        child: Row(
+          children: [
+            Icon(Icons.delete, color: AppColors.primary, size: 18),
+            SizedBox(width: 10),
+            Text("Delete Reminder"),
+          ],
+        ),
+      ),
+      PopupMenuItem(
+        value: 'preview',
+        onTap: () {
+          Get.toNamed(AppRoutesName.previewReminder);
+        },
+        child: Row(
+          children: [
+            Icon(Icons.remove_red_eye, color: AppColors.primary, size: 18),
+            SizedBox(width: 10),
+            Text("Preview Reminder"),
+          ],
+        ),
+      ),
+    ],
+  ).then((value) {
+    if (value == 'edit') {
+      // edit logic
+    } else if (value == 'delete') {
+      // delete logic
+    } else if (value == 'preview') {
+      // preview logic
+    }
+  });
 }

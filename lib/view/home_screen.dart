@@ -73,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         children: [
           SizedBox(height: 10),
+          // chips
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Padding(
@@ -110,6 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           SizedBox(height: 10),
+          // searchBar
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Row(
@@ -127,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           SizedBox(height: 10),
-
+          // remindercard
           Expanded(
             child: ListView.builder(
               itemCount: 6,
@@ -136,6 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
           ),
+          SizedBox(height: 30,),
           // Expanded(child: Center(child: Image.asset("assets/fileimg.png")))
         ],
       ),
