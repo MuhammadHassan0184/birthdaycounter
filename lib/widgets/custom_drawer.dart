@@ -1,7 +1,10 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, unnecessary_import
 
+import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:flutter/material.dart';
 import 'package:birthdaycounter/config/Colors/colors.dart';
+import 'package:get/get.dart';
+import 'package:get/utils.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -66,7 +69,9 @@ class CustomDrawer extends StatelessWidget {
               "Celebrities",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            onTap: () {},
+            onTap: () {
+              Get.toNamed(AppRoutesName.celebritiesScreen);
+            },
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -102,7 +107,9 @@ class CustomDrawer extends StatelessWidget {
               "Privacy Policy",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            onTap: () {},
+            onTap: () {
+              Get.toNamed(AppRoutesName.privacyPolicy);
+            },
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),

@@ -3,8 +3,11 @@ import 'package:birthdaycounter/view/Auth/login.dart';
 import 'package:birthdaycounter/view/Auth/sign_up.dart';
 import 'package:birthdaycounter/view/Onboarding/slider/OnboardingSlider.dart';
 import 'package:birthdaycounter/view/add_reminder.dart';
+import 'package:birthdaycounter/view/celebrities_screen.dart';
+import 'package:birthdaycounter/view/celebrity_preview.dart';
 import 'package:birthdaycounter/view/home_screen.dart';
 import 'package:birthdaycounter/view/preview_reminder.dart';
+import 'package:birthdaycounter/view/privacy_policy.dart';
 import 'package:birthdaycounter/view/wishes_screen.dart';
 import 'package:get/get.dart';
 
@@ -37,6 +40,18 @@ class AppRoutes {
     GetPage(
       name: AppRoutesName.previewReminder,
       page: () => PreviewReminder(),
+    ),
+    GetPage(
+      name: AppRoutesName.celebritiesScreen,
+      page: () => CelebritiesScreen(),
+    ),
+    GetPage(
+      name: AppRoutesName.celebrityPreview,
+      page: () => CelebrityPreview(),
+    ),
+    GetPage(
+      name: AppRoutesName.privacyPolicy,
+      page: () => PrivacyPolicy(),
     ),
   ];
 }
