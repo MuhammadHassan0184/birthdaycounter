@@ -8,6 +8,7 @@ import 'package:birthdaycounter/view/celebrity_preview.dart';
 import 'package:birthdaycounter/view/home_screen.dart';
 import 'package:birthdaycounter/view/preview_reminder.dart';
 import 'package:birthdaycounter/view/privacy_policy.dart';
+import 'package:birthdaycounter/view/splash/splash_screen.dart';
 import 'package:birthdaycounter/view/wishes_screen.dart';
 import 'package:get/get.dart';
 
@@ -16,6 +17,10 @@ class AppRoutes {
     GetPage(
       name: AppRoutesName.onboardingSlider,
       page: () => OnboardingSlider(),
+    ),
+    GetPage(
+      name: AppRoutesName.splashScreen,
+      page: () => SplashScreen(),
     ),
     GetPage(
       name: AppRoutesName.signup,

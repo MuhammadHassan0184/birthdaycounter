@@ -26,8 +26,9 @@ class PrivacyPolicy extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-        child: Text('''
-Privacy Policy
+        child: Text(
+          '''
+Privacy Policy:
 Last updated: 1 January 2026
 Your privacy is important to us. This Privacy Policy explains how we collect, use, store and protect your information when you use the Birthday Reminder mobile application (“App”).
 
@@ -105,7 +106,13 @@ We may update this Privacy Policy from time to time. Any changes will be posted 
 If you have any questions or concerns about this Privacy Policy, please contact us:
 
 Email: info@thewebconcept.com
-          ''', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, height: 1.5)),
+          ''',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            height: 1.5,
+          ),
+        ),
       ),
     );
   }

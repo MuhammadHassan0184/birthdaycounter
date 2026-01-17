@@ -1,5 +1,6 @@
 class AppRoutesName {
   static const String onboardingSlider = "/OnboardingSlider";
+  static const String splashScreen = "/SplashScreen";
   static const String signup = "/SignUp";
   static const String login = "/Login";
   static const String homeScreen = "/HomeScreen";
