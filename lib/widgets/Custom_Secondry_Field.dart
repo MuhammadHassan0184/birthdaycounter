@@ -11,7 +11,7 @@ class CustomSecondryField extends StatefulWidget {
   VoidCallback? onTap;
   final String? Function(String?)? validation;
 
-   CustomSecondryField({
+  CustomSecondryField({
     super.key,
     required this.label,
     required this.icon,
@@ -39,9 +39,13 @@ class _CustomSecondryFieldState extends State<CustomSecondryField> {
         /// ✅ FIXED SUFFIX ICON
         suffixIcon: widget.suicon != null
             ? IconButton(
-                onPressed: widget.onTap,
+                onPressed: () {
+                  setState(() {
+                    showpass = !showpass;
+                  });
+                },
                 icon: Icon(
-                  widget.suicon,
+                  showpass ? Icons.visibility : Icons.visibility_off,
                   color: AppColors.grey,
                   size: 20,
                 ),
@@ -50,8 +54,7 @@ class _CustomSecondryFieldState extends State<CustomSecondryField> {
 
         hintText: widget.label,
         hintStyle: TextStyle(color: AppColors.grey, fontSize: 14),
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: AppColors.bggrey, width: 0.5),

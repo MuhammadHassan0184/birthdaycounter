@@ -102,7 +102,7 @@ class CustomWishesCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      duration: Duration(
+                      duration:  Duration(
                         seconds: 2,
                       ), // Auto dismiss after 2 seconds
                     ),
