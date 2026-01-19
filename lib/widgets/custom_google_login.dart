@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, deprecated_member_use
 
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,7 @@ class CustomGoogleLogin extends StatelessWidget {
                 color: AppColors.white,
                 borderRadius: BorderRadius.circular(30),
                 border: Border.all(
-                  color: AppColors.grey
+                  color: AppColors.grey.withOpacity(0.5)
                 ),
               ),
               child: Row(

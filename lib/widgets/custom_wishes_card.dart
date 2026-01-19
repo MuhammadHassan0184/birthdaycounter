@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // <-- import this for Clipboard
@@ -20,7 +22,7 @@ class CustomWishesCard extends StatelessWidget {
         // maxHeight: 91, // Max height
       ),
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.grey),
+        border: Border.all(color: AppColors.grey.withOpacity(0.5)),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -56,7 +58,7 @@ class CustomWishesCard extends StatelessWidget {
           Container(
             height: 60,
             width: 1,
-            color: AppColors.grey,
+            color: AppColors.grey.withOpacity(0.5),
             margin: const EdgeInsets.symmetric(horizontal: 10),
           ),
 

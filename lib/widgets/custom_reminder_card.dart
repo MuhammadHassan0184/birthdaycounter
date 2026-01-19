@@ -1,4 +1,4 @@
-// ignore_for_file: unused_element, unnecessary_import
+// ignore_for_file: unused_element, unnecessary_import, deprecated_member_use
 
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
@@ -12,107 +12,107 @@ class CustomReminderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-            padding: const EdgeInsets.all(10),
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: AppColors.grey),
-            ),
-            child: Row(
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      padding: const EdgeInsets.all(10),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: AppColors.grey.withOpacity(0.5)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          /// IMAGE
+          Container(
+            width: 70, // responsive enough for phones
+            height: 70,
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+            child: Image.asset("assets/my.jpg", fit: BoxFit.cover),
+          ),
+
+          const SizedBox(width: 10),
+
+          /// TEXT SECTION (takes available space)
+          Expanded(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                /// IMAGE
-                Container(
-                  width: 70, // responsive enough for phones
-                  height: 70,
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Image.asset("assets/my.jpg", fit: BoxFit.cover),
-                ),
-
-                const SizedBox(width: 10),
-
-                /// TEXT SECTION (takes available space)
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Muhammad Hassan",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        "06-11-2006",
-                        style: const TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                      const SizedBox(height: 4),
-                      Row(
-                        children: [
-                          Text(
-                            "Birthday ",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.primary,
-                            ),
-                          ),
-                          Text(
-                            "(283 Days)",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                Text(
+                  "Muhammad Hassan",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
                   ),
                 ),
-
-                /// ACTIONS
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                const SizedBox(height: 4),
+                Text(
+                  "06-11-2006",
+                  style: const TextStyle(fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(height: 4),
+                Row(
                   children: [
-                    IconButton(
-                      onPressed: () {
-                        _showReminderMenu(context);
-                      },
-                      icon: const Icon(Icons.more_vert),
+                    Text(
+                      "Birthday ",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primary,
+                      ),
                     ),
-                    SizedBox(
-                      height: 26,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primary,
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                        onPressed: () {},
-                        child: Text(
-                          "Friends",
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: AppColors.white,
-                          ),
-                        ),
+                    Text(
+                      "(283 Days)",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.grey,
                       ),
                     ),
                   ],
                 ),
               ],
             ),
-          );
+          ),
+
+          /// ACTIONS
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Builder(
+                builder: (iconContext) {
+                  return IconButton(
+                    icon: const Icon(Icons.more_vert),
+                    onPressed: () {
+                      _showReminderMenu(iconContext);
+                    },
+                  );
+                },
+              ),
+
+              SizedBox(
+                height: 26,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  onPressed: () {},
+                  child: Text(
+                    "Friends",
+                    style: TextStyle(fontSize: 11, color: AppColors.white),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -121,28 +121,30 @@ void _showReminderMenu(BuildContext context) async {
   final RenderBox overlay =
       Overlay.of(context).context.findRenderObject() as RenderBox;
 
-  final RelativeRect position = RelativeRect.fromRect(
-    Rect.fromPoints(
-      button.localToGlobal(Offset.zero, ancestor: overlay),
-      button.localToGlobal(
-        button.size.bottomRight(Offset.zero),
-        ancestor: overlay,
-      ),
-    ),
-    Offset.zero & overlay.size,
+  final Offset topRight = button.localToGlobal(
+    Offset(button.size.width, 0),
+    ancestor: overlay,
+  );
+
+  final RelativeRect position = RelativeRect.fromLTRB(
+    topRight.dx,
+    topRight.dy,
+    overlay.size.width - topRight.dx,
+    overlay.size.height - topRight.dy,
   );
 
   await showMenu(
     context: context,
     position: position,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     items: [
       PopupMenuItem(
-        child:  Text("Robert Fox", style: TextStyle(fontWeight: FontWeight.bold),),
+        enabled: false,
+        child: Text(
+          "Robert Fox",
+          style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.black),
+        ),
       ),
-      
       PopupMenuItem(
         value: 'edit',
         child: Row(
@@ -177,13 +179,5 @@ void _showReminderMenu(BuildContext context) async {
         ),
       ),
     ],
-  ).then((value) {
-    if (value == 'edit') {
-      // edit logic
-    } else if (value == 'delete') {
-      // delete logic
-    } else if (value == 'preview') {
-      // preview logic
-    }
-  });
+  );
 }

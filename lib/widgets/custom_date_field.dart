@@ -12,48 +12,51 @@ Widget dateField(BuildContext context) {
       controller: dateController,
       readOnly: true,
       onTap: () async {
-  DateTime? picked = await showDatePicker(
-    context: context,
-    firstDate: DateTime(2000),
-    lastDate: DateTime(2100),
-    initialDate: DateTime.now(),
-    builder: (context, child) {
-      return Theme(
-        data: Theme.of(context).copyWith(
-          colorScheme: ColorScheme.light(
-            primary: AppColors.primary,     // header + selected date
-            onPrimary: Colors.white,        // header text
-            onSurface: AppColors.black,     // calendar text
-          ),
-          datePickerTheme: DatePickerThemeData(
-            backgroundColor: AppColors.white,
-            headerBackgroundColor: AppColors.primary,
-            headerForegroundColor: Colors.white,
-            todayBackgroundColor:
-                MaterialStateProperty.all(AppColors.primary.withOpacity(0.15)),
-            todayForegroundColor:
-                MaterialStateProperty.all(AppColors.primary),
-            dayForegroundColor:
-                MaterialStateProperty.all(AppColors.black),
-            yearForegroundColor:
-                MaterialStateProperty.all(AppColors.black),
-          ),
-          textButtonTheme: TextButtonThemeData(
-            style: TextButton.styleFrom(
-              foregroundColor: AppColors.primary, // OK / Cancel
-            ),
-          ),
-        ),
-        child: child!,
-      );
-    },
-  );
+        DateTime? picked = await showDatePicker(
+          context: context,
+          firstDate: DateTime(2000),
+          lastDate: DateTime(2100),
+          initialDate: DateTime.now(),
+          builder: (context, child) {
+            return Theme(
+              data: Theme.of(context).copyWith(
+                colorScheme: ColorScheme.light(
+                  primary: AppColors.primary, // header + selected date
+                  onPrimary: Colors.white, // header text
+                  onSurface: AppColors.black, // calendar text
+                ),
+                datePickerTheme: DatePickerThemeData(
+                  backgroundColor: AppColors.white,
+                  headerBackgroundColor: AppColors.primary,
+                  headerForegroundColor: Colors.white,
+                  todayBackgroundColor: MaterialStateProperty.all(
+                    AppColors.primary.withOpacity(0.15),
+                  ),
+                  todayForegroundColor: MaterialStateProperty.all(
+                    AppColors.primary,
+                  ),
+                  dayForegroundColor: MaterialStateProperty.all(
+                    AppColors.black,
+                  ),
+                  yearForegroundColor: MaterialStateProperty.all(
+                    AppColors.black,
+                  ),
+                ),
+                textButtonTheme: TextButtonThemeData(
+                  style: TextButton.styleFrom(
+                    foregroundColor: AppColors.primary, // OK / Cancel
+                  ),
+                ),
+              ),
+              child: child!,
+            );
+          },
+        );
 
-  if (picked != null) {
-    dateController.text =
-        "${picked.month}/${picked.day}/${picked.year}";
-  }
-    
+        if (picked != null) {
+          dateController.text = "${picked.month}/${picked.day}/${picked.year}";
+        }
+
         if (picked != null) {
           dateController.text = "${picked.month}/${picked.day}/${picked.year}";
         }
@@ -61,7 +64,27 @@ Widget dateField(BuildContext context) {
       decoration: InputDecoration(
         hintText: "MM/DD/YYYY",
         prefixIcon: Icon(Icons.calendar_month, color: AppColors.primary),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: AppColors.black.withOpacity(0.3),
+            width: 0.9,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
+            color: AppColors.black.withOpacity(0.3),
+            width: 0.9,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
+            color: AppColors.black.withOpacity(0.25),
+            width: 0.6,
+          ),
+        ),
       ),
     ),
   );

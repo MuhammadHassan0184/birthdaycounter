@@ -29,7 +29,7 @@ class _CelebrityPreviewState extends State<CelebrityPreview> {
           icon: Icon(Icons.arrow_back, color: AppColors.white),
         ),
         title: Text(
-          "Preview Reminder",
+          "Celebrity Preview",
           style: TextStyle(color: AppColors.white, fontWeight: FontWeight.w400),
         ),
         centerTitle: true,
@@ -45,7 +45,7 @@ class _CelebrityPreviewState extends State<CelebrityPreview> {
               width: double.infinity,
               constraints: BoxConstraints(minHeight: 120),
               decoration: BoxDecoration(
-                border: Border.all(color: AppColors.grey),
+                border: Border.all(color: AppColors.grey.withOpacity(0.5)),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
@@ -99,7 +99,7 @@ class _CelebrityPreviewState extends State<CelebrityPreview> {
               padding: EdgeInsets.all(10),
               width: double.infinity,
               decoration: BoxDecoration(
-                border: Border.all(color: AppColors.grey),
+                border: Border.all(color: AppColors.grey.withOpacity(0.5)),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Column(

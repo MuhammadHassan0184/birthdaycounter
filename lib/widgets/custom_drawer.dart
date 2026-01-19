@@ -19,7 +19,7 @@ class CustomDrawer extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 40),
+              SizedBox(height: 30),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Row(
@@ -49,7 +49,7 @@ class CustomDrawer extends StatelessWidget {
                   gradient: LinearGradient(
                     colors: [
                       AppColors.primary,
-                      AppColors.primary.withOpacity(0.2),
+                      AppColors.primary.withOpacity(0.6),
                     ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -180,7 +180,9 @@ class CustomDrawer extends StatelessWidget {
               SizedBox(height: 10),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30),
-                child: CustomButton(label: "Log Out"),
+                child: CustomButton(label: "Log Out", onTap: () {
+                  Get.offNamed(AppRoutesName.login);
+                },),
               ),
               SizedBox(height: 15),
             ],

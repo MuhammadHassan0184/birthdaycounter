@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +24,7 @@ class _CustomActorCardState extends State<CustomActorCard> {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.grey),
+        border: Border.all(color: AppColors.grey.withOpacity(0.5)),
       ),
       child: Row(
         children: [
@@ -35,7 +37,7 @@ class _CustomActorCardState extends State<CustomActorCard> {
             },
             child: Icon(
               isFavorite ? Icons.favorite : Icons.favorite_border,
-              color: isFavorite ? AppColors.primary : AppColors.grey,
+              color: isFavorite ? AppColors.primary : AppColors.primary,
               size: 22,
             ),
           ),
@@ -97,22 +99,23 @@ class _CustomActorCardState extends State<CustomActorCard> {
               ],
             ),
           ),
+
           /// ACTIONS
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        _showReminderMenu(context);
-                      },
-                      icon: const Icon(Icons.more_vert),
-                    ),
-                    
-                  ],
-                ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Builder(builder: (iconContext) {
+                return IconButton(
+                onPressed: () {
+                  _showReminderMenu(context);
+                },
+                icon: const Icon(Icons.more_vert),
+              );
+              })
+            ],
+          ),
         ],
       ),
-      
     );
   }
 }
@@ -122,28 +125,30 @@ void _showReminderMenu(BuildContext context) async {
   final RenderBox overlay =
       Overlay.of(context).context.findRenderObject() as RenderBox;
 
-  final RelativeRect position = RelativeRect.fromRect(
-    Rect.fromPoints(
-      button.localToGlobal(Offset.zero, ancestor: overlay),
-      button.localToGlobal(
-        button.size.bottomRight(Offset.zero),
-        ancestor: overlay,
-      ),
-    ),
-    Offset.zero & overlay.size,
+  final Offset topRight = button.localToGlobal(
+    Offset(button.size.width, 0),
+    ancestor: overlay,
+  );
+
+  final RelativeRect position = RelativeRect.fromLTRB(
+    topRight.dx,
+    topRight.dy,
+    overlay.size.width - topRight.dx,
+    overlay.size.height - topRight.dy,
   );
 
   await showMenu(
     context: context,
     position: position,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     items: [
       PopupMenuItem(
-        child:  Text("Muhammad Hassan", style: TextStyle(fontWeight: FontWeight.bold),),
+        enabled: false,
+        child: Text(
+          "Robert Fox",
+          style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.black),
+        ),
       ),
-      
       PopupMenuItem(
         value: 'edit',
         child: Row(
@@ -178,13 +183,5 @@ void _showReminderMenu(BuildContext context) async {
         ),
       ),
     ],
-  ).then((value) {
-    if (value == 'edit') {
-      // edit logic
-    } else if (value == 'delete') {
-      // delete logic
-    } else if (value == 'preview') {
-      // preview logic
-    }
-  });
+  );
 }

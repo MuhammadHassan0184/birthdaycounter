@@ -44,16 +44,28 @@ class _CustomSecondaryDropdownState extends State<CustomSecondaryDropdown> {
       decoration: InputDecoration(
         prefixIcon: Icon(widget.icon, color: AppColors.primary, size: 20),
         hintText: widget.hint,
-        hintStyle: TextStyle(color: AppColors.grey, fontSize: 14),
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+        hintStyle: TextStyle(color: AppColors.grey, ),
+        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
         border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: AppColors.black.withOpacity(0.3),
+            width: 0.9,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: AppColors.bggrey, width: 0.5),
+          borderSide: BorderSide(
+            color: AppColors.black.withOpacity(0.3),
+            width: 0.9,
+          ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: AppColors.primary, width: 0.5),
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
+            color: AppColors.black.withOpacity(0.25),
+            width: 0.6,
+          ),
         ),
       ),
       items: widget.items

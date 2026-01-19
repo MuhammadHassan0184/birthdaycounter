@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, file_names, must_be_immutable
+// ignore_for_file: library_private_types_in_public_api, file_names, must_be_immutable, deprecated_member_use
 
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:flutter/material.dart';
@@ -56,13 +56,26 @@ class _CustomSecondryFieldState extends State<CustomSecondryField> {
         hintStyle: TextStyle(color: AppColors.grey, fontSize: 14),
         contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: AppColors.bggrey, width: 0.5),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: AppColors.primary, width: 0.5),
-        ),
+    borderRadius: BorderRadius.circular(8),
+    borderSide: BorderSide(
+      color: AppColors.black.withOpacity(0.3),
+      width: 0.9,
+    ),
+  ),
+  enabledBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(8),
+    borderSide: BorderSide(
+      color: AppColors.black.withOpacity(0.3),
+      width: 0.9,
+    ),
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(8),
+    borderSide: BorderSide(
+      color: AppColors.black.withOpacity(0.25),
+      width: 0.6,
+    ),
+  ),
       ),
     );
   }

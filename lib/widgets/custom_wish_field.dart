@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_import
+// ignore_for_file: unnecessary_import, deprecated_member_use
 
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
@@ -23,9 +23,28 @@ Widget wishField() {
           },
           icon: Icon(Icons.add),
         ),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: AppColors.black.withOpacity(0.3),
+            width: 0.9,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
+            color: AppColors.black.withOpacity(0.3),
+            width: 0.9,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
+            color: AppColors.black.withOpacity(0.25),
+            width: 0.6,
+          ),
+        ),
       ),
     ),
   );
 }
-

@@ -50,7 +50,27 @@ Widget timeField(BuildContext context) {
       decoration: InputDecoration(
         hintText: "Time",
         prefixIcon: Icon(Icons.access_time, color: AppColors.primary),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: AppColors.black.withOpacity(0.3),
+            width: 0.9,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
+            color: AppColors.black.withOpacity(0.3),
+            width: 0.9,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
+            color: AppColors.black.withOpacity(0.25),
+            width: 0.6,
+          ),
+        ),
       ),
     ),
   );

@@ -66,7 +66,7 @@ class _PreviewReminderState extends State<PreviewReminder> {
               width: double.infinity,
               constraints: BoxConstraints(minHeight: 120),
               decoration: BoxDecoration(
-                border: Border.all(color: AppColors.grey),
+                border: Border.all(color: AppColors.grey.withOpacity(0.5)),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
@@ -120,7 +120,7 @@ class _PreviewReminderState extends State<PreviewReminder> {
               padding: EdgeInsets.all(10),
               width: double.infinity,
               decoration: BoxDecoration(
-                border: Border.all(color: AppColors.grey),
+                border: Border.all(color: AppColors.grey.withOpacity(0.5)),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Column(
@@ -170,7 +170,7 @@ class _PreviewReminderState extends State<PreviewReminder> {
                       ),
                     ],
                   ),
-                  Divider(color: AppColors.grey),
+                  Divider(color: AppColors.grey.withOpacity(0.5)),
                   SizedBox(height: 3),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -186,7 +186,7 @@ class _PreviewReminderState extends State<PreviewReminder> {
                     ],
                   ),
                   SizedBox(height: 3),
-                  Divider(color: AppColors.grey),
+                  Divider(color: AppColors.grey.withOpacity(0.5)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
