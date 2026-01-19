@@ -132,13 +132,14 @@ class _HomeScreenState extends State<HomeScreen> {
           // remindercard
           Expanded(
             child: ListView.builder(
+              physics: BouncingScrollPhysics(),
               itemCount: 6,
               itemBuilder: (context, index) {
                 return CustomReminderCard();
               },
             ),
           ),
-          SizedBox(height: 30,),
+          SizedBox(height: 5,),
           // Expanded(child: Center(child: Image.asset("assets/fileimg.png")))
         ],
       ),

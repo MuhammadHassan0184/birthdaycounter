@@ -32,57 +32,59 @@ class _WishesScreenState extends State<WishesScreen> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          SizedBox(height: 10),
-          // chip
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                children: chips.map((chip) {
-                  bool isSelected = selectedChip == chip;
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedChip = chip;
-                        });
-                      },
-                      child: Chip(
-                        label: Text(
-                          chip,
-                          style: TextStyle(
-                            color: isSelected ? Colors.white : AppColors.grey,
+      body: SafeArea(
+        child: Column(
+          children: [
+            SizedBox(height: 10),
+            // chip
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Row(
+                  children: chips.map((chip) {
+                    bool isSelected = selectedChip == chip;
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedChip = chip;
+                          });
+                        },
+                        child: Chip(
+                          label: Text(
+                            chip,
+                            style: TextStyle(
+                              color: isSelected ? Colors.white : AppColors.grey,
+                            ),
+                          ),
+                          backgroundColor: isSelected
+                              ? AppColors.primary
+                              : Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            side: BorderSide(color: AppColors.grey, width: 1),
                           ),
                         ),
-                        backgroundColor: isSelected
-                            ? AppColors.primary
-                            : Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          side: BorderSide(color: AppColors.grey, width: 1),
-                        ),
                       ),
-                    ),
-                  );
-                }).toList(),
+                    );
+                  }).toList(),
+                ),
               ),
             ),
-          ),
-          SizedBox(height: 15),
-          // wishescard
-         Expanded(
-           child: ListView.builder(
-            itemCount: 6,
-            itemBuilder: (context, index){
-            return CustomWishesCard(label: "Birthday");
-           }),
-         ),
-         SizedBox(height: 10,),
-        ],
+            SizedBox(height: 15),
+            // wishescard
+           Expanded(
+             child: ListView.builder(
+              itemCount: 6,
+              itemBuilder: (context, index){
+              return CustomWishesCard(label: "Birthday");
+             }),
+           ),
+           SizedBox(height: 10,),
+          ],
+        ),
       ),
     );
   }

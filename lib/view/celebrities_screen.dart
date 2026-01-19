@@ -37,70 +37,27 @@ class _CelebritiesScreenState extends State<CelebritiesScreen> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 10),
-
-          /// TOP CATEGORY CHIPS
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                children: chips.map((chip) {
-                  bool isSelected = selectedChip == chip;
-
-                  return Padding(
-                    padding: EdgeInsets.only(right: 8),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedChip = chip;
-                        });
-                      },
-                      child: Chip(
-                        label: Text(
-                          chip,
-                          style: TextStyle(
-                            color: isSelected ? Colors.white : AppColors.grey,
-                          ),
-                        ),
-                        backgroundColor: isSelected
-                            ? AppColors.primary
-                            : Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          side: BorderSide(color: AppColors.grey),
-                        ),
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-          ),
-
-          SizedBox(height: 10),
-
-          /// SEARCH + FAVORITE CHIPS
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: Column(
-              children: [
-                CustomSearchBar(),
-                SizedBox(height: 10),
-
-                Center(
-                  child: Wrap(
-                    spacing: 20,
-                    children: chip2.map((chip) {
-                      bool isSelected = selectedChip2 == chip;
-
-                      return GestureDetector(
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 10),
+        
+            /// TOP CATEGORY CHIPS
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Row(
+                  children: chips.map((chip) {
+                    bool isSelected = selectedChip == chip;
+        
+                    return Padding(
+                      padding: EdgeInsets.only(right: 8),
+                      child: GestureDetector(
                         onTap: () {
                           setState(() {
-                            selectedChip2 = chip;
+                            selectedChip = chip;
                           });
                         },
                         child: Chip(
@@ -118,26 +75,71 @@ class _CelebritiesScreenState extends State<CelebritiesScreen> {
                             side: BorderSide(color: AppColors.grey),
                           ),
                         ),
-                      );
-                    }).toList(),
-                  ),
+                      ),
+                    );
+                  }).toList(),
                 ),
-              ],
+              ),
             ),
-          ),
-
-          SizedBox(height: 10),
-
-          /// LISTVIEW Bulder
-          Expanded(
-            child: ListView.builder(
-              itemCount: 6,
-              itemBuilder: (context, index) {
-                return CustomActorCard();
-              },
+        
+            SizedBox(height: 10),
+        
+            /// SEARCH + FAVORITE CHIPS
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                children: [
+                  CustomSearchBar(),
+                  SizedBox(height: 10),
+        
+                  Center(
+                    child: Wrap(
+                      spacing: 20,
+                      children: chip2.map((chip) {
+                        bool isSelected = selectedChip2 == chip;
+        
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              selectedChip2 = chip;
+                            });
+                          },
+                          child: Chip(
+                            label: Text(
+                              chip,
+                              style: TextStyle(
+                                color: isSelected ? Colors.white : AppColors.grey,
+                              ),
+                            ),
+                            backgroundColor: isSelected
+                                ? AppColors.primary
+                                : Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              side: BorderSide(color: AppColors.grey),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+        
+            SizedBox(height: 10),
+        
+            /// LISTVIEW Bulder
+            Expanded(
+              child: ListView.builder(
+                itemCount: 6,
+                itemBuilder: (context, index) {
+                  return CustomActorCard();
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

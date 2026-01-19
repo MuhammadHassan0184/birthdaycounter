@@ -42,118 +42,120 @@ class _AddReminderState extends State<AddReminder> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 30),
-
-            ProfileImagePicker(controller: imageController),
-
-            SizedBox(height: 25),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: CustomSecondryField(
-                label: "Full Name",
-                icon: Icons.person_2,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 30),
+        
+              ProfileImagePicker(controller: imageController),
+        
+              SizedBox(height: 25),
+        
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: CustomSecondryField(
+                  label: "Full Name",
+                  icon: Icons.person_2,
+                ),
               ),
-            ),
-
-            SizedBox(height: 12),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: CustomSecondaryDropdown(
-                hint: "Relationship",
-                icon: Icons.favorite_rounded,
-                items: [
-                  "Brother",
-                  "Sister",
-                  "Father",
-                  "Mother",
-                  "Friend",
-                  "Best Friend",
+        
+              SizedBox(height: 12),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: CustomSecondaryDropdown(
+                  hint: "Relationship",
+                  icon: Icons.favorite_rounded,
+                  items: [
+                    "Brother",
+                    "Sister",
+                    "Father",
+                    "Mother",
+                    "Friend",
+                    "Best Friend",
+                  ],
+                  validation: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please select relation";
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    print("Selected: $value");
+                  },
+                ),
+              ),
+        
+              SizedBox(height: 12),
+        
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: CustomSecondryField(
+                  label: "Phone (Optional)",
+                  icon: Icons.call,
+                ),
+              ),
+        
+              SizedBox(height: 12),
+        
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: CustomSecondryField(
+                  label: "Email (Optional)",
+                  icon: Icons.email,
+                ),
+              ),
+        
+              SizedBox(height: 12),
+        
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: CustomSecondaryDropdown(
+                  hint: "Reminder Type",
+                  icon: Icons.cake_rounded,
+                  items: ["Birthday", "Engagement", "Anniversary"],
+                  validation: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please select relation";
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    print("Selected: $value");
+                  },
+                ),
+              ),
+        
+              SizedBox(height: 12),
+        
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: dateField(context),
+                  ),
+                  SizedBox(height: 12),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: timeField(context),
+                  ),
+                  SizedBox(height: 12),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: wishField(),
+                  ),
+        
+                  SizedBox(height: 20,),
+        
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 50),
+                    child: CustomButton(label: "Add"),
+                  ),
+                  SizedBox(height: 20,)
                 ],
-                validation: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please select relation";
-                  }
-                  return null;
-                },
-                onChanged: (value) {
-                  print("Selected: $value");
-                },
               ),
-            ),
-
-            SizedBox(height: 12),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: CustomSecondryField(
-                label: "Phone (Optional)",
-                icon: Icons.call,
-              ),
-            ),
-
-            SizedBox(height: 12),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: CustomSecondryField(
-                label: "Email (Optional)",
-                icon: Icons.email,
-              ),
-            ),
-
-            SizedBox(height: 12),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: CustomSecondaryDropdown(
-                hint: "Reminder Type",
-                icon: Icons.cake_rounded,
-                items: ["Birthday", "Engagement", "Anniversary"],
-                validation: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please select relation";
-                  }
-                  return null;
-                },
-                onChanged: (value) {
-                  print("Selected: $value");
-                },
-              ),
-            ),
-
-            SizedBox(height: 12),
-
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: dateField(context),
-                ),
-                SizedBox(height: 12),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: timeField(context),
-                ),
-                SizedBox(height: 12),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: wishField(),
-                ),
-
-                SizedBox(height: 20,),
-
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: CustomButton(label: "Add"),
-                ),
-                SizedBox(height: 20,)
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

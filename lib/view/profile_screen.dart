@@ -35,38 +35,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 30,),
-            ProfileImagePicker(controller: imageController),
-            SizedBox(height: 25,),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: CustomSecondryField(label: "Name", icon: Icons.person_2),
-            ),
-            SizedBox(height: 12,),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: CustomSecondryField(label: "Email", icon: Icons.mail),
-            ),
-            SizedBox(height: 12,),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: CustomSecondryField(label: "Password", icon: Icons.lock, suicon: Icons.visibility,),
-            ),
-            SizedBox(height: 12,),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: CustomSecondryField(label: "Confirm Password", icon: Icons.lock, suicon: Icons.visibility,),
-            ),
-            SizedBox(height: 20,),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50),
-              child: CustomButton(label: "Save"),
-            )
-            
-          ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 30,),
+              ProfileImagePicker(controller: imageController),
+              SizedBox(height: 25,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: CustomSecondryField(label: "Name", icon: Icons.person_2),
+              ),
+              SizedBox(height: 12,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: CustomSecondryField(label: "Email", icon: Icons.mail),
+              ),
+              SizedBox(height: 12,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: CustomSecondryField(label: "Password", icon: Icons.lock, suicon: Icons.visibility,),
+              ),
+              SizedBox(height: 12,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: CustomSecondryField(label: "Confirm Password", icon: Icons.lock, suicon: Icons.visibility,),
+              ),
+              SizedBox(height: 20,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50),
+                child: CustomButton(label: "Save"),
+              )
+              
+            ],
+          ),
         ),
       ),
     );

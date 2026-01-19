@@ -4,6 +4,7 @@ import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:birthdaycounter/config/Colors/colors.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
 
@@ -12,152 +13,178 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 40),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                children: [
-                  Image.asset("assets/bell.png"),
-                  SizedBox(width: 7),
-                  Text(
-                    "Birthday Reminder",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 15),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 15),
-              padding: EdgeInsets.all(15),
-              width: double.infinity,
-              height: 98,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                gradient: LinearGradient(
-                  colors: [AppColors.primary, AppColors.primary.withOpacity(0.2)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  stops: [0.75, 2],
+    return SafeArea(
+      child: Drawer(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 40),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                  "assets/bell.svg",
+                ),
+                    SizedBox(width: 7),
+                    Text(
+                      "Birthday Reminder",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 21,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Unlock to Pro",
-                    style: TextStyle(
-                      color: AppColors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
+              SizedBox(height: 15),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 15),
+                padding: EdgeInsets.all(15),
+                width: double.infinity,
+                height: 98,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  gradient: LinearGradient(
+                    colors: [
+                      AppColors.primary,
+                      AppColors.primary.withOpacity(0.2),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    stops: [0.75, 2],
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Unlock to Pro",
+                      style: TextStyle(
+                        color: AppColors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
                     ),
-                  ),
-                  Text(
-                    "Enjoy all benefits without\n any restrictions",
-                    style: TextStyle(color: AppColors.white),
-                  ),
-                ],
+                    Text(
+                      "Enjoy all benefits without\n any restrictions",
+                      style: TextStyle(color: AppColors.white),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: 15),
-            ListTile(
-              leading: Icon(Icons.person_2, color: AppColors.primary),
-              title: Text(
-                "Profile",
-                style: TextStyle(fontWeight: FontWeight.bold),
+              SizedBox(height: 15),
+              ListTile(
+                leading: Icon(Icons.person_2, color: AppColors.primary),
+                title: Text(
+                  "Profile",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                onTap: () {
+                  Get.toNamed(AppRoutesName.profileScreen);
+                },
               ),
-              onTap: () {
-                Get.toNamed(AppRoutesName.profileScreen);
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Divider(),
-            ),
-            ListTile(
-              leading: Icon(Icons.clean_hands_rounded, color: AppColors.primary),
-              title: Text(
-                "Celebrities",
-                style: TextStyle(fontWeight: FontWeight.bold),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Divider(),
               ),
-              onTap: () {
-                Get.toNamed(AppRoutesName.celebritiesScreen);
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Divider(),
-            ),
-            ListTile(
-              leading: Icon(Icons.support_agent_sharp, color: AppColors.primary),
-              title: Text(
-                "Support",
-                style: TextStyle(fontWeight: FontWeight.bold),
+              ListTile(
+                leading: SvgPicture.asset(
+                  "assets/Celebrities.svg",
+                  color: AppColors.primary,
+                ),
+                // Icon(Icons.clean_hands_rounded, color: AppColors.primary),
+                title: Text(
+                  "Celebrities",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                onTap: () {
+                  Get.toNamed(AppRoutesName.celebritiesScreen);
+                },
               ),
-              onTap: () {},
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Divider(),
-            ),
-            ListTile(
-              leading: Icon(Icons.star, color: AppColors.primary),
-              title: Text(
-                "Rate Now",
-                style: TextStyle(fontWeight: FontWeight.bold),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Divider(),
               ),
-              onTap: () {},
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Divider(),
-            ),
-            ListTile(
-              leading: Icon(Icons.policy, color: AppColors.primary),
-              title: Text(
-                "Privacy Policy",
-                style: TextStyle(fontWeight: FontWeight.bold),
+              ListTile(
+                leading: SvgPicture.asset(
+                  "assets/support.svg",
+                  color: AppColors.primary,
+                ),
+                title: Text(
+                  "Support",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                onTap: () {},
               ),
-              onTap: () {
-                Get.toNamed(AppRoutesName.privacyPolicy);
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Divider(),
-            ),
-            ListTile(
-              leading: Icon(Icons.share, color: AppColors.primary),
-              title: Text("Share", style: TextStyle(fontWeight: FontWeight.bold)),
-              onTap: () {},
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Divider(),
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.app_registration_outlined,
-                color: AppColors.primary,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Divider(),
               ),
-              title: Text(
-                "More Apps",
-                style: TextStyle(fontWeight: FontWeight.bold),
+              ListTile(
+                leading: Icon(Icons.star, color: AppColors.primary),
+                title: Text(
+                  "Rate Now",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                onTap: () {},
               ),
-              onTap: () {},
-            ),
-            SizedBox(height: 10,),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30),
-              child: CustomButton(label: "Log Out"),
-            ),
-            SizedBox(height: 15,),
-          ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Divider(),
+              ),
+              ListTile(
+                leading: SvgPicture.asset(
+                  "assets/privacy.svg",
+                  color: AppColors.primary,
+                ),
+                title: Text(
+                  "Privacy Policy",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                onTap: () {
+                  Get.toNamed(AppRoutesName.privacyPolicy);
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Divider(),
+              ),
+              ListTile(
+                leading: SvgPicture.asset(
+                  "assets/share.svg",
+                  color: AppColors.primary,
+                ),
+                title: Text(
+                  "Share",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                onTap: () {},
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Divider(),
+              ),
+              ListTile(
+                leading: SvgPicture.asset(
+                  "assets/moreapp.svg",
+                  color: AppColors.primary,
+                ),
+                title: Text(
+                  "More Apps",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                onTap: () {},
+              ),
+              SizedBox(height: 10),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30),
+                child: CustomButton(label: "Log Out"),
+              ),
+              SizedBox(height: 15),
+            ],
+          ),
         ),
       ),
     );
