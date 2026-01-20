@@ -25,11 +25,26 @@ class _LoginState extends State<Login> {
         child: SafeArea(
           child: Column(
             children: [
-              Image.asset(
-                "assets/login.png",
-                width: double.infinity,
-                fit: BoxFit.cover,
+              Stack(
+                children: [
+                  Image.asset(
+                    "assets/login.png",
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+
+                  // Balloon image positioned like the design
+                  Positioned(
+                    top: 50,
+                    right: 0,
+                    child: Image.asset(
+                      "assets/baloon.png",
+                      width: 120, // adjust if needed
+                    ),
+                  ),
+                ],
               ),
+
               Text(
                 "Sign In",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
@@ -51,23 +66,21 @@ class _LoginState extends State<Login> {
               SizedBox(height: 10),
               // enter your password
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20,),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: CustomFormField(
                   label: "Enter your password",
                   icon: Icons.lock,
                   suicon: Icons.visibility,
                 ),
               ),
-              SizedBox(height: 10,),
+              SizedBox(height: 10),
               // forget password
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
-                    onTap: () {
-                      
-                    },
+                    onTap: () {},
                     child: Text(
                       "Forgot Password?",
                       style: TextStyle(
@@ -78,30 +91,50 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              SizedBox(height: 25,),
+              SizedBox(height: 25),
               // login button
-              CustomButton(label: "Login", onTap: () {
-                Get.offAllNamed(AppRoutesName.homeScreen);
-              },),
-              SizedBox(height: 25,),
-              Text("-------- Or Signin with --------",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.grey),),
-              SizedBox(height: 25,),
+              CustomButton(
+                label: "Login",
+                onTap: () {
+                  Get.offAllNamed(AppRoutesName.homeScreen);
+                },
+              ),
+              SizedBox(height: 25),
+              Text(
+                "-------- Or Signin with --------",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: AppColors.grey,
+                ),
+              ),
+              SizedBox(height: 25),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 // google login
                 child: CustomGoogleLogin(label: "Google"),
               ),
-              SizedBox(height: 25,),
+              SizedBox(height: 25),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Don’t have an account? ",style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
+                  Text(
+                    "Don’t have an account? ",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
                   GestureDetector(
                     onTap: () {
                       Get.toNamed(AppRoutesName.signup);
                     },
-                    child: Text("Sign Up ",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: AppColors.primary),)),
-          
+                    child: Text(
+                      "Sign Up ",
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ],

@@ -1,7 +1,7 @@
 // ignore_for_file: sized_box_for_whitespace
 
-import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
+import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -32,10 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Container(
               width: 180,
               height: 216,
-              child: Image.asset(
-                "assets/Splashimg.png", // your splash image
-                fit: BoxFit.contain,
-              ),
+              child: Image.asset("assets/Splashimg.png", fit: BoxFit.contain),
             ),
             RichText(
               textAlign: TextAlign.center,

@@ -19,10 +19,21 @@ class SignUp extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
-              Image.asset(
-                "assets/login.png",
-                width: double.infinity,
-                fit: BoxFit.cover,
+              Stack(
+                children: [
+                  Image.asset(
+                    "assets/login.png",
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+
+                  // Balloon image positioned like the design
+                  Positioned(
+                    top: 50,
+                    right: 0,
+                    child: Image.asset("assets/baloon.png", width: 120),
+                  ),
+                ],
               ),
               Text(
                 "Sign Up",
@@ -54,35 +65,52 @@ class SignUp extends StatelessWidget {
               SizedBox(height: 10),
               // enter your password
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20,),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: CustomFormField(
                   label: "Enter your password",
                   icon: Icons.lock,
                   suicon: Icons.visibility,
                 ),
               ),
-              SizedBox(height: 25,),
+              SizedBox(height: 25),
               // login button
               CustomButton(label: "Signup"),
-              SizedBox(height: 25,),
-              Text("-------- Or Signup with --------",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.grey),),
-              SizedBox(height: 25,),
+              SizedBox(height: 25),
+              Text(
+                "-------- Or Signup with --------",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: AppColors.grey,
+                ),
+              ),
+              SizedBox(height: 25),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 // google login
                 child: CustomGoogleLogin(label: "Google"),
               ),
-              SizedBox(height: 25,),
+              SizedBox(height: 25),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Have an account? ",style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
+                  Text(
+                    "Have an account? ",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
                   GestureDetector(
                     onTap: () {
                       Get.toNamed(AppRoutesName.login);
                     },
-                    child: Text("Sign In ",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: AppColors.primary),)),
-          
+                    child: Text(
+                      "Sign In ",
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ],
