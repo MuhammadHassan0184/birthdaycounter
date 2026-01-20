@@ -56,7 +56,8 @@ class _AddReminderState extends State<AddReminder> {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: CustomSecondryField(
                   label: "Full Name",
-                  icon: Icons.person_2,
+                  icon: Icons.person,
+                  // prefixImage: "assets/personsvg.svg",
                 ),
               ),
         
@@ -65,7 +66,8 @@ class _AddReminderState extends State<AddReminder> {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: CustomSecondaryDropdown(
                   hint: "Relationship",
-                  icon: Icons.favorite_rounded,
+                  // icon: Icons.favorite_rounded,
+                  prefixImage: "assets/relationship.svg",
                   items: [
                     "Brother",
                     "Sister",
@@ -112,7 +114,8 @@ class _AddReminderState extends State<AddReminder> {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: CustomSecondaryDropdown(
                   hint: "Reminder Type",
-                  icon: Icons.cake_rounded,
+                  // icon: Icons.cake_rounded,
+                  prefixImage: "assets/cake.svg",
                   items: ["Birthday", "Engagement", "Anniversary"],
                   validation: (value) {
                     if (value == null || value.isEmpty) {

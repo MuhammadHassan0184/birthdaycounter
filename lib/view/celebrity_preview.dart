@@ -45,16 +45,16 @@ class _CelebrityPreviewState extends State<CelebrityPreview> {
               width: double.infinity,
               constraints: BoxConstraints(minHeight: 120),
               decoration: BoxDecoration(
-                border: Border.all(color: AppColors.grey.withOpacity(0.5)),
+                border: Border.all(color: AppColors.grey.withOpacity(0.25)),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ProfileImagePicker(controller: imageController),
-        
+
                   SizedBox(width: 12),
-        
+
                   Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -69,15 +69,19 @@ class _CelebrityPreviewState extends State<CelebrityPreview> {
                           ),
                           softWrap: true, // allows multi-line
                         ),
-        
+
                         SizedBox(height: 4),
-        
-                        Text("10 days Remaining", style: TextStyle(fontSize: 12)),
-        
+
+                        Text(
+                          "10 days Remaining",
+                          style: TextStyle(fontSize: 12),
+                        ),
+
                         SizedBox(height: 10),
-        
+
                         Chip(
-                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
                           visualDensity: VisualDensity.compact,
                           side: BorderSide(color: AppColors.primary),
                           backgroundColor: AppColors.primary.withOpacity(0.1),
@@ -99,7 +103,7 @@ class _CelebrityPreviewState extends State<CelebrityPreview> {
               padding: EdgeInsets.all(10),
               width: double.infinity,
               decoration: BoxDecoration(
-                border: Border.all(color: AppColors.grey.withOpacity(0.5)),
+                border: Border.all(color: AppColors.grey.withOpacity(0.25)),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Column(
@@ -114,7 +118,10 @@ class _CelebrityPreviewState extends State<CelebrityPreview> {
                           color: AppColors.primary.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Icon(Icons.cake_outlined, color: AppColors.primary,),
+                        child: Icon(
+                          Icons.cake_outlined,
+                          color: AppColors.primary,
+                        ),
                       ),
                       SizedBox(width: 10),
                       Column(

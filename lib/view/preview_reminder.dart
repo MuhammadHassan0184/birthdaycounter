@@ -34,25 +34,30 @@ class _PreviewReminderState extends State<PreviewReminder> {
         centerTitle: true,
         actions: [
           GestureDetector(
-            onTap: () {
-              
-            },
+            onTap: () {},
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 15),
               width: 50,
               height: 20,
               decoration: BoxDecoration(
                 color: AppColors.white,
-                borderRadius: BorderRadius.circular(7)
+                borderRadius: BorderRadius.circular(7),
               ),
               child: Row(
                 children: [
-                  Icon(Icons.edit, color: AppColors.primary, size: 15,),
-                  Text("Edit", style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold, fontSize: 13),)
+                  Icon(Icons.edit, color: AppColors.primary, size: 15),
+                  Text(
+                    "Edit",
+                    style: TextStyle(
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                    ),
+                  ),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
       body: SafeArea(
@@ -66,16 +71,16 @@ class _PreviewReminderState extends State<PreviewReminder> {
               width: double.infinity,
               constraints: BoxConstraints(minHeight: 120),
               decoration: BoxDecoration(
-                border: Border.all(color: AppColors.grey.withOpacity(0.5)),
+                border: Border.all(color: AppColors.grey.withOpacity(0.25)),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ProfileImagePicker(controller: imageController),
-        
+
                   SizedBox(width: 12),
-        
+
                   Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -90,15 +95,19 @@ class _PreviewReminderState extends State<PreviewReminder> {
                           ),
                           softWrap: true, // allows multi-line
                         ),
-        
+
                         SizedBox(height: 4),
-        
-                        Text("10 days Remaining", style: TextStyle(fontSize: 12)),
-        
+
+                        Text(
+                          "10 days Remaining",
+                          style: TextStyle(fontSize: 12),
+                        ),
+
                         SizedBox(height: 10),
-        
+
                         Chip(
-                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
                           visualDensity: VisualDensity.compact,
                           side: BorderSide(color: AppColors.primary),
                           backgroundColor: AppColors.primary.withOpacity(0.1),
@@ -120,7 +129,7 @@ class _PreviewReminderState extends State<PreviewReminder> {
               padding: EdgeInsets.all(10),
               width: double.infinity,
               decoration: BoxDecoration(
-                border: Border.all(color: AppColors.grey.withOpacity(0.5)),
+                border: Border.all(color: AppColors.grey.withOpacity(0.25)),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Column(
@@ -135,7 +144,10 @@ class _PreviewReminderState extends State<PreviewReminder> {
                           color: AppColors.primary.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Icon(Icons.cake_outlined, color: AppColors.primary,),
+                        child: Icon(
+                          Icons.cake_outlined,
+                          color: AppColors.primary,
+                        ),
                       ),
                       SizedBox(width: 10),
                       Column(
@@ -170,7 +182,7 @@ class _PreviewReminderState extends State<PreviewReminder> {
                       ),
                     ],
                   ),
-                  Divider(color: AppColors.grey.withOpacity(0.5)),
+                  Divider(color: AppColors.grey.withOpacity(0.25)),
                   SizedBox(height: 3),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -186,7 +198,7 @@ class _PreviewReminderState extends State<PreviewReminder> {
                     ],
                   ),
                   SizedBox(height: 3),
-                  Divider(color: AppColors.grey.withOpacity(0.5)),
+                  Divider(color: AppColors.grey.withOpacity(0.25)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

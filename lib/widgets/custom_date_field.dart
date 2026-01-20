@@ -2,6 +2,7 @@
 
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 TextEditingController dateController = TextEditingController();
 
@@ -63,18 +64,30 @@ Widget dateField(BuildContext context) {
       },
       decoration: InputDecoration(
         hintText: "MM/DD/YYYY",
-        prefixIcon: Icon(Icons.calendar_month, color: AppColors.primary),
+        prefixIcon: Padding(
+          padding: const EdgeInsets.all(12), // centers the icon
+          child: SvgPicture.asset(
+            "assets/date.svg", // ✅ your SVG file
+            width: 20,
+            height: 20,
+            colorFilter: ColorFilter.mode(
+              AppColors.primary, // optional color for monochrome SVG
+              BlendMode.srcIn,
+            ),
+          ),
+        ),
+
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(
-            color: AppColors.black.withOpacity(0.3),
+            color: AppColors.black.withOpacity(0.2),
             width: 0.9,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
-            color: AppColors.black.withOpacity(0.3),
+            color: AppColors.black.withOpacity(0.2),
             width: 0.9,
           ),
         ),

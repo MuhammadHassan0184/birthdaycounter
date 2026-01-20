@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_import
+// ignore_for_file: unnecessary_import, deprecated_member_use
 
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
@@ -6,6 +6,7 @@ import 'package:birthdaycounter/widgets/custom_drawer.dart';
 import 'package:birthdaycounter/widgets/custom_reminder_card.dart';
 import 'package:birthdaycounter/widgets/custom_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/instance_manager.dart';
 
@@ -22,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       drawer: CustomDrawer(),
       appBar: AppBar(
         backgroundColor: AppColors.primary,
@@ -72,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       body: Column(
         children: [
-          SizedBox(height: 10),
+          SizedBox(height: 5),
           // chips
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -101,7 +103,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             : Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
-                          side: BorderSide(color: AppColors.grey, width: 1),
+                          side: BorderSide(
+                            color: AppColors.grey.withOpacity(0.2),
+                            width: 1,
+                          ),
                         ),
                       ),
                     ),
@@ -110,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 5),
           // searchBar
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -118,17 +123,24 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Expanded(child: CustomSearchBar()),
                 IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.menu_open_sharp,
-                    color: AppColors.grey,
-                    size: 32,
+                  onPressed: () {
+                    // your action here
+                  },
+                  icon: SvgPicture.asset(
+                    "assets/filtericon.svg", // ✅ your SVG file
+                    width: 30,
+                    height: 30,
+                    colorFilter: ColorFilter.mode(
+                      AppColors
+                          .black, // optional, applies color to monochrome SVG
+                      BlendMode.srcIn,
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 7),
           // remindercard
           Expanded(
             child: ListView.builder(
@@ -139,17 +151,38 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
           ),
-          SizedBox(height: 5,),
+          SizedBox(height: 5),
           // Expanded(child: Center(child: Image.asset("assets/fileimg.png")))
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.primary,
-        shape: CircleBorder(),
-        child: Icon(Icons.add, color: AppColors.white, size: 30),
-        onPressed: () {
-          Get.toNamed(AppRoutesName.addReminder);
-        },
+      floatingActionButton: Container(
+        width: 60, // adjust size
+        height: 60,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF9B8CE6),
+              AppColors.primary,
+            ], // your gradient colors
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 6,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: RawMaterialButton(
+          shape: CircleBorder(),
+          onPressed: () {
+            Get.toNamed(AppRoutesName.addReminder);
+          },
+          child: Icon(Icons.add, color: AppColors.white, size: 30),
+        ),
       ),
     );
   }

@@ -23,7 +23,7 @@ class CustomGoogleLogin extends StatelessWidget {
                 color: AppColors.white,
                 borderRadius: BorderRadius.circular(30),
                 border: Border.all(
-                  color: AppColors.grey.withOpacity(0.5)
+                  color: AppColors.grey.withOpacity(0.3)
                 ),
               ),
               child: Row(

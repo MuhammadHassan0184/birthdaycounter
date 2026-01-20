@@ -11,106 +11,117 @@ class CustomReminderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-      padding: const EdgeInsets.all(10),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppColors.grey.withOpacity(0.5)),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          /// IMAGE
-          Container(
-            width: 70, // responsive enough for phones
-            height: 70,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-            child: Image.asset("assets/my.jpg", fit: BoxFit.cover),
-          ),
-
-          const SizedBox(width: 10),
-
-          /// TEXT SECTION (takes available space)
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed(AppRoutesName.previewReminder);
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        padding: const EdgeInsets.all(10),
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: AppColors.grey.withOpacity(0.2)),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            /// IMAGE
+            Container(
+              width: 70, // responsive enough for phones
+              height: 70,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+              child: Image.asset("assets/my.jpg", fit: BoxFit.cover),
+            ),
+      
+            const SizedBox(width: 10),
+      
+            /// TEXT SECTION (takes available space)
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Muhammad Hassan",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    "06-11-2006",
+                    style: const TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      Text(
+                        "Birthday ",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.primary,
+                        ),
+                      ),
+                      Text(
+                        "(283 Days)",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+      
+            /// ACTIONS
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment:
+                  CrossAxisAlignment.end, // optional for other children
               children: [
-                Text(
-                  "Muhammad Hassan",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                // Align icon to right
+                Align(
+                  alignment: Alignment.centerRight, // ✅ moves icon to right
+                  child: Builder(
+                    builder: (iconContext) {
+                      return IconButton(
+                        icon: const Icon(Icons.more_vert),
+                        onPressed: () {
+                          _showReminderMenu(iconContext);
+                        },
+                      );
+                    },
                   ),
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  "06-11-2006",
-                  style: const TextStyle(fontWeight: FontWeight.w500),
-                ),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    Text(
-                      "Birthday ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.primary,
+      
+                SizedBox(
+                  height: 26,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    Text(
-                      "(283 Days)",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.grey,
-                      ),
+                    onPressed: () {},
+                    child: Text(
+                      "Friends",
+                      style: TextStyle(fontSize: 11, color: AppColors.white),
                     ),
-                  ],
+                  ),
                 ),
               ],
             ),
-          ),
-
-          /// ACTIONS
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Builder(
-                builder: (iconContext) {
-                  return IconButton(
-                    icon: const Icon(Icons.more_vert),
-                    onPressed: () {
-                      _showReminderMenu(iconContext);
-                    },
-                  );
-                },
-              ),
-
-              SizedBox(
-                height: 26,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    "Friends",
-                    style: TextStyle(fontSize: 11, color: AppColors.white),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -134,6 +145,7 @@ void _showReminderMenu(BuildContext context) async {
   );
 
   await showMenu(
+    color: AppColors.white,
     context: context,
     position: position,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

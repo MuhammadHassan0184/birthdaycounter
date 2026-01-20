@@ -33,7 +33,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
       //     widget.isPassword ? TextInputType.text : TextInputType.emailAddress,
       decoration: InputDecoration(
         filled: true,
-        fillColor: AppColors.bggrey, // light grey bg
+        fillColor: AppColors.bggrey.withOpacity(0.2), // light grey bg
 
         prefixIcon: Icon(widget.icon, color: AppColors.grey, size: 20),
 
@@ -60,14 +60,14 @@ class _CustomFormFieldState extends State<CustomFormField> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(
-            color: AppColors.black.withOpacity(0.3),
+            color: AppColors.black.withOpacity(0.1),
             width: 0.9,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
-            color: AppColors.black.withOpacity(0.3),
+            color: AppColors.black.withOpacity(0.1),
             width: 0.9,
           ),
         ),

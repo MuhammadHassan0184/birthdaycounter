@@ -15,6 +15,7 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
@@ -50,7 +51,7 @@ class SignUp extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: CustomFormField(
                   label: "Enter your name",
-                  icon: Icons.person_2,
+                  icon: Icons.person,
                 ),
               ),
               SizedBox(height: 10),
@@ -84,7 +85,7 @@ class SignUp extends StatelessWidget {
                   color: AppColors.grey,
                 ),
               ),
-              SizedBox(height: 25),
+              SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 // google login

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/widgets/custom_wishes_card.dart';
@@ -35,7 +37,7 @@ class _WishesScreenState extends State<WishesScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(height: 10),
+            SizedBox(height: 5),
             // chip
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -64,7 +66,7 @@ class _WishesScreenState extends State<WishesScreen> {
                               : Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
-                            side: BorderSide(color: AppColors.grey, width: 1),
+                            side: BorderSide(color: AppColors.grey.withOpacity(0.2), width: 1),
                           ),
                         ),
                       ),
@@ -73,7 +75,7 @@ class _WishesScreenState extends State<WishesScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 15),
+            SizedBox(height: 5),
             // wishescard
            Expanded(
              child: ListView.builder(

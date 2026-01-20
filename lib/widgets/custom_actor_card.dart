@@ -18,170 +18,94 @@ class _CustomActorCardState extends State<CustomActorCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 6),
-      padding: EdgeInsets.all(10),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.grey.withOpacity(0.5)),
-      ),
-      child: Row(
-        children: [
-          /// FAVORITE ICON
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                isFavorite = !isFavorite;
-              });
-            },
-            child: Icon(
-              isFavorite ? Icons.favorite : Icons.favorite_border,
-              color: isFavorite ? AppColors.primary : AppColors.primary,
-              size: 22,
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed(AppRoutesName.celebrityPreview);
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+        padding: EdgeInsets.all(10),
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: AppColors.grey.withOpacity(0.2)),
+        ),
+        child: Row(
+          children: [
+            /// FAVORITE ICON
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  isFavorite = !isFavorite;
+                });
+              },
+              child: Icon(
+                isFavorite ? Icons.favorite : Icons.favorite_border,
+                color: isFavorite ? AppColors.primary : AppColors.primary,
+                size: 22,
+              ),
             ),
-          ),
-
-          SizedBox(width: 10),
-
-          /// IMAGE
-          Container(
-            width: 55,
-            height: 55,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-            child: Image.asset("assets/my.jpg", fit: BoxFit.cover),
-          ),
-
-          SizedBox(width: 12),
-
-          /// TEXT SECTION
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Ralph Edwards",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                ),
-
-                SizedBox(height: 4),
-
-                Text(
-                  "02-10-2001",
-                  style: TextStyle(fontSize: 12, color: AppColors.grey),
-                ),
-
-                SizedBox(height: 4),
-
-                Row(
-                  children: [
-                    Text(
-                      "Birthday ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                        color: AppColors.primary,
-                      ),
-                    ),
-                    Text(
-                      "(287 Days)",
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+      
+            SizedBox(width: 10),
+      
+            /// IMAGE
+            Container(
+              width: 55,
+              height: 55,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+              child: Image.asset("assets/my.jpg", fit: BoxFit.cover),
             ),
-          ),
-
-          /// ACTIONS
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Builder(builder: (iconContext) {
-                return IconButton(
-                onPressed: () {
-                  _showReminderMenu(context);
-                },
-                icon: const Icon(Icons.more_vert),
-              );
-              })
-            ],
-          ),
-        ],
+      
+            SizedBox(width: 12),
+      
+            /// TEXT SECTION
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Ralph Edwards",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                  ),
+      
+                  SizedBox(height: 4),
+      
+                  Text(
+                    "02-10-2001",
+                    style: TextStyle(fontSize: 12, color: AppColors.grey),
+                  ),
+      
+                  SizedBox(height: 4),
+      
+                  Row(
+                    children: [
+                      Text(
+                        "Birthday ",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: AppColors.primary,
+                        ),
+                      ),
+                      Text(
+                        "(287 Days)",
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
-}
-
-void _showReminderMenu(BuildContext context) async {
-  final RenderBox button = context.findRenderObject() as RenderBox;
-  final RenderBox overlay =
-      Overlay.of(context).context.findRenderObject() as RenderBox;
-
-  final Offset topRight = button.localToGlobal(
-    Offset(button.size.width, 0),
-    ancestor: overlay,
-  );
-
-  final RelativeRect position = RelativeRect.fromLTRB(
-    topRight.dx,
-    topRight.dy,
-    overlay.size.width - topRight.dx,
-    overlay.size.height - topRight.dy,
-  );
-
-  await showMenu(
-    context: context,
-    position: position,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-    items: [
-      PopupMenuItem(
-        enabled: false,
-        child: Text(
-          "Robert Fox",
-          style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.black),
-        ),
-      ),
-      PopupMenuItem(
-        value: 'edit',
-        child: Row(
-          children: [
-            Icon(Icons.edit, color: AppColors.primary, size: 18),
-            SizedBox(width: 10),
-            Text("Edit Reminder"),
-          ],
-        ),
-      ),
-      PopupMenuItem(
-        value: 'delete',
-        child: Row(
-          children: [
-            Icon(Icons.delete, color: AppColors.primary, size: 18),
-            SizedBox(width: 10),
-            Text("Delete Reminder"),
-          ],
-        ),
-      ),
-      PopupMenuItem(
-        value: 'preview',
-        onTap: () {
-          Get.toNamed(AppRoutesName.celebrityPreview);
-        },
-        child: Row(
-          children: [
-            Icon(Icons.remove_red_eye, color: AppColors.primary, size: 18),
-            SizedBox(width: 10),
-            Text("Celebrity Preview"),
-          ],
-        ),
-      ),
-    ],
-  );
 }

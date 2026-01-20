@@ -108,7 +108,7 @@ class _LoginState extends State<Login> {
                   color: AppColors.grey,
                 ),
               ),
-              SizedBox(height: 25),
+              SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 // google login

@@ -22,7 +22,7 @@ class CustomWishesCard extends StatelessWidget {
         // maxHeight: 91, // Max height
       ),
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.grey.withOpacity(0.5)),
+        border: Border.all(color: AppColors.grey.withOpacity(0.2)),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -58,7 +58,7 @@ class CustomWishesCard extends StatelessWidget {
           Container(
             height: 60,
             width: 1,
-            color: AppColors.grey.withOpacity(0.5),
+            color: AppColors.grey.withOpacity(0.2),
             margin: const EdgeInsets.symmetric(horizontal: 10),
           ),
 

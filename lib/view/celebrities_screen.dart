@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/widgets/custom_actor_card.dart';
@@ -23,6 +25,7 @@ class _CelebritiesScreenState extends State<CelebritiesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         leading: IconButton(
@@ -41,7 +44,7 @@ class _CelebritiesScreenState extends State<CelebritiesScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 10),
+            SizedBox(height: 7),
         
             /// TOP CATEGORY CHIPS
             SingleChildScrollView(
@@ -72,7 +75,7 @@ class _CelebritiesScreenState extends State<CelebritiesScreen> {
                               : Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
-                            side: BorderSide(color: AppColors.grey),
+                            side: BorderSide(color: AppColors.grey.withOpacity(0.2)),
                           ),
                         ),
                       ),
@@ -82,7 +85,7 @@ class _CelebritiesScreenState extends State<CelebritiesScreen> {
               ),
             ),
         
-            SizedBox(height: 10),
+            SizedBox(height: 5),
         
             /// SEARCH + FAVORITE CHIPS
             Padding(
@@ -116,7 +119,7 @@ class _CelebritiesScreenState extends State<CelebritiesScreen> {
                                 : Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
-                              side: BorderSide(color: AppColors.grey),
+                              side: BorderSide(color: AppColors.grey.withOpacity(0.2)),
                             ),
                           ),
                         );
@@ -127,7 +130,7 @@ class _CelebritiesScreenState extends State<CelebritiesScreen> {
               ),
             ),
         
-            SizedBox(height: 10),
+            SizedBox(height: 7),
         
             /// LISTVIEW Bulder
             Expanded(

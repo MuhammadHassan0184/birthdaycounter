@@ -44,7 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SizedBox(height: 25,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: CustomSecondryField(label: "Name", icon: Icons.person_2),
+                child: CustomSecondryField(label: "Name", icon: Icons.person),
               ),
               SizedBox(height: 12,),
               Padding(

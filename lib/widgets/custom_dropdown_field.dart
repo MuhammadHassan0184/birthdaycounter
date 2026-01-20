@@ -2,10 +2,12 @@
 
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart'; // ✅ for SVG support
 
 class CustomSecondaryDropdown extends StatefulWidget {
   final String hint;
-  final IconData icon;
+  final IconData? icon; // optional icon
+  final String? prefixImage; // SVG path
   final List<String> items;
   final String? value;
   final void Function(String?)? onChanged;
@@ -14,12 +16,16 @@ class CustomSecondaryDropdown extends StatefulWidget {
   const CustomSecondaryDropdown({
     super.key,
     required this.hint,
-    required this.icon,
+    this.icon,
+    this.prefixImage,
     required this.items,
     this.value,
     this.onChanged,
     this.validation,
-  });
+  }) : assert(
+         icon != null || prefixImage != null,
+         'Either icon or prefixImage must be provided',
+       );
 
   @override
   _CustomSecondaryDropdownState createState() =>
@@ -42,21 +48,34 @@ class _CustomSecondaryDropdownState extends State<CustomSecondaryDropdown> {
       validator: widget.validation,
       icon: Icon(Icons.keyboard_arrow_down, color: AppColors.grey),
       decoration: InputDecoration(
-        prefixIcon: Icon(widget.icon, color: AppColors.primary, size: 20),
+        prefixIcon: widget.prefixImage != null
+            ? Padding(
+                padding: const EdgeInsets.all(12),
+                child: SvgPicture.asset(
+                  widget.prefixImage!,
+                  width: 20,
+                  height: 20,
+                  colorFilter: ColorFilter.mode(
+                    AppColors.primary,
+                    BlendMode.srcIn,
+                  ),
+                ),
+              )
+            : Icon(widget.icon, color: AppColors.primary, size: 20),
         hintText: widget.hint,
-        hintStyle: TextStyle(color: AppColors.grey, ),
+        hintStyle: TextStyle(color: AppColors.grey),
         contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(
-            color: AppColors.black.withOpacity(0.3),
+            color: AppColors.black.withOpacity(0.2),
             width: 0.9,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
-            color: AppColors.black.withOpacity(0.3),
+            color: AppColors.black.withOpacity(0.2),
             width: 0.9,
           ),
         ),

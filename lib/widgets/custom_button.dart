@@ -14,7 +14,7 @@ class CustomButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: SizedBox(
-        height: 60,
+        height: 50,
         width: double.infinity,
         child: Ink(
           decoration: BoxDecoration(
@@ -26,7 +26,7 @@ class CustomButton extends StatelessWidget {
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
-            borderRadius: BorderRadius.circular(30), // pill shape
+            borderRadius: BorderRadius.circular(40), // pill shape
           ),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
