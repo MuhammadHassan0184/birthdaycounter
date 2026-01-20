@@ -127,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     // your action here
                   },
                   icon: SvgPicture.asset(
-                    "assets/filtericon.svg", // ✅ your SVG file
+                    "assets/filtericon.svg", //  your SVG file
                     width: 30,
                     height: 30,
                     colorFilter: ColorFilter.mode(

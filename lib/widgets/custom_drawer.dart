@@ -24,9 +24,7 @@ class CustomDrawer extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Row(
                   children: [
-                    SvgPicture.asset(
-                  "assets/bell.svg",
-                ),
+                    SvgPicture.asset("assets/bell.svg"),
                     SizedBox(width: 7),
                     Text(
                       "Birthday Reminder",
@@ -76,7 +74,7 @@ class CustomDrawer extends StatelessWidget {
               ),
               SizedBox(height: 15),
               ListTile(
-                leading: Icon(Icons.person_2, color: AppColors.primary),
+                leading: Icon(Icons.person, color: AppColors.primary),
                 title: Text(
                   "Profile",
                   style: TextStyle(fontWeight: FontWeight.bold),
@@ -180,9 +178,12 @@ class CustomDrawer extends StatelessWidget {
               SizedBox(height: 10),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30),
-                child: CustomButton(label: "Log Out", onTap: () {
-                  Get.offNamed(AppRoutesName.login);
-                },),
+                child: CustomButton(
+                  label: "Log Out",
+                  onTap: () {
+                    Get.offNamed(AppRoutesName.login);
+                  },
+                ),
               ),
               SizedBox(height: 15),
             ],

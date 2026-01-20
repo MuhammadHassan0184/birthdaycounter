@@ -1,4 +1,7 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class Onboarding3 extends StatelessWidget {
   const Onboarding3({super.key});
@@ -16,7 +19,19 @@ class Onboarding3 extends StatelessWidget {
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
-                Image.asset("assets/onboarding3.png"),
+                Container(
+                  width: 300,
+                  height: 270,
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 300, // specify height
+                    child: SvgPicture.asset(
+                      "assets/onboard3.svg",
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+
                 SizedBox(height: 10),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),

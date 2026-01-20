@@ -45,7 +45,7 @@ class _OnboardingSliderState extends State<OnboardingSlider> {
 
           /// NEXT / BACK BUTTONS + DOTS IN ONE ROW
           Positioned(
-            left: 20,
+            left: 50,
             right: 20,
             bottom: 20,
             child: Row(
@@ -53,9 +53,14 @@ class _OnboardingSliderState extends State<OnboardingSlider> {
               children: [
                 /// BACK BUTTON
                 if (currentIndex > 0)
-                  CircleAvatar(
-                    backgroundColor: AppColors.primary.withOpacity(0.1),
-                    radius: 18,
+                  Container(
+                    padding: EdgeInsets.only(left: 6),
+                    width: 35,
+                    height: 35,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.primary.withOpacity(0.1),
+                    ),
                     child: IconButton(
                       padding: EdgeInsets.zero,
                       icon: Icon(

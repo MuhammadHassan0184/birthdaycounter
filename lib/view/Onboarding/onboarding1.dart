@@ -1,5 +1,6 @@
-// ignore_for_file: unnecessary_string_escapes
+// ignore_for_file: unnecessary_string_escapes, sized_box_for_whitespace
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class Onboarding1 extends StatelessWidget {
   const Onboarding1({super.key});
@@ -17,7 +18,19 @@ class Onboarding1 extends StatelessWidget {
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
-                Image.asset("assets/onboarding1.png"),
+                Container(
+                  width: 300,
+                  height: 270,
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 300, // specify height
+                    child: SvgPicture.asset(
+                      "assets/onboarding1.svg",
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+
                 SizedBox(height: 10),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),

@@ -1,4 +1,7 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class Onboarding2 extends StatelessWidget {
   const Onboarding2({super.key});
@@ -21,22 +24,32 @@ class Onboarding2 extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                    margin: EdgeInsets.symmetric(horizontal: 30),
-                    width: double.infinity,
-                    child: Image.asset("assets/onboarding2.png")
-                    ),
-                  SizedBox(height: 10),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: Text(
-                      "Never forget a birthday that matters.",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+                        width: 300,
+                        height: 270,
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: 300, // specify height
+                          child: SvgPicture.asset(
+                            "assets/onboard2.svg",
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child: Text(
+                          "Never forget a birthday that matters.",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ],
