@@ -1,17 +1,28 @@
-// ignore_for_file: unnecessary_import
+// ignore_for_file: unnecessary_import, use_build_context_synchronously
 
+import 'package:birthdaycounter/Services/auth_service.dart';
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
+import 'package:birthdaycounter/controllers/AuthControllers/signup_controller.dart';
+import 'package:birthdaycounter/view/home_screen.dart';
 import 'package:birthdaycounter/widgets/custom_button.dart';
 import 'package:birthdaycounter/widgets/custom_form_field.dart';
 import 'package:birthdaycounter/widgets/custom_google_login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
-class SignUp extends StatelessWidget {
+import '../../controllers/AuthControllers/google_login_controller.dart';
+
+class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+  final SignupController _signupController = SignupController();
+ final GoogleLoginController _googleLoginController = GoogleLoginController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +37,6 @@ class SignUp extends StatelessWidget {
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
-
-                // Balloon image positioned like the design
                 Positioned(
                   top: 50,
                   right: 0,
@@ -35,6 +44,7 @@ class SignUp extends StatelessWidget {
                 ),
               ],
             ),
+
             Text(
               "Sign Up",
               style: TextStyle(fontWeight: FontWeight.w900, fontSize: 22),
@@ -45,36 +55,81 @@ class SignUp extends StatelessWidget {
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
             ),
             SizedBox(height: 20),
-            // enter your email
+
+            /// FULL NAME
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: CustomFormField(
                 label: "Enter your name",
                 icon: Icons.person,
+                controller: _signupController.fullNameController,
               ),
             ),
+
             SizedBox(height: 10),
-            // enter your email
+
+            /// EMAIL
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: CustomFormField(
                 label: "Enter your email",
                 icon: Icons.email,
+                controller: _signupController.emailController,
               ),
             ),
+
             SizedBox(height: 10),
-            // enter your password
+
+            /// PASSWORD
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: CustomFormField(
                 label: "Enter your password",
                 icon: Icons.lock,
                 suicon: Icons.visibility,
+                controller: _signupController.passwordController,
               ),
             ),
+
             SizedBox(height: 25),
-            // login button
-            CustomButton(label: "Signup"),
+
+            /// SIGNUP BUTTON
+            CustomButton(
+              label: "Signup",
+              onTap: () async {
+                await _signupController.signup(context);
+
+                // ✅ Navigate only if signup is successful
+                if (_signupController.isLoading == false &&
+                    _signupController.emailController.text.isNotEmpty &&
+                    _signupController.passwordController.text.isNotEmpty) {
+                  // Smooth navigation using PageRouteBuilder
+                  Navigator.pushReplacement(
+                    context,
+                    PageRouteBuilder(
+                      transitionDuration: const Duration(
+                        milliseconds: 500,
+                      ), // animation duration
+                      pageBuilder: (_, __, ___) => const HomeScreen(),
+                      transitionsBuilder: (_, animation, __, child) {
+                        // Fade transition
+                        return FadeTransition(opacity: animation, child: child);
+
+                        // Or slide transition from right
+                        // return SlideTransition(
+                        //   position: Tween<Offset>(
+                        //     begin: const Offset(1, 0),
+                        //     end: Offset.zero,
+                        //   ).animate(animation),
+                        //   child: child,
+                        // );
+                      },
+                    ),
+                  );
+                }
+              },
+            ),
+
             SizedBox(height: 25),
             Text(
               "-------- Or Signup with --------",
@@ -84,13 +139,45 @@ class SignUp extends StatelessWidget {
                 color: AppColors.grey,
               ),
             ),
+
+            SizedBox(height: 20),
+ElevatedButton(
+  onPressed: () async {
+    debugPrint("🔹 Continue with Google button pressed");
+    final user = await GoogleAuthService().signInWithGoogle();
+    if (user != null) {
+      debugPrint("🔹 Navigating to HomeScreen for user: ${user.email}");
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
+    } else {
+      debugPrint("❌ Google Sign-In failed or canceled.");
+    }
+  },
+  child: const Text("Continue with Google"),
+),
+
             SizedBox(height: 20),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              // google login
-              child: CustomGoogleLogin(label: "Google"),
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: CustomGoogleLogin(
+                label: "Google",
+                onTap: () {
+                  try {
+                    print("call _googleLoginController.signInWithGoogle");
+                    _googleLoginController.signInWithGoogle(context);
+                    
+                  } catch (e) {
+                    print("err$e");
+                    
+                  }
+                },
+              ),
             ),
+
             SizedBox(height: 25),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -99,11 +186,9 @@ class SignUp extends StatelessWidget {
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
                 ),
                 GestureDetector(
-                  onTap: () {
-                    Get.toNamed(AppRoutesName.login);
-                  },
+                  onTap: () => Get.toNamed(AppRoutesName.login),
                   child: Text(
-                    "Sign In ",
+                    "Sign In",
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

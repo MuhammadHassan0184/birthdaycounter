@@ -1,13 +1,15 @@
-// ignore_for_file: unnecessary_import
+// ignore_for_file: unnecessary_import, use_build_context_synchronously
 
+import 'package:birthdaycounter/Services/auth_service.dart';
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
+import 'package:birthdaycounter/controllers/AuthControllers/login_controller.dart';
+import 'package:birthdaycounter/view/home_screen.dart';
 import 'package:birthdaycounter/widgets/custom_button.dart';
 import 'package:birthdaycounter/widgets/custom_form_field.dart';
 import 'package:birthdaycounter/widgets/custom_google_login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -17,6 +19,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final LoginController _loginController = LoginController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,15 +35,10 @@ class _LoginState extends State<Login> {
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
-
-                // Balloon image positioned like the design
                 Positioned(
                   top: 50,
                   right: 0,
-                  child: Image.asset(
-                    "assets/baloon.png",
-                    width: 120, // adjust if needed
-                  ),
+                  child: Image.asset("assets/baloon.png", width: 120),
                 ),
               ],
             ),
@@ -54,50 +53,38 @@ class _LoginState extends State<Login> {
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
             ),
             SizedBox(height: 20),
-            // enter your email
+
+            /// EMAIL
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: CustomFormField(
                 label: "Enter your email",
                 icon: Icons.email,
+                controller: _loginController.emailController,
               ),
             ),
+
             SizedBox(height: 10),
-            // enter your password
+
+            /// PASSWORD
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: CustomFormField(
                 label: "Enter your password",
                 icon: Icons.lock,
                 suicon: Icons.visibility,
+                controller: _loginController.passwordController,
               ),
             ),
-            SizedBox(height: 10),
-            // forget password
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Text(
-                    "Forgot Password?",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      color: AppColors.grey,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+
             SizedBox(height: 25),
-            // login button
+
+            /// LOGIN BUTTON
             CustomButton(
               label: "Login",
-              onTap: () {
-                Get.offAllNamed(AppRoutesName.homeScreen);
-              },
+              onTap: () => _loginController.login(context),
             ),
+
             SizedBox(height: 25),
             Text(
               "-------- Or Signin with --------",
@@ -108,12 +95,31 @@ class _LoginState extends State<Login> {
               ),
             ),
             SizedBox(height: 20),
+
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              // google login
-              child: CustomGoogleLogin(label: "Google"),
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: CustomGoogleLogin(
+                label: "Google",
+                onTap: () async {
+                  final user = await AuthService().signInWithGoogle();
+                  if (user != null) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => HomeScreen()),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("Google Sign-In canceled or failed"),
+                      ),
+                    );
+                  }
+                },
+              ),
             ),
+
             SizedBox(height: 25),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -122,11 +128,9 @@ class _LoginState extends State<Login> {
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
                 ),
                 GestureDetector(
-                  onTap: () {
-                    Get.toNamed(AppRoutesName.signup);
-                  },
+                  onTap: () => Get.toNamed(AppRoutesName.signup),
                   child: Text(
-                    "Sign Up ",
+                    "Sign Up",
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

@@ -1,12 +1,27 @@
 import 'package:birthdaycounter/config/Routes/routes.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
+import 'package:birthdaycounter/firebase_options.dart';
 import 'package:birthdaycounter/view/splash/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  print("Starting Firebase init...");
+
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    print("Firebase initialized SUCCESSFULLY!");
+  } catch (e) {
+    print("Firebase Init Error: $e");
+  }
+
   runApp(const MyApp());
 }
 

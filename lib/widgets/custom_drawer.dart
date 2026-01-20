@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use, unnecessary_import
 
+import 'package:birthdaycounter/Services/auth_service.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -177,14 +178,73 @@ class CustomDrawer extends StatelessWidget {
               ),
               SizedBox(height: 10),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: CustomButton(
                   label: "Log Out",
-                  onTap: () {
-                    Get.offNamed(AppRoutesName.login);
+                  onTap: () async {
+                    // Show confirmation dialog
+                    bool? confirm = await showDialog<bool>(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        backgroundColor: AppColors.white, // your theme
+                        title: const Text(
+                          "Confirm Logout",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        content: const Text(
+                          "Are you sure you want to log out?",
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, false),
+                            child: const Text(
+                              "Cancel",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primary,
+                            ),
+                            onPressed: () => Navigator.pop(context, true),
+                            child: Text(
+                              "Logout",
+                              style: TextStyle(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+
+                    // If user confirmed logout
+                    if (confirm == true) {
+                      // Firebase logout
+                      await AuthService().logout();
+
+                      // Navigate to login screen
+                      Get.offNamed(AppRoutesName.login);
+
+                      // Optional: show snackbar confirmation
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: const Text("Logged out successfully"),
+                          backgroundColor: AppColors.primary,
+                        ),
+                      );
+                    }
                   },
                 ),
               ),
+
               SizedBox(height: 15),
             ],
           ),

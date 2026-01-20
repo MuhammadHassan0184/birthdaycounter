@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "818328957757",
+    "project_id": "birthdaycounter-40a17",
+    "storage_bucket": "birthdaycounter-40a17.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818328957757:android:cc2cb3e15928ea15d1cb54",
+        "android_client_info": {
+          "package_name": "com.example.birthdaycounter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818328957757-k39hjbq3iegcoe44qudttieju7b4p84s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpfSq6-J38S8eEwUsbcB6s9fvZhUafVJU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818328957757-k39hjbq3iegcoe44qudttieju7b4p84s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "818328957757-3n4r1e143qi1ntjgqq9p6t4aj3rqo0el.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.birthdaycounter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

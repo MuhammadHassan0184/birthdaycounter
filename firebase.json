@@ -1,0 +1,25 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "birthdaycounter-40a17",
+          "appId": "1:818328957757:android:cc2cb3e15928ea15d1cb54",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "birthdaycounter-40a17",
+          "configurations": {
+            "android": "1:818328957757:android:cc2cb3e15928ea15d1cb54",
+            "ios": "1:818328957757:ios:a2c142b0eeb66bd8d1cb54",
+            "macos": "1:818328957757:ios:a2c142b0eeb66bd8d1cb54",
+            "web": "1:818328957757:web:ba686fcb1660b4aad1cb54",
+            "windows": "1:818328957757:web:129bb8b51e406fd7d1cb54"
+          }
+        }
+      }
+    }
+  }
+}

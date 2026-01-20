@@ -8,6 +8,7 @@ class CustomFormField extends StatefulWidget {
   final IconData icon;
   final IconData? suicon;
   final String? Function(String?)? validation;
+  final TextEditingController controller; // ✅ ADD THIS
 
   const CustomFormField({
     super.key,
@@ -15,6 +16,7 @@ class CustomFormField extends StatefulWidget {
     required this.icon,
     this.suicon,
     this.validation,
+    required this.controller, // ✅ KEEP SAME
   });
 
   @override
@@ -23,17 +25,17 @@ class CustomFormField extends StatefulWidget {
 
 class _CustomFormFieldState extends State<CustomFormField> {
   bool showpass = false;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: widget.controller, // ✅ THIS IS THE FIX
       validator: widget.validation,
-      obscureText: showpass,
+      obscureText: widget.suicon != null ? !showpass : false,
       textAlignVertical: TextAlignVertical.center,
-      // keyboardType:
-      //     widget.isPassword ? TextInputType.text : TextInputType.emailAddress,
       decoration: InputDecoration(
         filled: true,
-        fillColor: AppColors.bggrey.withOpacity(0.2), // light grey bg
+        fillColor: AppColors.bggrey.withOpacity(0.2),
 
         prefixIcon: Icon(widget.icon, color: AppColors.grey, size: 20),
 
@@ -55,7 +57,8 @@ class _CustomFormFieldState extends State<CustomFormField> {
         hintText: widget.label,
         hintStyle: TextStyle(color: AppColors.grey, fontSize: 14),
 
-        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
 
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
