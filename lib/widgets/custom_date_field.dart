@@ -1,8 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:birthdaycounter/config/Colors/colors.dart';
+import 'package:birthdaycounter/controllers/reminder_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 TextEditingController dateController = TextEditingController();
 
@@ -56,11 +59,16 @@ Widget dateField(BuildContext context) {
 
         if (picked != null) {
           dateController.text = "${picked.month}/${picked.day}/${picked.year}";
+
         }
 
         if (picked != null) {
-          dateController.text = "${picked.month}/${picked.day}/${picked.year}";
-        }
+  final reminderCtrl = Get.find<ReminderController>();
+  reminderCtrl.dateController.text = "${picked.month}/${picked.day}/${picked.year}";
+  reminderCtrl.date.value = reminderCtrl.dateController.text; // ✅ bind
+}
+
+
       },
       decoration: InputDecoration(
         hintText: "MM/DD/YYYY",

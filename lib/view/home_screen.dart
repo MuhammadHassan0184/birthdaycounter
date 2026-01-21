@@ -1,7 +1,10 @@
 // ignore_for_file: unnecessary_import, deprecated_member_use
 
+import 'package:birthdaycounter/Services/reminder_service.dart';
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
+import 'package:birthdaycounter/controllers/reminder_controller.dart';
+import 'package:birthdaycounter/models/reminder_model.dart';
 import 'package:birthdaycounter/widgets/custom_drawer.dart';
 import 'package:birthdaycounter/widgets/custom_reminder_card.dart';
 import 'package:birthdaycounter/widgets/custom_search_bar.dart';
@@ -18,8 +21,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final ReminderController reminderCtrl = Get.put(ReminderController());
   String selectedChip = "All"; // default selected
   List<String> chips = ["All", "Birthday", "Engagement", "Anniversary"];
+
+  final ReminderService reminderService = ReminderService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,14 +150,30 @@ class _HomeScreenState extends State<HomeScreen> {
           SizedBox(height: 7),
           // remindercard
           Expanded(
-            child: ListView.builder(
-              physics: BouncingScrollPhysics(),
-              itemCount: 6,
-              itemBuilder: (context, index) {
-                return CustomReminderCard();
+            child: StreamBuilder<List<Reminder>>(
+              stream: reminderCtrl.getReminders(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                final reminders = snapshot.data!;
+
+                if (reminders.isEmpty) {
+                  return Center(child: Image.asset("assets/fileimg.png"));
+                }
+
+                return ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  itemCount: reminders.length,
+                  itemBuilder: (context, index) {
+                    return CustomReminderCard(reminder: reminders[index]);
+                  },
+                );
               },
             ),
           ),
+
           SizedBox(height: 5),
           // Expanded(child: Center(child: Image.asset("assets/fileimg.png")))
         ],

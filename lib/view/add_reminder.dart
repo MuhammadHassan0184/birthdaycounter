@@ -3,11 +3,11 @@
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/controllers/image_picker_controller.dart';
+import 'package:birthdaycounter/controllers/reminder_controller.dart';
 import 'package:birthdaycounter/widgets/Custom_Secondry_Field.dart';
 import 'package:birthdaycounter/widgets/Profile_Image/custom_profile_image.dart';
 import 'package:birthdaycounter/widgets/custom_button.dart';
 import 'package:birthdaycounter/widgets/custom_date_field.dart';
-import 'package:birthdaycounter/widgets/custom_dropdown_field.dart';
 import 'package:birthdaycounter/widgets/custom_time_field.dart';
 import 'package:birthdaycounter/widgets/custom_wish_field.dart';
 import 'package:flutter/material.dart';
@@ -16,24 +16,21 @@ import 'package:get/state_manager.dart';
 
 class AddReminder extends StatefulWidget {
   const AddReminder({super.key});
-
   @override
   State<AddReminder> createState() => _AddReminderState();
 }
 
 class _AddReminderState extends State<AddReminder> {
-
   final ImagePickerController imageController = ImagePickerController();
-  
+  final ReminderController reminderCtrl = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         leading: IconButton(
-          onPressed: () {
-            Get.offNamed(AppRoutesName.homeScreen);
-          },
+          onPressed: () => Get.offNamed(AppRoutesName.homeScreen),
           icon: Icon(Icons.arrow_back, color: AppColors.white),
         ),
         title: Text(
@@ -47,90 +44,65 @@ class _AddReminderState extends State<AddReminder> {
           child: Column(
             children: [
               SizedBox(height: 30),
-        
               ProfileImagePicker(controller: imageController),
-        
               SizedBox(height: 25),
-        
+
+              // Name
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: CustomSecondryField(
-                  label: "Full Name",
+                  label: "Name",
                   icon: Icons.person,
-                  // prefixImage: "assets/personsvg.svg",
+                  controller: reminderCtrl.nameController,
                 ),
               ),
-        
               SizedBox(height: 12),
+
+              // Relationship
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: CustomSecondaryDropdown(
-                  hint: "Relationship",
-                  // icon: Icons.favorite_rounded,
-                  prefixImage: "assets/relationship.svg",
-                  items: [
-                    "Brother",
-                    "Sister",
-                    "Father",
-                    "Mother",
-                    "Friend",
-                    "Best Friend",
-                  ],
-                  validation: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please select relation";
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    print("Selected: $value");
-                  },
+                child: CustomSecondryField(
+                  label: "Relationship",
+                  icon: Icons.group,
+                  controller: reminderCtrl.relationshipController,
                 ),
               ),
-        
               SizedBox(height: 12),
-        
+
+              // Phone
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: CustomSecondryField(
                   label: "Phone (Optional)",
                   icon: Icons.call,
+                  controller: reminderCtrl.phoneController,
                 ),
               ),
-        
               SizedBox(height: 12),
-        
+
+              // Email
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: CustomSecondryField(
                   label: "Email (Optional)",
                   icon: Icons.email,
+                  controller: reminderCtrl.emailController,
                 ),
               ),
-        
               SizedBox(height: 12),
-        
+
+              // Reminder Type
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: CustomSecondaryDropdown(
-                  hint: "Reminder Type",
-                  // icon: Icons.cake_rounded,
-                  prefixImage: "assets/cake.svg",
-                  items: ["Birthday", "Engagement", "Anniversary"],
-                  validation: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please select relation";
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    print("Selected: $value");
-                  },
+                child: CustomSecondryField(
+                  label: "Reminder Type",
+                  icon: Icons.cake,
+                  controller: reminderCtrl.reminderTypeController,
                 ),
               ),
-        
               SizedBox(height: 12),
-        
+
+              // Date & Time
               Column(
                 children: [
                   Padding(
@@ -145,16 +117,64 @@ class _AddReminderState extends State<AddReminder> {
                   SizedBox(height: 12),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: wishField(),
+                    child: wishField(controller: reminderCtrl.wishController),
                   ),
-        
-                  SizedBox(height: 20,),
-        
+
+                  SizedBox(height: 20),
+
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50),
-                    child: CustomButton(label: "Add"),
+                    child: CustomButton(
+                      label: "Add",
+                      onTap: () {
+                        // Debug print
+                        print("NAME: ${reminderCtrl.nameController.text}");
+                        print(
+                          "REL: ${reminderCtrl.relationshipController.text}",
+                        );
+                        print(
+                          "TYPE: ${reminderCtrl.reminderTypeController.text}",
+                        );
+                        print("DATE: ${reminderCtrl.dateController.text}");
+                        print("TIME: ${reminderCtrl.timeController.text}");
+                        print("WISH: ${reminderCtrl.wishController.text}");
+                        reminderCtrl.name.value =
+                            reminderCtrl.nameController.text;
+                        reminderCtrl.relationship.value =
+                            reminderCtrl.relationshipController.text;
+                        reminderCtrl.reminderType.value =
+                            reminderCtrl.reminderTypeController.text;
+                        reminderCtrl.date.value =
+                            reminderCtrl.dateController.text;
+                        reminderCtrl.time.value =
+                            reminderCtrl.timeController.text;
+                        reminderCtrl.wish.value =
+                            reminderCtrl.wishController.text;
+
+                        // Validation
+                        if (reminderCtrl.name.value.isEmpty ||
+                            reminderCtrl.relationship.value.isEmpty ||
+                            reminderCtrl.reminderType.value.isEmpty ||
+                            reminderCtrl.date.value.isEmpty ||
+                            reminderCtrl.time.value.isEmpty ||
+                            reminderCtrl.wish.value.isEmpty) {
+                          Get.snackbar(
+                            "Error",
+                            "Please fill all required fields",
+                            backgroundColor: AppColors.primary,
+                            colorText: AppColors.white,
+                          );
+                          return;
+                        }
+
+                        reminderCtrl.addReminder();
+                        Get.back();
+                        // go back to previous screen
+                      },
+                    ),
                   ),
-                  SizedBox(height: 20,)
+
+                  SizedBox(height: 20),
                 ],
               ),
             ],

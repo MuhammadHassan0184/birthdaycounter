@@ -1,19 +1,33 @@
-// ignore_for_file: unused_element, unnecessary_import, deprecated_member_use
-
+// ignore_for_file: deprecated_member_use
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
+import 'package:birthdaycounter/models/reminder_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/utils.dart';
 
 class CustomReminderCard extends StatelessWidget {
-  const CustomReminderCard({super.key});
+  final Reminder reminder;
+
+  const CustomReminderCard({super.key, required this.reminder});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoutesName.previewReminder);
+        Get.toNamed(
+          AppRoutesName.previewReminder,
+          arguments: {
+            "name": reminder.name,
+            "phone": reminder.phone,
+            "email": reminder.email,
+            "relationship": reminder.relationship,
+            "reminderType": reminder.reminderType,
+            "date": reminder.date,
+            "time": reminder.time,
+            "wish": reminder.wish,
+            "remainingDays": reminder.remainingDays,
+          },
+        );
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
@@ -26,25 +40,23 @@ class CustomReminderCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// IMAGE
             Container(
-              width: 70, // responsive enough for phones
+              width: 70,
               height: 70,
               clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+              ),
               child: Image.asset("assets/my.jpg", fit: BoxFit.cover),
             ),
-      
             const SizedBox(width: 10),
-      
-            /// TEXT SECTION (takes available space)
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Muhammad Hassan",
+                    reminder.name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -54,21 +66,21 @@ class CustomReminderCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    "06-11-2006",
+                    reminder.date,
                     style: const TextStyle(fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 4),
                   Row(
                     children: [
                       Text(
-                        "Birthday ",
+                        "${reminder.reminderType} ",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: AppColors.primary,
                         ),
                       ),
                       Text(
-                        "(283 Days)",
+                        "(${reminder.remainingDays} Days)",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: AppColors.grey,
@@ -79,28 +91,16 @@ class CustomReminderCard extends StatelessWidget {
                 ],
               ),
             ),
-      
-            /// ACTIONS
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment:
-                  CrossAxisAlignment.end, // optional for other children
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                // Align icon to right
-                Align(
-                  alignment: Alignment.centerRight, // ✅ moves icon to right
-                  child: Builder(
-                    builder: (iconContext) {
-                      return IconButton(
-                        icon: const Icon(Icons.more_vert),
-                        onPressed: () {
-                          _showReminderMenu(iconContext);
-                        },
-                      );
-                    },
-                  ),
+                IconButton(
+                  icon: const Icon(Icons.more_vert),
+                  onPressed: () {
+                    _showReminderMenu(context);
+                  },
                 ),
-      
                 SizedBox(
                   height: 26,
                   child: ElevatedButton(
@@ -113,7 +113,7 @@ class CustomReminderCard extends StatelessWidget {
                     ),
                     onPressed: () {},
                     child: Text(
-                      "Friends",
+                      reminder.relationship,
                       style: TextStyle(fontSize: 11, color: AppColors.white),
                     ),
                   ),

@@ -6,20 +6,22 @@ import 'package:flutter_svg/svg.dart';
 
 class CustomSecondryField extends StatefulWidget {
   final String label;
-  final IconData? icon; // ✅ nullable
-  final String? prefixImage; // image path
-  final IconData? suicon;
-  VoidCallback? onTap;
+  final IconData? icon; // optional
+  final String? prefixImage; // optional SVG image path
+  final IconData? suicon; // suffix icon (like password toggle)
+  final VoidCallback? onTap;
   final String? Function(String?)? validation;
+  final TextEditingController? controller;
 
   CustomSecondryField({
     super.key,
     required this.label,
-    this.icon, // ✅ NOT required
+    this.icon,
     this.prefixImage,
     this.suicon,
     this.onTap,
     this.validation,
+    this.controller,
   }) : assert(
          icon != null || prefixImage != null,
          'Either icon or prefixImage must be provided',
@@ -35,27 +37,26 @@ class _CustomSecondryFieldState extends State<CustomSecondryField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: widget.controller,
       validator: widget.validation,
-      obscureText: widget.suicon != null ? showpass : false,
+      obscureText: widget.suicon != null ? !showpass : false,
       textAlignVertical: TextAlignVertical.center,
+      onTap: widget.onTap,
       decoration: InputDecoration(
-        // prefixIcon: Icon(widget.icon, color: AppColors.primary, size: 20),
         prefixIcon: widget.prefixImage != null
             ? Padding(
                 padding: const EdgeInsets.all(12),
                 child: SvgPicture.asset(
-                  widget.prefixImage!, // SVG file path
+                  widget.prefixImage!,
                   width: 24,
                   height: 24,
                   colorFilter: ColorFilter.mode(
-                    AppColors.primary, // optional color
+                    AppColors.primary,
                     BlendMode.srcIn,
                   ),
                 ),
               )
             : Icon(widget.icon, color: AppColors.primary, size: 20),
-
-        /// ✅ FIXED SUFFIX ICON
         suffixIcon: widget.suicon != null
             ? IconButton(
                 onPressed: () {
@@ -70,7 +71,6 @@ class _CustomSecondryFieldState extends State<CustomSecondryField> {
                 ),
               )
             : null,
-
         hintText: widget.label,
         hintStyle: TextStyle(color: AppColors.grey, fontSize: 14),
         contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),

@@ -2,6 +2,7 @@
 
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
+import 'package:birthdaycounter/controllers/reminder_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -10,26 +11,28 @@ import 'package:get/get_core/get_core.dart';
 // This should be outside any widget, accessible globally
 final TextEditingController wishController = TextEditingController();
 
-Widget wishField() {
+Widget wishField({required TextEditingController controller}) {
   return SizedBox(
     height: 50,
     child: TextFormField(
-      controller: wishController, // <-- use the shared controller
+      controller: controller,
+
+      onChanged: (val) {
+        final reminderCtrl = Get.find<ReminderController>();
+        reminderCtrl.wish.value = val; // ✅ bind
+      },
+
       decoration: InputDecoration(
         hintText: "Wish",
         prefixIcon: Padding(
-          padding: const EdgeInsets.all(12), // centers the icon
+          padding: const EdgeInsets.all(12),
           child: SvgPicture.asset(
-            "assets/wish.svg", //  your SVG file
+            "assets/wish.svg",
             width: 20,
             height: 20,
-            colorFilter: ColorFilter.mode(
-              AppColors.primary, // optional color for monochrome SVG
-              BlendMode.srcIn,
-            ),
+            colorFilter: ColorFilter.mode(AppColors.primary, BlendMode.srcIn),
           ),
         ),
-
         suffixIcon: IconButton(
           onPressed: () {
             Get.toNamed(AppRoutesName.wishesScreen);

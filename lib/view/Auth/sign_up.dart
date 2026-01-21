@@ -23,7 +23,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final SignupController _signupController = SignupController();
- final GoogleLoginController _googleLoginController = GoogleLoginController();
+  final GoogleLoginController _googleLoginController = GoogleLoginController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,8 +140,6 @@ class _SignUpState extends State<SignUp> {
                 color: AppColors.grey,
               ),
             ),
-
-            
 
             SizedBox(height: 20),
             Padding(

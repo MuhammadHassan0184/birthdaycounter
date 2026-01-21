@@ -1,8 +1,11 @@
 // ignore_for_file: use_build_context_synchronously, deprecated_member_use
 
 import 'package:birthdaycounter/config/Colors/colors.dart';
+import 'package:birthdaycounter/controllers/reminder_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 TextEditingController timeController = TextEditingController();
 
@@ -44,7 +47,9 @@ Widget timeField(BuildContext context) {
         );
 
         if (picked != null) {
-          timeController.text = picked.format(context);
+          final reminderCtrl = Get.find<ReminderController>();
+          reminderCtrl.timeController.text = picked.format(context);
+          reminderCtrl.time.value = reminderCtrl.timeController.text; // ✅ bind
         }
       },
 

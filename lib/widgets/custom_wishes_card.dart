@@ -2,25 +2,30 @@
 
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // <-- import this for Clipboard
+import 'package:flutter/services.dart'; // <-- for Clipboard
 
 class CustomWishesCard extends StatelessWidget {
   final String label;
-  const CustomWishesCard({super.key, required this.label});
+  final String description;
+  final VoidCallback? onAdd;
+
+  const CustomWishesCard({
+    super.key,
+    required this.label,
+    this.description =
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac lectus luctus, consectetur nisi vitae, ultrices metust.",
+    this.onAdd,
+  });
 
   @override
   Widget build(BuildContext context) {
-    // Combine your label and description text
-    final String fullText =
-        "$label\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac lectus luctus, consectetur nisi vitae, ultrices metust.";
+    // Combine label + description for clipboard
+    final String fullText = "$label\n$description";
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       padding: const EdgeInsets.all(10),
       width: double.infinity,
-      constraints: const BoxConstraints(
-        // maxHeight: 91, // Max height
-      ),
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.grey.withOpacity(0.2)),
         borderRadius: BorderRadius.circular(10),
@@ -42,9 +47,9 @@ class CustomWishesCard extends StatelessWidget {
                     fontSize: 18,
                   ),
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac lectus luctus, consectetur nisi vitae, ultrices metust.",
+                  description,
                   style: TextStyle(fontWeight: FontWeight.w400),
                   softWrap: true,
                   overflow: TextOverflow.ellipsis,
@@ -66,15 +71,14 @@ class CustomWishesCard extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // Copy Button
               IconButton(
                 onPressed: () {
                   Clipboard.setData(ClipboardData(text: fullText));
 
-                  // Professional themed SnackBar
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      behavior: SnackBarBehavior
-                          .floating, // Makes it float above the UI
+                      behavior: SnackBarBehavior.floating,
                       margin: const EdgeInsets.symmetric(
                         horizontal: 20,
                         vertical: 10,
@@ -83,13 +87,12 @@ class CustomWishesCard extends StatelessWidget {
                         horizontal: 16,
                         vertical: 12,
                       ),
-                      backgroundColor:
-                          AppColors.primary, // Your theme primary color
+                      backgroundColor: AppColors.primary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
                       content: Row(
-                        children: [
+                        children: const [
                           Icon(Icons.check_circle_outline, color: Colors.white),
                           SizedBox(width: 10),
                           Expanded(
@@ -104,16 +107,18 @@ class CustomWishesCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      duration:  Duration(
-                        seconds: 2,
-                      ), // Auto dismiss after 2 seconds
+                      duration: Duration(seconds: 2),
                     ),
                   );
                 },
-                icon: Icon(Icons.copy),
+                icon: Icon(Icons.copy, color: AppColors.primary),
               ),
 
-              IconButton(onPressed: () {}, icon: Icon(Icons.add)),
+              // Add Button
+              IconButton(
+                onPressed: onAdd ?? () {},
+                icon: Icon(Icons.add, color: AppColors.primary),
+              ),
             ],
           ),
         ],
