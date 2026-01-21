@@ -8,6 +8,7 @@ import 'package:birthdaycounter/view/home_screen.dart';
 import 'package:birthdaycounter/widgets/custom_button.dart';
 import 'package:birthdaycounter/widgets/custom_form_field.dart';
 import 'package:birthdaycounter/widgets/custom_google_login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -97,22 +98,32 @@ class _LoginState extends State<Login> {
             SizedBox(height: 20),
 
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: CustomGoogleLogin(
                 label: "Google",
                 onTap: () async {
-                  final user = await AuthService().signInWithGoogle();
-                  if (user != null) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (_) => HomeScreen()),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text("Google Sign-In canceled or failed"),
-                      ),
-                    );
+                  debugPrint("🔹 Continue with Google button pressed");
+
+                  try {
+                    final user = await GoogleAuthService().signInWithGoogle();
+
+                    // 🔑 Final success check
+                    if (user != null &&
+                        FirebaseAuth.instance.currentUser != null) {
+                      debugPrint(
+                        "✅ Google Sign-In SUCCESS: ${FirebaseAuth.instance.currentUser!.email}",
+                      );
+
+                      // Move to HomeScreen
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (_) => const HomeScreen()),
+                      );
+                    } else {
+                      debugPrint("❌ Google Sign-In failed or user is null");
+                    }
+                  } catch (e) {
+                    debugPrint("❌ Google Sign-In Exception: $e");
                   }
                 },
               ),

@@ -14,14 +14,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "818328957757-nesur59kobcn19klfckh308d302nthfe.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.birthdaycounter",
-            "certificate_hash": "7b4d9e30edd6b4841da51049f9d3d62c0617af89"
-          }
-        },
-        {
           "client_id": "818328957757-k39hjbq3iegcoe44qudttieju7b4p84s.apps.googleusercontent.com",
           "client_type": 3
         }
