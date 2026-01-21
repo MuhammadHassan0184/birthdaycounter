@@ -21,7 +21,7 @@ class CustomSecondryField extends StatefulWidget {
     this.suicon,
     this.onTap,
     this.validation,
-    this.controller,
+    this.controller, required Function(dynamic val) onChanged,
   }) : assert(
          icon != null || prefixImage != null,
          'Either icon or prefixImage must be provided',
