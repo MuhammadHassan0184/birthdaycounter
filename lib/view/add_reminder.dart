@@ -234,11 +234,11 @@ class _AddReminderState extends State<AddReminder> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: CustomSecondryField(
-  label: "Name",
-  icon: Icons.person,
-  controller: reminderCtrl.nameController,
-  onChanged: (val) => reminderCtrl.name.value = val,
-),
+                  label: "Name",
+                  icon: Icons.person,
+                  controller: reminderCtrl.nameController,
+                  onChanged: (val) => reminderCtrl.name.value = val,
+                ),
               ),
               SizedBox(height: 12),
 
@@ -248,7 +248,8 @@ class _AddReminderState extends State<AddReminder> {
                 child: CustomSecondryField(
                   label: "Relationship",
                   icon: Icons.group,
-                  controller: reminderCtrl.relationshipController, onChanged: (val) {  },
+                  controller: reminderCtrl.relationshipController,
+                  onChanged: (val) {},
                 ),
               ),
               SizedBox(height: 12),
@@ -259,7 +260,8 @@ class _AddReminderState extends State<AddReminder> {
                 child: CustomSecondryField(
                   label: "Phone (Optional)",
                   icon: Icons.call,
-                  controller: reminderCtrl.phoneController, onChanged: (val) {  },
+                  controller: reminderCtrl.phoneController,
+                  onChanged: (val) {},
                 ),
               ),
               SizedBox(height: 12),
@@ -270,7 +272,8 @@ class _AddReminderState extends State<AddReminder> {
                 child: CustomSecondryField(
                   label: "Email (Optional)",
                   icon: Icons.email,
-                  controller: reminderCtrl.emailController, onChanged: (val) {  },
+                  controller: reminderCtrl.emailController,
+                  onChanged: (val) {},
                 ),
               ),
               SizedBox(height: 12),
@@ -281,7 +284,8 @@ class _AddReminderState extends State<AddReminder> {
                 child: CustomSecondryField(
                   label: "Reminder Type",
                   icon: Icons.cake,
-                  controller: reminderCtrl.reminderTypeController, onChanged: (val) {  },
+                  controller: reminderCtrl.reminderTypeController,
+                  onChanged: (val) {},
                 ),
               ),
               SizedBox(height: 12),
@@ -301,7 +305,7 @@ class _AddReminderState extends State<AddReminder> {
                   SizedBox(height: 12),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child:  wishField(controller: reminderCtrl.wishController),
+                    child: wishField(controller: reminderCtrl.wishController),
                   ),
 
                   SizedBox(height: 20),
@@ -309,38 +313,45 @@ class _AddReminderState extends State<AddReminder> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50),
                     child: CustomButton(
-  label: "Add",
-  onTap: () {
-    if (reminderCtrl.nameController.text.isEmpty ||
-        reminderCtrl.relationshipController.text.isEmpty ||
-        reminderCtrl.reminderTypeController.text.isEmpty ||
-        reminderCtrl.dateController.text.isEmpty ||
-        reminderCtrl.timeController.text.isEmpty ||
-        reminderCtrl.wishController.text.isEmpty) {
-      Get.snackbar(
-        "Error",
-        "Please fill all required fields",
-        backgroundColor: AppColors.primary,
-        colorText: AppColors.white,
-      );
-      return;
-    }
+                      label: "Add",
+                      onTap: () {
+                        if (reminderCtrl.nameController.text.isEmpty ||
+                            reminderCtrl.relationshipController.text.isEmpty ||
+                            reminderCtrl.reminderTypeController.text.isEmpty ||
+                            reminderCtrl.dateController.text.isEmpty ||
+                            reminderCtrl.timeController.text.isEmpty ||
+                            reminderCtrl.wishController.text.isEmpty) {
+                          Get.snackbar(
+                            "Error",
+                            "Please fill all required fields",
+                            backgroundColor: AppColors.primary,
+                            colorText: AppColors.white,
+                          );
+                          return;
+                        }
 
-    // Save values
-    reminderCtrl.name.value = reminderCtrl.nameController.text;
-    reminderCtrl.relationship.value = reminderCtrl.relationshipController.text;
-    reminderCtrl.phone.value = reminderCtrl.phoneController.text;
-    reminderCtrl.email.value = reminderCtrl.emailController.text;
-    reminderCtrl.reminderType.value = reminderCtrl.reminderTypeController.text;
-    reminderCtrl.date.value = reminderCtrl.dateController.text;
-    reminderCtrl.time.value = reminderCtrl.timeController.text;
-    reminderCtrl.wish.value = reminderCtrl.wishController.text;
+                        // Save values
+                        reminderCtrl.name.value =
+                            reminderCtrl.nameController.text;
+                        reminderCtrl.relationship.value =
+                            reminderCtrl.relationshipController.text;
+                        reminderCtrl.phone.value =
+                            reminderCtrl.phoneController.text;
+                        reminderCtrl.email.value =
+                            reminderCtrl.emailController.text;
+                        reminderCtrl.reminderType.value =
+                            reminderCtrl.reminderTypeController.text;
+                        reminderCtrl.date.value =
+                            reminderCtrl.dateController.text;
+                        reminderCtrl.time.value =
+                            reminderCtrl.timeController.text;
+                        reminderCtrl.wish.value =
+                            reminderCtrl.wishController.text;
 
-    reminderCtrl.addReminder();
-    Get.back(); // Go back to home
-  },
-),
-
+                        reminderCtrl.addReminder();
+                        Get.back(); // Go back to home
+                      },
+                    ),
                   ),
 
                   SizedBox(height: 20),

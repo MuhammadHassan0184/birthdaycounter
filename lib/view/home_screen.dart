@@ -363,9 +363,33 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SizedBox(height: 7),
           // remindercard
+          // remindercard
+          // Expanded(
+          //   child: StreamBuilder<List<Reminder>>(
+          //     stream: ReminderService().getReminders(), // ✅ KEEP SAME
+          //     builder: (context, snapshot) {
+          //       if (snapshot.connectionState == ConnectionState.waiting) {
+          //         return Center(child: CircularProgressIndicator());
+          //       }
+
+          //       if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          //         return Center(child: Image.asset("assets/fileimg.png"));
+          //       }
+
+          //       final reminders = snapshot.data!;
+
+          //       return ListView.builder(
+          //         itemCount: reminders.length,
+          //         itemBuilder: (context, index) {
+          //           return CustomReminderCard(reminder: reminders[index]);
+          //         },
+          //       );
+          //     },
+          //   ),
+          // ),
           Expanded(
             child: StreamBuilder<List<Reminder>>(
-              stream: ReminderService().getReminders(), // Use the service
+              stream: ReminderService().getReminders(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
