@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:birthdaycounter/config/Routes/routes.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/firebase_options.dart';

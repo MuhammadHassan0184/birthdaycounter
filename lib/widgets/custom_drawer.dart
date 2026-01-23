@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, unnecessary_import
+// ignore_for_file: deprecated_member_use, unnecessary_import, use_build_context_synchronously
 
 import 'package:birthdaycounter/Services/auth_service.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
@@ -187,9 +187,12 @@ class CustomDrawer extends StatelessWidget {
                       context: context,
                       builder: (context) => AlertDialog(
                         backgroundColor: AppColors.white, // your theme
-                        title: const Text(
+                        title: Text(
                           "Confirm Logout",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primary,
+                          ),
                         ),
                         content: const Text(
                           "Are you sure you want to log out?",

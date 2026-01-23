@@ -2,10 +2,10 @@
 
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
+import 'package:birthdaycounter/controllers/reminder_controller.dart';
 import 'package:birthdaycounter/widgets/custom_wishes_card.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get.dart';
 
 class WishesScreen extends StatefulWidget {
   const WishesScreen({super.key});
@@ -15,6 +15,8 @@ class WishesScreen extends StatefulWidget {
 }
 
 class _WishesScreenState extends State<WishesScreen> {
+  final ReminderController reminderCtrl = Get.find<ReminderController>();
+
   String selectedChip = "All"; // default selected
   List<String> chips = ["All", "Birthday", "Engagement", "Anniversary"];
   @override
@@ -66,7 +68,10 @@ class _WishesScreenState extends State<WishesScreen> {
                               : Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
-                            side: BorderSide(color: AppColors.grey.withOpacity(0.2), width: 1),
+                            side: BorderSide(
+                              color: AppColors.grey.withOpacity(0.2),
+                              width: 1,
+                            ),
                           ),
                         ),
                       ),
@@ -77,14 +82,50 @@ class _WishesScreenState extends State<WishesScreen> {
             ),
             SizedBox(height: 5),
             // wishescard
-           Expanded(
-             child: ListView.builder(
-              itemCount: 6,
-              itemBuilder: (context, index){
-              return CustomWishesCard(label: "Birthday");
-             }),
-           ),
-           SizedBox(height: 10,),
+            Expanded(
+              child: Obx(() {
+                if (reminderCtrl.reminders.isEmpty) {
+                  return const Center(child: Text("No wishes added yet"));
+                }
+
+                // Optional: chip filter
+                final filteredReminders = selectedChip == "All"
+                    ? reminderCtrl.reminders
+                    : reminderCtrl.reminders
+                          .where((r) => r.reminderType == selectedChip)
+                          .toList();
+
+                if (filteredReminders.isEmpty) {
+                  return const Center(
+                    child: Text("No wishes for this category"),
+                  );
+                }
+
+                return ListView.builder(
+                  itemCount: filteredReminders.length,
+                  itemBuilder: (context, index) {
+                    final reminder = filteredReminders[index];
+
+                    return CustomWishesCard(
+                      label: reminder.reminderType, // ✅ Reminder Type
+                      description: reminder.wish, // ✅ Wish text
+                      onAdd: () {
+                        final reminderCtrl = Get.find<ReminderController>();
+
+                        // set wish value
+                        reminderCtrl.wishController.text = reminder.wish;
+                        reminderCtrl.wish.value = reminder.wish;
+
+                        // go back to AddReminder
+                        Get.back();
+                      },
+                    );
+                  },
+                );
+              }),
+            ),
+
+            SizedBox(height: 10),
           ],
         ),
       ),
