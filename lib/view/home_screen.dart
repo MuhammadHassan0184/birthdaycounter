@@ -27,6 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final ReminderService reminderService = ReminderService();
 
+  String searchText = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,7 +130,16 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Row(
               children: [
-                Expanded(child: CustomSearchBar()),
+                Expanded(
+                  child: CustomSearchBar(
+                    onChanged: (value) {
+                      setState(() {
+                        searchText = value.toLowerCase();
+                      });
+                    },
+                  ),
+                ),
+
                 IconButton(
                   onPressed: () {
                     // your action here
@@ -167,7 +178,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 //     height: 200, // optional
                 //   ),
                 // );
-                final reminders = snapshot.data!;
+                // final reminders = snapshot.data!;
+                final reminders = snapshot.data!.where((reminder) {
+                  final name = reminder.name.toLowerCase();
+                  final type = reminder.reminderType.toLowerCase();
+
+                  // 🔍 search by name OR type
+                  return name.contains(searchText) || type.contains(searchText);
+                }).toList();
+                if (reminders.isEmpty) {
+                  return Center(
+                    child: Text(
+                      "No result found",
+                      style: TextStyle(color: AppColors.grey, fontWeight: FontWeight.w500, fontSize: 17),
+                    ),
+                  );
+                }
 
                 return ListView.builder(
                   itemCount: reminders.length,

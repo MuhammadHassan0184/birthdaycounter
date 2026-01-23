@@ -111,13 +111,13 @@ class CustomWishesCard extends StatelessWidget {
                     ),
                   );
                 },
-                icon: Icon(Icons.copy, color: AppColors.primary),
+                icon: Icon(Icons.copy, color: AppColors.black),
               ),
 
               // Add Button
               IconButton(
                 onPressed: onAdd ?? () {},
-                icon: Icon(Icons.add, color: AppColors.primary),
+                icon: Icon(Icons.add, color: AppColors.black),
               ),
             ],
           ),

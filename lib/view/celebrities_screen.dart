@@ -22,6 +22,8 @@ class _CelebritiesScreenState extends State<CelebritiesScreen> {
   String selectedChip2 = "All Celebrities";
   List<String> chip2 = ["All Celebrities", "Your Favorites"];
 
+  String searchText = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,7 +94,14 @@ class _CelebritiesScreenState extends State<CelebritiesScreen> {
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 children: [
-                  CustomSearchBar(),
+                  CustomSearchBar(
+                    onChanged: (value) {
+                      setState(() {
+                        searchText = value.toLowerCase();
+                      });
+                    },
+                  ),
+
                   SizedBox(height: 10),
         
                   Center(

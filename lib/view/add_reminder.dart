@@ -80,7 +80,8 @@ class _AddReminderState extends State<AddReminder> {
               ProfileImagePicker(
                 controller: imageController,
                 onImagePicked: () {
-                  reminderCtrl.imagePath.value = imageController.imagePath ?? '';
+                  reminderCtrl.imagePath.value =
+                      imageController.imagePath ?? '';
                 },
               ),
               SizedBox(height: 25),
@@ -186,14 +187,22 @@ class _AddReminderState extends State<AddReminder> {
                         }
 
                         // Save obs values
-                        reminderCtrl.name.value = reminderCtrl.nameController.text;
-                        reminderCtrl.relationship.value = reminderCtrl.relationshipController.text;
-                        reminderCtrl.phone.value = reminderCtrl.phoneController.text;
-                        reminderCtrl.email.value = reminderCtrl.emailController.text;
-                        reminderCtrl.reminderType.value = reminderCtrl.reminderTypeController.text;
-                        reminderCtrl.date.value = reminderCtrl.dateController.text;
-                        reminderCtrl.time.value = reminderCtrl.timeController.text;
-                        reminderCtrl.wish.value = reminderCtrl.wishController.text;
+                        reminderCtrl.name.value =
+                            reminderCtrl.nameController.text;
+                        reminderCtrl.relationship.value =
+                            reminderCtrl.relationshipController.text;
+                        reminderCtrl.phone.value =
+                            reminderCtrl.phoneController.text;
+                        reminderCtrl.email.value =
+                            reminderCtrl.emailController.text;
+                        reminderCtrl.reminderType.value =
+                            reminderCtrl.reminderTypeController.text;
+                        reminderCtrl.date.value =
+                            reminderCtrl.dateController.text;
+                        reminderCtrl.time.value =
+                            reminderCtrl.timeController.text;
+                        reminderCtrl.wish.value =
+                            reminderCtrl.wishController.text;
 
                         if (widget.reminder == null) {
                           // Add new reminder

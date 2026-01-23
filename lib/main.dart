@@ -1,14 +1,14 @@
 // ignore_for_file: avoid_print
 
-import 'package:birthdaycounter/config/Routes/routes.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
-import 'package:birthdaycounter/firebase_options.dart';
 import 'package:birthdaycounter/view/splash/splash_screen.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:birthdaycounter/config/Routes/routes.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:birthdaycounter/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
