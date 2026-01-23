@@ -42,18 +42,24 @@
 //           child: Column(
 //             children: [
 //               SizedBox(height: 30),
-//               ProfileImagePicker(controller: imageController),
+//               ProfileImagePicker(
+//                 controller: imageController,
+//                 onImagePicked: () {
+//                   print("Image picked: ${imageController.imagePath}");
+//                   reminderCtrl.imagePath.value = imageController.imagePath ?? '';
+//                 },
+//               ),
 //               SizedBox(height: 25),
 
 //               // Name
 //               Padding(
 //                 padding: const EdgeInsets.symmetric(horizontal: 15),
 //                 child: CustomSecondryField(
-//   label: "Name",
-//   icon: Icons.person,
-//   controller: reminderCtrl.nameController,
-//   onChanged: (val) => reminderCtrl.name.value = val,
-// ),
+//                   label: "Name",
+//                   icon: Icons.person,
+//                   controller: reminderCtrl.nameController,
+//                   onChanged: (val) => reminderCtrl.name.value = val,
+//                 ),
 //               ),
 //               SizedBox(height: 12),
 
@@ -63,7 +69,8 @@
 //                 child: CustomSecondryField(
 //                   label: "Relationship",
 //                   icon: Icons.group,
-//                   controller: reminderCtrl.relationshipController, onChanged: (val) {  },
+//                   controller: reminderCtrl.relationshipController,
+//                   onChanged: (val) {},
 //                 ),
 //               ),
 //               SizedBox(height: 12),
@@ -74,7 +81,8 @@
 //                 child: CustomSecondryField(
 //                   label: "Phone (Optional)",
 //                   icon: Icons.call,
-//                   controller: reminderCtrl.phoneController, onChanged: (val) {  },
+//                   controller: reminderCtrl.phoneController,
+//                   onChanged: (val) {},
 //                 ),
 //               ),
 //               SizedBox(height: 12),
@@ -85,7 +93,8 @@
 //                 child: CustomSecondryField(
 //                   label: "Email (Optional)",
 //                   icon: Icons.email,
-//                   controller: reminderCtrl.emailController, onChanged: (val) {  },
+//                   controller: reminderCtrl.emailController,
+//                   onChanged: (val) {},
 //                 ),
 //               ),
 //               SizedBox(height: 12),
@@ -96,7 +105,8 @@
 //                 child: CustomSecondryField(
 //                   label: "Reminder Type",
 //                   icon: Icons.cake,
-//                   controller: reminderCtrl.reminderTypeController, onChanged: (val) {  },
+//                   controller: reminderCtrl.reminderTypeController,
+//                   onChanged: (val) {},
 //                 ),
 //               ),
 //               SizedBox(height: 12),
@@ -116,7 +126,7 @@
 //                   SizedBox(height: 12),
 //                   Padding(
 //                     padding: const EdgeInsets.symmetric(horizontal: 15),
-//                     child:  wishField(controller: reminderCtrl.wishController),
+//                     child: wishField(controller: reminderCtrl.wishController),
 //                   ),
 
 //                   SizedBox(height: 20),
@@ -126,37 +136,12 @@
 //                     child: CustomButton(
 //                       label: "Add",
 //                       onTap: () {
-//                         // Debug print
-//                         print("NAME: ${reminderCtrl.nameController.text}");
-//                         print(
-//                           "REL: ${reminderCtrl.relationshipController.text}",
-//                         );
-//                         print(
-//                           "TYPE: ${reminderCtrl.reminderTypeController.text}",
-//                         );
-//                         print("DATE: ${reminderCtrl.dateController.text}");
-//                         print("TIME: ${reminderCtrl.timeController.text}");
-//                         print("WISH: ${reminderCtrl.wishController.text}");
-//                         reminderCtrl.name.value =
-//                             reminderCtrl.nameController.text;
-//                         reminderCtrl.relationship.value =
-//                             reminderCtrl.relationshipController.text;
-//                         reminderCtrl.reminderType.value =
-//                             reminderCtrl.reminderTypeController.text;
-//                         reminderCtrl.date.value =
-//                             reminderCtrl.dateController.text;
-//                         reminderCtrl.time.value =
-//                             reminderCtrl.timeController.text;
-//                         reminderCtrl.wish.value =
-//                             reminderCtrl.wishController.text;
-
-//                         // Validation
-//                         if (reminderCtrl.name.value.isEmpty ||
-//                             reminderCtrl.relationship.value.isEmpty ||
-//                             reminderCtrl.reminderType.value.isEmpty ||
-//                             reminderCtrl.date.value.isEmpty ||
-//                             reminderCtrl.time.value.isEmpty ||
-//                             reminderCtrl.wish.value.isEmpty) {
+//                         if (reminderCtrl.nameController.text.isEmpty ||
+//                             reminderCtrl.relationshipController.text.isEmpty ||
+//                             reminderCtrl.reminderTypeController.text.isEmpty ||
+//                             reminderCtrl.dateController.text.isEmpty ||
+//                             reminderCtrl.timeController.text.isEmpty ||
+//                             reminderCtrl.wishController.text.isEmpty) {
 //                           Get.snackbar(
 //                             "Error",
 //                             "Please fill all required fields",
@@ -166,9 +151,26 @@
 //                           return;
 //                         }
 
+//                         // Save values
+//                         reminderCtrl.name.value =
+//                             reminderCtrl.nameController.text;
+//                         reminderCtrl.relationship.value =
+//                             reminderCtrl.relationshipController.text;
+//                         reminderCtrl.phone.value =
+//                             reminderCtrl.phoneController.text;
+//                         reminderCtrl.email.value =
+//                             reminderCtrl.emailController.text;
+//                         reminderCtrl.reminderType.value =
+//                             reminderCtrl.reminderTypeController.text;
+//                         reminderCtrl.date.value =
+//                             reminderCtrl.dateController.text;
+//                         reminderCtrl.time.value =
+//                             reminderCtrl.timeController.text;
+//                         reminderCtrl.wish.value =
+//                             reminderCtrl.wishController.text;
+
 //                         reminderCtrl.addReminder();
-//                         Get.back();
-//                         // go back to previous screen
+//                         Get.back(); // Go back to home
 //                       },
 //                     ),
 //                   ),
@@ -183,10 +185,16 @@
 //     );
 //   }
 // }
+
+
+// ignore_for_file: unused_import
+
+import 'dart:io';
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/controllers/image_picker_controller.dart';
 import 'package:birthdaycounter/controllers/reminder_controller.dart';
+import 'package:birthdaycounter/models/reminder_model.dart';
 import 'package:birthdaycounter/widgets/Custom_Secondry_Field.dart';
 import 'package:birthdaycounter/widgets/Profile_Image/custom_profile_image.dart';
 import 'package:birthdaycounter/widgets/custom_button.dart';
@@ -195,10 +203,12 @@ import 'package:birthdaycounter/widgets/custom_time_field.dart';
 import 'package:birthdaycounter/widgets/custom_wish_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
 
 class AddReminder extends StatefulWidget {
-  const AddReminder({super.key});
+  final Reminder? reminder; // null if adding, not null if editing
+
+  const AddReminder({super.key, this.reminder});
+
   @override
   State<AddReminder> createState() => _AddReminderState();
 }
@@ -206,6 +216,35 @@ class AddReminder extends StatefulWidget {
 class _AddReminderState extends State<AddReminder> {
   final ImagePickerController imageController = ImagePickerController();
   final ReminderController reminderCtrl = Get.find();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Prefill controllers if editing
+    if (widget.reminder != null) {
+      final r = widget.reminder!;
+      reminderCtrl.nameController.text = r.name;
+      reminderCtrl.relationshipController.text = r.relationship;
+      reminderCtrl.phoneController.text = r.phone;
+      reminderCtrl.emailController.text = r.email;
+      reminderCtrl.reminderTypeController.text = r.reminderType;
+      reminderCtrl.dateController.text = r.date;
+      reminderCtrl.timeController.text = r.time;
+      reminderCtrl.wishController.text = r.wish;
+      reminderCtrl.imagePath.value = r.imageUrl ?? '';
+
+      // Update obs values
+      reminderCtrl.name.value = r.name;
+      reminderCtrl.relationship.value = r.relationship;
+      reminderCtrl.phone.value = r.phone;
+      reminderCtrl.email.value = r.email;
+      reminderCtrl.reminderType.value = r.reminderType;
+      reminderCtrl.date.value = r.date;
+      reminderCtrl.time.value = r.time;
+      reminderCtrl.wish.value = r.wish;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -217,7 +256,7 @@ class _AddReminderState extends State<AddReminder> {
           icon: Icon(Icons.arrow_back, color: AppColors.white),
         ),
         title: Text(
-          "Add Reminder",
+          widget.reminder == null ? "Add Reminder" : "Edit Reminder",
           style: TextStyle(color: AppColors.white, fontWeight: FontWeight.w400),
         ),
         centerTitle: true,
@@ -230,7 +269,6 @@ class _AddReminderState extends State<AddReminder> {
               ProfileImagePicker(
                 controller: imageController,
                 onImagePicked: () {
-                  print("Image picked: ${imageController.imagePath}");
                   reminderCtrl.imagePath.value = imageController.imagePath ?? '';
                 },
               ),
@@ -255,7 +293,7 @@ class _AddReminderState extends State<AddReminder> {
                   label: "Relationship",
                   icon: Icons.group,
                   controller: reminderCtrl.relationshipController,
-                  onChanged: (val) {},
+                  onChanged: (val) => reminderCtrl.relationship.value = val,
                 ),
               ),
               SizedBox(height: 12),
@@ -267,7 +305,7 @@ class _AddReminderState extends State<AddReminder> {
                   label: "Phone (Optional)",
                   icon: Icons.call,
                   controller: reminderCtrl.phoneController,
-                  onChanged: (val) {},
+                  onChanged: (val) => reminderCtrl.phone.value = val,
                 ),
               ),
               SizedBox(height: 12),
@@ -279,7 +317,7 @@ class _AddReminderState extends State<AddReminder> {
                   label: "Email (Optional)",
                   icon: Icons.email,
                   controller: reminderCtrl.emailController,
-                  onChanged: (val) {},
+                  onChanged: (val) => reminderCtrl.email.value = val,
                 ),
               ),
               SizedBox(height: 12),
@@ -291,7 +329,7 @@ class _AddReminderState extends State<AddReminder> {
                   label: "Reminder Type",
                   icon: Icons.cake,
                   controller: reminderCtrl.reminderTypeController,
-                  onChanged: (val) {},
+                  onChanged: (val) => reminderCtrl.reminderType.value = val,
                 ),
               ),
               SizedBox(height: 12),
@@ -319,7 +357,7 @@ class _AddReminderState extends State<AddReminder> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50),
                     child: CustomButton(
-                      label: "Add",
+                      label: widget.reminder == null ? "Add" : "Update",
                       onTap: () {
                         if (reminderCtrl.nameController.text.isEmpty ||
                             reminderCtrl.relationshipController.text.isEmpty ||
@@ -336,26 +374,25 @@ class _AddReminderState extends State<AddReminder> {
                           return;
                         }
 
-                        // Save values
-                        reminderCtrl.name.value =
-                            reminderCtrl.nameController.text;
-                        reminderCtrl.relationship.value =
-                            reminderCtrl.relationshipController.text;
-                        reminderCtrl.phone.value =
-                            reminderCtrl.phoneController.text;
-                        reminderCtrl.email.value =
-                            reminderCtrl.emailController.text;
-                        reminderCtrl.reminderType.value =
-                            reminderCtrl.reminderTypeController.text;
-                        reminderCtrl.date.value =
-                            reminderCtrl.dateController.text;
-                        reminderCtrl.time.value =
-                            reminderCtrl.timeController.text;
-                        reminderCtrl.wish.value =
-                            reminderCtrl.wishController.text;
+                        // Save obs values
+                        reminderCtrl.name.value = reminderCtrl.nameController.text;
+                        reminderCtrl.relationship.value = reminderCtrl.relationshipController.text;
+                        reminderCtrl.phone.value = reminderCtrl.phoneController.text;
+                        reminderCtrl.email.value = reminderCtrl.emailController.text;
+                        reminderCtrl.reminderType.value = reminderCtrl.reminderTypeController.text;
+                        reminderCtrl.date.value = reminderCtrl.dateController.text;
+                        reminderCtrl.time.value = reminderCtrl.timeController.text;
+                        reminderCtrl.wish.value = reminderCtrl.wishController.text;
 
-                        reminderCtrl.addReminder();
-                        Get.back(); // Go back to home
+                        if (widget.reminder == null) {
+                          // Add new reminder
+                          reminderCtrl.addReminder();
+                        } else {
+                          // Update existing reminder
+                          reminderCtrl.updateReminder(widget.reminder!);
+                        }
+
+                        Get.back();
                       },
                     ),
                   ),

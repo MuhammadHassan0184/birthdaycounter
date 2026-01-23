@@ -374,13 +374,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   return Center(child: Image.asset("assets/fileimg.png"));
                 }
-// Center(
-//   child: SvgPicture.asset(
-//     "assets/empty.svg",
-//     width: 200, // optional
-//     height: 200, // optional
-//   ),
-// );
+                // Center(
+                //   child: SvgPicture.asset(
+                //     "assets/empty.svg",
+                //     width: 200, // optional
+                //     height: 200, // optional
+                //   ),
+                // );
                 final reminders = snapshot.data!;
 
                 return ListView.builder(

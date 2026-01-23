@@ -23,6 +23,9 @@ class _PreviewReminderState extends State<PreviewReminder> {
   void initState() {
     super.initState();
     reminderData = Get.arguments ?? {};
+
+    // 🔥 SET IMAGE FOR DISPLAY
+    imageController.imagePath = reminderData['imageUrl'];
   }
 
   @override
@@ -56,7 +59,15 @@ class _PreviewReminderState extends State<PreviewReminder> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ProfileImagePicker(controller: imageController, onImagePicked: () {  },),
+
+                  IgnorePointer(
+                    ignoring: true,
+                    child: ProfileImagePicker(
+                      controller: imageController,
+                      onImagePicked: () {},
+                    ),
+                  ),
+
                   SizedBox(width: 12),
                   Expanded(
                     child: Column(
@@ -196,85 +207,3 @@ class _PreviewReminderState extends State<PreviewReminder> {
     );
   }
 }
-// import 'package:birthdaycounter/config/Colors/colors.dart';
-// import 'package:birthdaycounter/config/Routes/routes_name.dart';
-// import 'package:birthdaycounter/widgets/Profile_Image/custom_profile_image.dart';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:birthdaycounter/controllers/image_picker_controller.dart';
-
-// class PreviewReminder extends StatefulWidget {
-//   const PreviewReminder({super.key});
-
-//   @override
-//   State<PreviewReminder> createState() => _PreviewReminderState();
-// }
-
-// class _PreviewReminderState extends State<PreviewReminder> {
-//   final ImagePickerController imageController = ImagePickerController();
-//   late Map<String, dynamic> reminderData;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     reminderData = Get.arguments ?? {};
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         backgroundColor: AppColors.primary,
-//         leading: IconButton(
-//           onPressed: () => Get.offNamed(AppRoutesName.homeScreen),
-//           icon: Icon(Icons.arrow_back, color: AppColors.white),
-//         ),
-//         title: Text("Preview Reminder", style: TextStyle(color: AppColors.white)),
-//         centerTitle: true,
-//       ),
-//       body: SafeArea(
-//         child: Column(
-//           children: [
-//             SizedBox(height: 20),
-//             Container(
-//               margin: EdgeInsets.symmetric(horizontal: 15),
-//               padding: EdgeInsets.all(12),
-//               width: double.infinity,
-//               constraints: BoxConstraints(minHeight: 120),
-//               decoration: BoxDecoration(
-//                 border: Border.all(color: AppColors.grey.withOpacity(0.25)),
-//                 borderRadius: BorderRadius.circular(10),
-//               ),
-//               child: Row(
-//                 children: [
-//                   ProfileImagePicker(controller: imageController),
-//                   SizedBox(width: 12),
-//                   Expanded(
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         Text(reminderData['name'] ?? "Your Name", style: TextStyle(fontWeight: FontWeight.w900, fontSize: 14)),
-//                         SizedBox(height: 4),
-//                         Text("${reminderData['remainingDays'] ?? 0} days Remaining"),
-//                         SizedBox(height: 10),
-//                         Chip(
-//                           visualDensity: VisualDensity.compact,
-//                           side: BorderSide(color: AppColors.primary),
-//                           backgroundColor: AppColors.primary.withOpacity(0.1),
-//                           label: Text(reminderData['reminderType'] ?? "Birthday", style: TextStyle(color: AppColors.primary)),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             SizedBox(height: 15),
-//             // Details container...
-//             // Use reminderData["phone"], reminderData["email"], etc.
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
