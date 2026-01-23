@@ -51,7 +51,7 @@ class _CelebrityPreviewState extends State<CelebrityPreview> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ProfileImagePicker(controller: imageController),
+                  ProfileImagePicker(controller: imageController, onImagePicked: () {  },),
 
                   SizedBox(width: 12),
 

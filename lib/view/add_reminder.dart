@@ -227,7 +227,13 @@ class _AddReminderState extends State<AddReminder> {
           child: Column(
             children: [
               SizedBox(height: 30),
-              ProfileImagePicker(controller: imageController),
+              ProfileImagePicker(
+                controller: imageController,
+                onImagePicked: () {
+                  print("Image picked: ${imageController.imagePath}");
+                  reminderCtrl.imagePath.value = imageController.imagePath ?? '';
+                },
+              ),
               SizedBox(height: 25),
 
               // Name

@@ -8,7 +8,12 @@ import 'package:flutter/material.dart';
 
 class ProfileImagePicker extends StatefulWidget {
   final ImagePickerController controller;
-  const ProfileImagePicker({super.key, required this.controller});
+  final VoidCallback onImagePicked;
+  const ProfileImagePicker({
+    super.key,
+    required this.controller,
+    required this.onImagePicked,
+  });
 
   @override
   _ProfileImagePickerState createState() => _ProfileImagePickerState();
@@ -46,8 +51,9 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                 image: widget.controller.webImageBytes != null
                     ? MemoryImage(widget.controller.webImageBytes!)
                     : (widget.controller.imagePath != null
-                        ? FileImage(File(widget.controller.imagePath!))
-                        :  AssetImage("assets/imageicon.png")) as ImageProvider,
+                              ? FileImage(File(widget.controller.imagePath!))
+                              : AssetImage("assets/imageicon.png"))
+                          as ImageProvider,
                 fit: BoxFit.cover,
               ),
             ),
@@ -55,17 +61,23 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
           Positioned(
             bottom: 0,
             child: GestureDetector(
+              // onTap: () async {
+              //   await widget.controller.pick(context,);
+              //   setState(() {}); // Refresh UI after picking
+              // },
               onTap: () async {
-                await widget.controller.pick(context, crop: true);
-                setState(() {}); // Refresh UI after picking
+                await widget.controller.pick(context);
+                widget.onImagePicked(); // 🔥 THIS WAS MISSING
+                setState(() {});
               },
+
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.white,
                 ),
                 padding: EdgeInsets.all(5),
-                child:  Icon(Icons.image, color: Colors.blue, size: 20),
+                child: Icon(Icons.image, color: Colors.blue, size: 20),
               ),
             ),
           ),

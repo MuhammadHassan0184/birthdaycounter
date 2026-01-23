@@ -116,7 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             children: [
               SizedBox(height: 30,),
-              ProfileImagePicker(controller: imageController),
+              ProfileImagePicker(controller: imageController, onImagePicked: () {  },),
               SizedBox(height: 25,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
