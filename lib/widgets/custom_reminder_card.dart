@@ -71,6 +71,7 @@ class CustomReminderCard extends StatelessWidget {
                       Text(
                         "${reminder.reminderType} ",
                         style: TextStyle(
+                          fontSize: 13,
                           fontWeight: FontWeight.bold,
                           color: AppColors.primary,
                         ),
@@ -78,6 +79,7 @@ class CustomReminderCard extends StatelessWidget {
                       Text(
                         "(${reminder.remainingDays} Days)",
                         style: TextStyle(
+                          fontSize: 12,
                           fontWeight: FontWeight.bold,
                           color: AppColors.grey,
                         ),

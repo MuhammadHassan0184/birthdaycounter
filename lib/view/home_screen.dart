@@ -1,17 +1,17 @@
 // ignore_for_file: unnecessary_import, deprecated_member_use
 
-import 'package:birthdaycounter/Services/reminder_service.dart';
-import 'package:birthdaycounter/config/Colors/colors.dart';
-import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/controllers/reminder_controller.dart';
+import 'package:birthdaycounter/widgets/custom_reminder_card.dart';
+import 'package:birthdaycounter/Services/reminder_service.dart';
+import 'package:birthdaycounter/widgets/custom_search_bar.dart';
+import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/models/reminder_model.dart';
 import 'package:birthdaycounter/widgets/custom_drawer.dart';
-import 'package:birthdaycounter/widgets/custom_reminder_card.dart';
-import 'package:birthdaycounter/widgets/custom_search_bar.dart';
+import 'package:birthdaycounter/config/Colors/colors.dart';
+import 'package:get/instance_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -190,7 +190,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Center(
                     child: Text(
                       "No result found",
-                      style: TextStyle(color: AppColors.grey, fontWeight: FontWeight.w500, fontSize: 17),
+                      style: TextStyle(
+                        color: AppColors.grey,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 17,
+                      ),
                     ),
                   );
                 }
