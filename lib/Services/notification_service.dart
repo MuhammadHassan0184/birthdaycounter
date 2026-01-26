@@ -28,24 +28,27 @@ class NotificationService {
   }) async {
     final tz.TZDateTime scheduledDate = tz.TZDateTime.from(dateTime, tz.local);
     // ✅ DEBUG LOG (ADD THIS)
-  print("🔔 Notification scheduled at: $scheduledDate");
+    print("🔔 Notification scheduled at: $scheduledDate");
 
     await _plugin.zonedSchedule(
-      id,
-      title,
-      body,
-      scheduledDate,
-      const NotificationDetails(
-        android: AndroidNotificationDetails(
-          'event_channel',
-          'Event Notifications',
-          channelDescription: 'Reminder alerts',
-          importance: Importance.max,
-          priority: Priority.high,
-        ),
-      ),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-    );
+  id,
+  title,
+  body,
+  scheduledDate,
+  const NotificationDetails(
+    android: AndroidNotificationDetails(
+      'event_channel',
+      'Event Notifications',
+      channelDescription: 'Reminder alerts',
+      importance: Importance.max,
+      priority: Priority.high,
+      playSound: true,
+      enableVibration: true,
+    ),
+  ),
+  androidScheduleMode: AndroidScheduleMode.inexact, // 🔹 Use inexact
+);
+
   }
 
   static Future<void> cancel(int id) async {

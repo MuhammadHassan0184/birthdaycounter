@@ -8,6 +8,7 @@ import 'package:birthdaycounter/view/home_screen.dart';
 import 'package:birthdaycounter/widgets/custom_button.dart';
 import 'package:birthdaycounter/widgets/custom_form_field.dart';
 import 'package:birthdaycounter/widgets/custom_google_login.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -95,35 +96,71 @@ class _SignUpState extends State<SignUp> {
             SizedBox(height: 25),
 
             /// SIGNUP BUTTON
+            // CustomButton(
+            //   label: "Signup",
+            //   onTap: () async {
+            //     await _signupController.signup(context);
+
+            //     // ✅ Navigate only if signup is successful
+            //     if (_signupController.isLoading == false &&
+            //         _signupController.emailController.text.isNotEmpty &&
+            //         _signupController.passwordController.text.isNotEmpty) {
+            //       // Smooth navigation using PageRouteBuilder
+            //       Navigator.pushReplacement(
+            //         context,
+            //         PageRouteBuilder(
+            //           transitionDuration: const Duration(
+            //             milliseconds: 500,
+            //           ), // animation duration
+            //           pageBuilder: (_, __, ___) => const HomeScreen(),
+            //           transitionsBuilder: (_, animation, __, child) {
+            //             // Fade transition
+            //             return FadeTransition(opacity: animation, child: child);
+
+            //             // Or slide transition from right
+            //             // return SlideTransition(
+            //             //   position: Tween<Offset>(
+            //             //     begin: const Offset(1, 0),
+            //             //     end: Offset.zero,
+            //             //   ).animate(animation),
+            //             //   child: child,
+            //             // );
+            //           },
+            //         ),
+            //       );
+            //     }
+            //   },
+            // ),
             CustomButton(
               label: "Signup",
               onTap: () async {
+                // 1️⃣ Signup the user
                 await _signupController.signup(context);
 
-                // ✅ Navigate only if signup is successful
+                // 2️⃣ Save user info to Firestore if signup is successful
+                final user = FirebaseAuth.instance.currentUser;
+                if (user != null) {
+                  await FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(user.uid)
+                      .set({
+                        'fullName': _signupController.fullNameController.text
+                            .trim(),
+                        'email': _signupController.emailController.text.trim(),
+                      });
+                }
+
+                // 3️⃣ Navigate to HomeScreen
                 if (_signupController.isLoading == false &&
                     _signupController.emailController.text.isNotEmpty &&
                     _signupController.passwordController.text.isNotEmpty) {
-                  // Smooth navigation using PageRouteBuilder
                   Navigator.pushReplacement(
                     context,
                     PageRouteBuilder(
-                      transitionDuration: const Duration(
-                        milliseconds: 500,
-                      ), // animation duration
+                      transitionDuration: const Duration(milliseconds: 500),
                       pageBuilder: (_, __, ___) => const HomeScreen(),
                       transitionsBuilder: (_, animation, __, child) {
-                        // Fade transition
                         return FadeTransition(opacity: animation, child: child);
-
-                        // Or slide transition from right
-                        // return SlideTransition(
-                        //   position: Tween<Offset>(
-                        //     begin: const Offset(1, 0),
-                        //     end: Offset.zero,
-                        //   ).animate(animation),
-                        //   child: child,
-                        // );
                       },
                     ),
                   );

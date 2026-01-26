@@ -172,7 +172,6 @@ class _AddReminderState extends State<AddReminder> {
                     child: CustomButton(
                       label: widget.reminder == null ? "Add" : "Update",
                       onTap: () {
-                        
                         if (reminderCtrl.nameController.text.isEmpty ||
                             reminderCtrl.relationshipController.text.isEmpty ||
                             reminderCtrl.reminderTypeController.text.isEmpty ||
@@ -220,7 +219,6 @@ class _AddReminderState extends State<AddReminder> {
                   ),
 
                   SizedBox(height: 20),
-                  
                 ],
               ),
             ],
