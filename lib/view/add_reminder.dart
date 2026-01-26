@@ -1,19 +1,20 @@
 // ignore_for_file: unused_import
 
-import 'dart:io';
-import 'package:birthdaycounter/config/Colors/colors.dart';
-import 'package:birthdaycounter/config/Routes/routes_name.dart';
+import 'package:birthdaycounter/widgets/Profile_Image/custom_profile_image.dart';
 import 'package:birthdaycounter/controllers/image_picker_controller.dart';
 import 'package:birthdaycounter/controllers/reminder_controller.dart';
-import 'package:birthdaycounter/models/reminder_model.dart';
+import 'package:birthdaycounter/Services/notification_service.dart';
 import 'package:birthdaycounter/widgets/Custom_Secondry_Field.dart';
-import 'package:birthdaycounter/widgets/Profile_Image/custom_profile_image.dart';
-import 'package:birthdaycounter/widgets/custom_button.dart';
+import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/widgets/custom_date_field.dart';
 import 'package:birthdaycounter/widgets/custom_time_field.dart';
 import 'package:birthdaycounter/widgets/custom_wish_field.dart';
+import 'package:birthdaycounter/widgets/custom_button.dart';
+import 'package:birthdaycounter/models/reminder_model.dart';
+import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:io';
 
 class AddReminder extends StatefulWidget {
   final Reminder? reminder; // null if adding, not null if editing
@@ -171,6 +172,7 @@ class _AddReminderState extends State<AddReminder> {
                     child: CustomButton(
                       label: widget.reminder == null ? "Add" : "Update",
                       onTap: () {
+                        
                         if (reminderCtrl.nameController.text.isEmpty ||
                             reminderCtrl.relationshipController.text.isEmpty ||
                             reminderCtrl.reminderTypeController.text.isEmpty ||
@@ -218,6 +220,7 @@ class _AddReminderState extends State<AddReminder> {
                   ),
 
                   SizedBox(height: 20),
+                  
                 ],
               ),
             ],

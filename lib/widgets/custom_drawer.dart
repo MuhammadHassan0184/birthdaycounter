@@ -37,7 +37,7 @@ class CustomDrawer extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 15),
+              SizedBox(height: 10),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 15),
                 padding: EdgeInsets.all(15),
@@ -73,7 +73,7 @@ class CustomDrawer extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 15),
+              SizedBox(height: 10),
               ListTile(
                 leading: Icon(Icons.person, color: AppColors.primary),
                 title: Text(

@@ -59,16 +59,14 @@ Widget dateField(BuildContext context) {
 
         if (picked != null) {
           dateController.text = "${picked.month}/${picked.day}/${picked.year}";
-
         }
 
         if (picked != null) {
-  final reminderCtrl = Get.find<ReminderController>();
-  reminderCtrl.dateController.text = "${picked.month}/${picked.day}/${picked.year}";
-  reminderCtrl.date.value = reminderCtrl.dateController.text; // ✅ bind
-}
-
-
+          final reminderCtrl = Get.find<ReminderController>();
+          reminderCtrl.dateController.text =
+              "${picked.month}/${picked.day}/${picked.year}";
+          reminderCtrl.date.value = reminderCtrl.dateController.text; // ✅ bind
+        }
       },
       decoration: InputDecoration(
         hintText: "MM/DD/YYYY",

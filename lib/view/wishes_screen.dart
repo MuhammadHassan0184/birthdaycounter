@@ -1,9 +1,8 @@
 // ignore_for_file: deprecated_member_use
-
-import 'package:birthdaycounter/config/Colors/colors.dart';
-import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/controllers/reminder_controller.dart';
 import 'package:birthdaycounter/widgets/custom_wishes_card.dart';
+import 'package:birthdaycounter/config/Routes/routes_name.dart';
+import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -103,12 +102,12 @@ class _WishesScreenState extends State<WishesScreen> {
 
                 return ListView.builder(
                   itemCount: filteredReminders.length,
-                  itemBuilder: (context, index) {
+                  itemBuilder: (context, index) { 
                     final reminder = filteredReminders[index];
 
                     return CustomWishesCard(
-                      label: reminder.reminderType, // ✅ Reminder Type
-                      description: reminder.wish, // ✅ Wish text
+                      label: reminder.reminderType, //  Reminder Type
+                      description: reminder.wish, // Wish text
                       onAdd: () {
                         final reminderCtrl = Get.find<ReminderController>();
 

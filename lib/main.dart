@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:birthdaycounter/Services/notification_service.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/view/splash/splash_screen.dart';
 import 'package:birthdaycounter/config/Routes/routes.dart';
@@ -23,6 +24,7 @@ void main() async {
   } catch (e) {
     print("Firebase Init Error: $e");
   }
+    await NotificationService.init(); // 🔥 REQUIRED
 
   runApp(const MyApp());
 }
