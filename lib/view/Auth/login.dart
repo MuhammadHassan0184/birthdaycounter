@@ -37,9 +37,9 @@ class _LoginState extends State<Login> {
                   fit: BoxFit.cover,
                 ),
                 Positioned(
-                  top: 50,
+                  top: 60,
                   right: 0,
-                  child: Image.asset("assets/baloon.png", width: 120),
+                  child: Image.asset("assets/baloon.png", width: 70),
                 ),
               ],
             ),
@@ -87,14 +87,27 @@ class _LoginState extends State<Login> {
             ),
 
             SizedBox(height: 25),
-            Text(
-              "-------- Or Signin with --------",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-                color: AppColors.grey,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: Row(
+                children: [
+                  const Expanded(child: Divider(thickness: 1)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Text(
+                      "Or Signup with",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: AppColors.grey,
+                      ),
+                    ),
+                  ),
+                  const Expanded(child: Divider(thickness: 1)),
+                ],
               ),
             ),
+
             SizedBox(height: 20),
 
             Padding(

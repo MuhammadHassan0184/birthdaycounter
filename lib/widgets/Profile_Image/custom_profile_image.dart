@@ -52,7 +52,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                     ? MemoryImage(widget.controller.webImageBytes!)
                     : (widget.controller.imagePath != null
                               ? FileImage(File(widget.controller.imagePath!))
-                              : AssetImage("assets/imageicon.png"))
+                              : AssetImage("assets/imagei.png"))
                           as ImageProvider,
                 fit: BoxFit.cover,
               ),

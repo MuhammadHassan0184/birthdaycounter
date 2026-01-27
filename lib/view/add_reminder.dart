@@ -134,15 +134,36 @@ class _AddReminderState extends State<AddReminder> {
               const SizedBox(height: 12),
 
               // Relationship
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 15),
+              //   child: CustomSecondryField(
+              //     label: "Relationship",
+              //     icon: Icons.group,
+              //     controller: reminderCtrl.relationshipController,
+              //     onChanged: (val) => reminderCtrl.relationship.value = val,
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: CustomSecondryField(
                   label: "Relationship",
                   icon: Icons.group,
                   controller: reminderCtrl.relationshipController,
+                  isDropdown: true,
+                  items: const [
+                    "Father",
+                    "Mother",
+                    "Brother",
+                    "Sister",
+                    "Friend",
+                    "Wife",
+                    "Husband",
+                    "Other",
+                  ],
                   onChanged: (val) => reminderCtrl.relationship.value = val,
                 ),
               ),
+
               const SizedBox(height: 12),
 
               // Phone
@@ -170,15 +191,32 @@ class _AddReminderState extends State<AddReminder> {
               const SizedBox(height: 12),
 
               // Reminder Type
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 15),
+              //   child: CustomSecondryField(
+              //     label: "Reminder Type",
+              //     icon: Icons.cake,
+              //     controller: reminderCtrl.reminderTypeController,
+              //     onChanged: (val) => reminderCtrl.reminderType.value = val,
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: CustomSecondryField(
                   label: "Reminder Type",
                   icon: Icons.cake,
                   controller: reminderCtrl.reminderTypeController,
+                  isDropdown: true,
+                  items: const [
+                    "Birthday",
+                    "Anniversary",
+                    "Engagement",
+                    "Custom Event",
+                  ],
                   onChanged: (val) => reminderCtrl.reminderType.value = val,
                 ),
               ),
+
               const SizedBox(height: 12),
 
               // Date & Time
