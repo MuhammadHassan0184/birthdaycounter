@@ -20,7 +20,7 @@ class CustomDrawer extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 30),
+              SizedBox(height: 25),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Row(
@@ -176,7 +176,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 onTap: () {},
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 8),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: CustomButton(

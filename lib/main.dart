@@ -4,9 +4,9 @@ import 'package:birthdaycounter/Services/notification_service.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/view/splash/splash_screen.dart';
 import 'package:birthdaycounter/config/Routes/routes.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:birthdaycounter/firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -25,9 +25,9 @@ void main() async {
   } catch (e) {
     print("Firebase Init Error: $e");
   }
-    await NotificationService.init(); // 🔥 REQUIRED
+  await NotificationService.init(); // 🔥 REQUIRED
 
-     // Set default Firebase Auth language
+  // Set default Firebase Auth language
   FirebaseAuth.instance.setLanguageCode('en');
 
   runApp(const MyApp());

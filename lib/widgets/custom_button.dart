@@ -14,7 +14,7 @@ class CustomButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: SizedBox(
-        height: 50,
+        height: 51,
         width: double.infinity,
         child: Ink(
           decoration: BoxDecoration(
