@@ -20,7 +20,11 @@ class PrivacyPolicy extends StatelessWidget {
         ),
         title: Text(
           "Privacy Policy",
-          style: TextStyle(color: AppColors.white, fontWeight: FontWeight.w400),
+          style: TextStyle(
+            color: AppColors.white,
+            fontWeight: FontWeight.w400,
+            fontSize: 20,
+          ),
         ),
         centerTitle: true,
       ),

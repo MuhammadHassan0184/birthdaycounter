@@ -33,7 +33,7 @@ class _AddReminderState extends State<AddReminder> {
   void initState() {
     super.initState();
 
-    // Prefill controllers if editing
+    // If editing a reminder
     if (widget.reminder != null) {
       final r = widget.reminder!;
       reminderCtrl.nameController.text = r.name;
@@ -44,7 +44,15 @@ class _AddReminderState extends State<AddReminder> {
       reminderCtrl.dateController.text = r.date;
       reminderCtrl.timeController.text = r.time;
       reminderCtrl.wishController.text = r.wish;
-      reminderCtrl.imagePath.value = r.imageUrl ?? '';
+
+      // Prefill image
+      if (r.imageUrl != null && r.imageUrl!.isNotEmpty) {
+        reminderCtrl.imagePath.value = r.imageUrl!;
+        imageController.imagePath = r.imageUrl!;
+      } else {
+        reminderCtrl.imagePath.value = '';
+        imageController.imagePath = null;
+      }
 
       // Update obs values
       reminderCtrl.name.value = r.name;
@@ -55,6 +63,27 @@ class _AddReminderState extends State<AddReminder> {
       reminderCtrl.date.value = r.date;
       reminderCtrl.time.value = r.time;
       reminderCtrl.wish.value = r.wish;
+    } else {
+      // If adding a NEW reminder, clear all fields
+      reminderCtrl.nameController.clear();
+      reminderCtrl.relationshipController.clear();
+      reminderCtrl.phoneController.clear();
+      reminderCtrl.emailController.clear();
+      reminderCtrl.reminderTypeController.clear();
+      reminderCtrl.dateController.clear();
+      reminderCtrl.timeController.clear();
+      reminderCtrl.wishController.clear();
+      reminderCtrl.imagePath.value = '';
+      imageController.imagePath = null;
+
+      reminderCtrl.name.value = '';
+      reminderCtrl.relationship.value = '';
+      reminderCtrl.phone.value = '';
+      reminderCtrl.email.value = '';
+      reminderCtrl.reminderType.value = '';
+      reminderCtrl.date.value = '';
+      reminderCtrl.time.value = '';
+      reminderCtrl.wish.value = '';
     }
   }
 
@@ -69,7 +98,11 @@ class _AddReminderState extends State<AddReminder> {
         ),
         title: Text(
           widget.reminder == null ? "Add Reminder" : "Edit Reminder",
-          style: TextStyle(color: AppColors.white, fontWeight: FontWeight.w400),
+          style: TextStyle(
+            color: AppColors.white,
+            fontWeight: FontWeight.w400,
+            fontSize: 20,
+          ),
         ),
         centerTitle: true,
       ),
@@ -77,15 +110,16 @@ class _AddReminderState extends State<AddReminder> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               ProfileImagePicker(
                 controller: imageController,
                 onImagePicked: () {
+                  // Update observable when user picks a new image
                   reminderCtrl.imagePath.value =
                       imageController.imagePath ?? '';
                 },
               ),
-              SizedBox(height: 25),
+              const SizedBox(height: 25),
 
               // Name
               Padding(
@@ -97,7 +131,7 @@ class _AddReminderState extends State<AddReminder> {
                   onChanged: (val) => reminderCtrl.name.value = val,
                 ),
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
 
               // Relationship
               Padding(
@@ -109,7 +143,7 @@ class _AddReminderState extends State<AddReminder> {
                   onChanged: (val) => reminderCtrl.relationship.value = val,
                 ),
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
 
               // Phone
               Padding(
@@ -121,7 +155,7 @@ class _AddReminderState extends State<AddReminder> {
                   onChanged: (val) => reminderCtrl.phone.value = val,
                 ),
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
 
               // Email
               Padding(
@@ -133,7 +167,7 @@ class _AddReminderState extends State<AddReminder> {
                   onChanged: (val) => reminderCtrl.email.value = val,
                 ),
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
 
               // Reminder Type
               Padding(
@@ -145,82 +179,72 @@ class _AddReminderState extends State<AddReminder> {
                   onChanged: (val) => reminderCtrl.reminderType.value = val,
                 ),
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
 
               // Date & Time
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: dateField(context),
-                  ),
-                  SizedBox(height: 12),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: timeField(context),
-                  ),
-                  SizedBox(height: 12),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: wishField(controller: reminderCtrl.wishController),
-                  ),
-
-                  SizedBox(height: 20),
-
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 50),
-                    child: CustomButton(
-                      label: widget.reminder == null ? "Add" : "Update",
-                      onTap: () {
-                        if (reminderCtrl.nameController.text.isEmpty ||
-                            reminderCtrl.relationshipController.text.isEmpty ||
-                            reminderCtrl.reminderTypeController.text.isEmpty ||
-                            reminderCtrl.dateController.text.isEmpty ||
-                            reminderCtrl.timeController.text.isEmpty ||
-                            reminderCtrl.wishController.text.isEmpty) {
-                          Get.snackbar(
-                            "Error",
-                            "Please fill all required fields",
-                            backgroundColor: AppColors.primary,
-                            colorText: AppColors.white,
-                          );
-                          return;
-                        }
-
-                        // Save obs values
-                        reminderCtrl.name.value =
-                            reminderCtrl.nameController.text;
-                        reminderCtrl.relationship.value =
-                            reminderCtrl.relationshipController.text;
-                        reminderCtrl.phone.value =
-                            reminderCtrl.phoneController.text;
-                        reminderCtrl.email.value =
-                            reminderCtrl.emailController.text;
-                        reminderCtrl.reminderType.value =
-                            reminderCtrl.reminderTypeController.text;
-                        reminderCtrl.date.value =
-                            reminderCtrl.dateController.text;
-                        reminderCtrl.time.value =
-                            reminderCtrl.timeController.text;
-                        reminderCtrl.wish.value =
-                            reminderCtrl.wishController.text;
-
-                        if (widget.reminder == null) {
-                          // Add new reminder
-                          reminderCtrl.addReminder();
-                        } else {
-                          // Update existing reminder
-                          reminderCtrl.updateReminder(widget.reminder!);
-                        }
-
-                        Get.back();
-                      },
-                    ),
-                  ),
-
-                  SizedBox(height: 20),
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: dateField(context),
               ),
+              const SizedBox(height: 12),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: timeField(context),
+              ),
+              const SizedBox(height: 12),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: wishField(controller: reminderCtrl.wishController),
+              ),
+
+              const SizedBox(height: 20),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50),
+                child: CustomButton(
+                  label: widget.reminder == null ? "Add" : "Update",
+                  onTap: () {
+                    if (reminderCtrl.nameController.text.isEmpty ||
+                        reminderCtrl.relationshipController.text.isEmpty ||
+                        reminderCtrl.reminderTypeController.text.isEmpty ||
+                        reminderCtrl.dateController.text.isEmpty ||
+                        reminderCtrl.timeController.text.isEmpty ||
+                        reminderCtrl.wishController.text.isEmpty) {
+                      Get.snackbar(
+                        "Error",
+                        "Please fill all required fields",
+                        backgroundColor: AppColors.primary,
+                        colorText: AppColors.white,
+                      );
+                      return;
+                    }
+
+                    // Save observable values
+                    reminderCtrl.name.value = reminderCtrl.nameController.text;
+                    reminderCtrl.relationship.value =
+                        reminderCtrl.relationshipController.text;
+                    reminderCtrl.phone.value =
+                        reminderCtrl.phoneController.text;
+                    reminderCtrl.email.value =
+                        reminderCtrl.emailController.text;
+                    reminderCtrl.reminderType.value =
+                        reminderCtrl.reminderTypeController.text;
+                    reminderCtrl.date.value = reminderCtrl.dateController.text;
+                    reminderCtrl.time.value = reminderCtrl.timeController.text;
+                    reminderCtrl.wish.value = reminderCtrl.wishController.text;
+
+                    if (widget.reminder == null) {
+                      reminderCtrl.addReminder();
+                    } else {
+                      reminderCtrl.updateReminder(widget.reminder!);
+                    }
+
+                    Get.back();
+                  },
+                ),
+              ),
+
+              const SizedBox(height: 20),
             ],
           ),
         ),

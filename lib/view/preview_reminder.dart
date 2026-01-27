@@ -39,7 +39,11 @@ class _PreviewReminderState extends State<PreviewReminder> {
         ),
         title: Text(
           "Preview Reminder",
-          style: TextStyle(color: AppColors.white, fontWeight: FontWeight.w400),
+          style: TextStyle(
+            color: AppColors.white,
+            fontWeight: FontWeight.w400,
+            fontSize: 20,
+          ),
         ),
         centerTitle: true,
       ),

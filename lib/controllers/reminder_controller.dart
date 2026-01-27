@@ -1,3 +1,4 @@
+import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:birthdaycounter/services/notification_service.dart';
 import 'package:birthdaycounter/models/reminder_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -151,17 +152,25 @@ class ReminderController extends GetxController {
         body: wishController.text, // or any message
         dateTime: scheduledDateTime,
       );
-
       Get.snackbar(
         "Error",
-        "Failed to update reminder",
+        "Something went wrong",
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+        icon: const Icon(Icons.error_outline, color: Colors.white),
       );
     } catch (e) {
       Get.snackbar(
         "Success",
         "Reminder updated successfully",
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: AppColors.primary,
+        colorText: AppColors.white,
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        borderRadius: 12,
+        icon: const Icon(Icons.check_circle_outline, color: Colors.white),
+        duration: const Duration(seconds: 2),
       );
     }
   }
@@ -181,12 +190,24 @@ class ReminderController extends GetxController {
         "Deleted",
         "${reminder.name} deleted successfully",
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: AppColors.primary,
+        colorText: AppColors.white,
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        borderRadius: 12,
+        icon: const Icon(Icons.check_circle_outline, color: Colors.white),
+        duration: const Duration(seconds: 2),
       );
     } catch (e) {
       Get.snackbar(
         "Error",
         "Failed to delete reminder",
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: AppColors.primary,
+        colorText: AppColors.white,
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        borderRadius: 12,
+        icon: const Icon(Icons.check_circle_outline, color: Colors.white),
+        duration: const Duration(seconds: 2),
       );
     }
   }

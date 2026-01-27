@@ -38,7 +38,11 @@ class _CelebritiesScreenState extends State<CelebritiesScreen> {
         ),
         title: Text(
           "Celebrities",
-          style: TextStyle(color: AppColors.white, fontWeight: FontWeight.w400),
+          style: TextStyle(
+            color: AppColors.white,
+            fontWeight: FontWeight.w400,
+            fontSize: 20,
+          ),
         ),
         centerTitle: true,
       ),
@@ -47,7 +51,7 @@ class _CelebritiesScreenState extends State<CelebritiesScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 7),
-        
+
             /// TOP CATEGORY CHIPS
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -56,7 +60,7 @@ class _CelebritiesScreenState extends State<CelebritiesScreen> {
                 child: Row(
                   children: chips.map((chip) {
                     bool isSelected = selectedChip == chip;
-        
+
                     return Padding(
                       padding: EdgeInsets.only(right: 8),
                       child: GestureDetector(
@@ -69,6 +73,7 @@ class _CelebritiesScreenState extends State<CelebritiesScreen> {
                           label: Text(
                             chip,
                             style: TextStyle(
+                              fontSize: 12,
                               color: isSelected ? Colors.white : AppColors.grey,
                             ),
                           ),
@@ -77,7 +82,9 @@ class _CelebritiesScreenState extends State<CelebritiesScreen> {
                               : Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
-                            side: BorderSide(color: AppColors.grey.withOpacity(0.2)),
+                            side: BorderSide(
+                              color: AppColors.grey.withOpacity(0.2),
+                            ),
                           ),
                         ),
                       ),
@@ -86,9 +93,9 @@ class _CelebritiesScreenState extends State<CelebritiesScreen> {
                 ),
               ),
             ),
-        
+
             SizedBox(height: 5),
-        
+
             /// SEARCH + FAVORITE CHIPS
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15),
@@ -103,13 +110,13 @@ class _CelebritiesScreenState extends State<CelebritiesScreen> {
                   ),
 
                   SizedBox(height: 10),
-        
+
                   Center(
                     child: Wrap(
                       spacing: 20,
                       children: chip2.map((chip) {
                         bool isSelected = selectedChip2 == chip;
-        
+
                         return GestureDetector(
                           onTap: () {
                             setState(() {
@@ -120,7 +127,9 @@ class _CelebritiesScreenState extends State<CelebritiesScreen> {
                             label: Text(
                               chip,
                               style: TextStyle(
-                                color: isSelected ? Colors.white : AppColors.grey,
+                                color: isSelected
+                                    ? Colors.white
+                                    : AppColors.grey,
                               ),
                             ),
                             backgroundColor: isSelected
@@ -128,7 +137,9 @@ class _CelebritiesScreenState extends State<CelebritiesScreen> {
                                 : Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
-                              side: BorderSide(color: AppColors.grey.withOpacity(0.2)),
+                              side: BorderSide(
+                                color: AppColors.grey.withOpacity(0.2),
+                              ),
                             ),
                           ),
                         );
@@ -138,9 +149,9 @@ class _CelebritiesScreenState extends State<CelebritiesScreen> {
                 ],
               ),
             ),
-        
+
             SizedBox(height: 7),
-        
+
             /// LISTVIEW Bulder
             Expanded(
               child: ListView.builder(

@@ -122,6 +122,20 @@ class CustomDrawer extends StatelessWidget {
                 child: Divider(),
               ),
               ListTile(
+                leading: Icon(Icons.auto_awesome, color: AppColors.primary),
+                title: Text(
+                  "wishes",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                onTap: () {
+                  Get.toNamed(AppRoutesName.wishesScreen);
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Divider(),
+              ),
+              ListTile(
                 leading: Icon(Icons.star, color: AppColors.primary),
                 title: Text(
                   "Rate Now",

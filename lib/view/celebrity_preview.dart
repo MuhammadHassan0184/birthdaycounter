@@ -30,7 +30,11 @@ class _CelebrityPreviewState extends State<CelebrityPreview> {
         ),
         title: Text(
           "Celebrity Preview",
-          style: TextStyle(color: AppColors.white, fontWeight: FontWeight.w400),
+          style: TextStyle(
+            color: AppColors.white,
+            fontWeight: FontWeight.w400,
+            fontSize: 20,
+          ),
         ),
         centerTitle: true,
       ),
@@ -59,10 +63,13 @@ class _CelebrityPreviewState extends State<CelebrityPreview> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ProfileImagePicker(controller: imageController, onImagePicked: () {  },),
-          
+                    ProfileImagePicker(
+                      controller: imageController,
+                      onImagePicked: () {},
+                    ),
+
                     SizedBox(width: 12),
-          
+
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -77,16 +84,16 @@ class _CelebrityPreviewState extends State<CelebrityPreview> {
                             ),
                             softWrap: true, // allows multi-line
                           ),
-          
+
                           SizedBox(height: 4),
-          
+
                           Text(
                             "10 days Remaining",
                             style: TextStyle(fontSize: 12),
                           ),
-          
+
                           SizedBox(height: 10),
-          
+
                           Chip(
                             materialTapTargetSize:
                                 MaterialTapTargetSize.shrinkWrap,
@@ -154,7 +161,10 @@ class _CelebrityPreviewState extends State<CelebrityPreview> {
                     SizedBox(height: 20),
                     Text(
                       "About",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 17,
+                      ),
                     ),
                     SizedBox(height: 7),
                     Text(

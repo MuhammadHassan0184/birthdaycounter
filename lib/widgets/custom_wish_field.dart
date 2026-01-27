@@ -1,12 +1,12 @@
 // ignore_for_file: unnecessary_import, deprecated_member_use
 
-import 'package:birthdaycounter/config/Colors/colors.dart';
-import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/controllers/reminder_controller.dart';
+import 'package:birthdaycounter/config/Routes/routes_name.dart';
+import 'package:birthdaycounter/config/Colors/colors.dart';
+import 'package:get/get_core/get_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/get_core.dart';
 
 // This should be outside any widget, accessible globally
 final TextEditingController wishController = TextEditingController();
@@ -33,12 +33,15 @@ Widget wishField({required TextEditingController controller}) {
             colorFilter: ColorFilter.mode(AppColors.primary, BlendMode.srcIn),
           ),
         ),
-        suffixIcon: IconButton(
-          onPressed: () {
-            Get.toNamed(AppRoutesName.wishesScreen);
-          },
-          icon: Icon(Icons.add),
-        ),
+        suffixIcon:
+            IconButton(
+              onPressed: () {
+                Get.toNamed(AppRoutesName.wishesScreen);
+              },
+              icon: Icon(Icons.add),
+            ),
+            
+
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(

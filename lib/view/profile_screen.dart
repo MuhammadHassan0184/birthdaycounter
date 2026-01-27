@@ -97,7 +97,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         title: Text(
           "Profile",
-          style: TextStyle(color: AppColors.white, fontWeight: FontWeight.w400),
+          style: TextStyle(
+            color: AppColors.white,
+            fontWeight: FontWeight.w400,
+            fontSize: 20,
+          ),
         ),
         centerTitle: true,
       ),
