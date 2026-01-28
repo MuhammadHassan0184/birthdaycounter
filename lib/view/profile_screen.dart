@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/controllers/image_picker_controller.dart';
@@ -78,9 +80,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         await user.updatePassword(passwordController.text.trim());
       }
 
-      Get.snackbar('Success', 'Profile updated successfully');
+      showAppSnackbar(
+        title: 'Success',
+        message: 'Profile updated successfully',
+      );
     } catch (e) {
-      Get.snackbar('Error', e.toString());
+      showAppSnackbar(title: 'Error', message: e.toString(), isError: true);
     }
   }
 
@@ -170,4 +175,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
+}
+
+void showAppSnackbar({
+  required String title,
+  required String message,
+  bool isError = false,
+}) {
+  Get.snackbar(
+    title,
+    message,
+    snackPosition: SnackPosition.BOTTOM,
+    margin: const EdgeInsets.all(15),
+    borderRadius: 14,
+    backgroundColor: isError ? Colors.red.withOpacity(0.95) : AppColors.primary,
+    colorText: AppColors.white,
+    icon: Icon(
+      isError ? Icons.error_outline : Icons.check_circle_outline,
+      color: AppColors.white,
+    ),
+    shouldIconPulse: false,
+    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+    duration: const Duration(seconds: 3),
+    boxShadows: [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.2),
+        blurRadius: 8,
+        offset: const Offset(0, 4),
+      ),
+    ],
+    titleText: Text(
+      title,
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 16,
+        color: Colors.white,
+      ),
+    ),
+    messageText: Text(
+      message,
+      style: const TextStyle(fontSize: 14, color: Colors.white),
+    ),
+  );
 }

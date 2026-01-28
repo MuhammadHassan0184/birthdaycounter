@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, unnecessary_import, use_build_context_synchronously
+// ignore_for_file: deprecated_member_use, unnecessary_import, use_build_context_synchronously, avoid_print
 
 import 'package:birthdaycounter/Services/auth_service.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
@@ -8,6 +8,7 @@ import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -58,20 +59,37 @@ class CustomDrawer extends StatelessWidget {
                       stops: [0.75, 2],
                     ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Unlock to Pro",
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Unlock to Pro",
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                          Text(
+                            "Enjoy all benefits without\nany restrictions",
+                            style: TextStyle(color: AppColors.white),
+                          ),
+                        ],
                       ),
-                      Text(
-                        "Enjoy all benefits without\n any restrictions",
-                        style: TextStyle(color: AppColors.white),
+
+                      Container(
+                        width: 42,
+                        height: 42,
+                        margin: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: AppColors.white,
+                          shape: BoxShape.circle,
+                          border: Border.all(color: AppColors.yellow, width: 2),
+                        ),
+                        child: Center(child: Image.asset("assets/king.png")),
                       ),
                     ],
                   ),
@@ -187,12 +205,25 @@ class CustomDrawer extends StatelessWidget {
                     "assets/moreapp.svg",
                     color: AppColors.primary,
                   ),
-                  title: Text(
+                  title: const Text(
                     "More Apps",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  onTap: () {},
+                  onTap: () async {
+                    const url =
+                        'https://play.google.com/store/apps/developer?id=samz+creation';
+                    if (await canLaunchUrl(Uri.parse(url))) {
+                      await launchUrl(
+                        Uri.parse(url),
+                        mode: LaunchMode.externalApplication,
+                      );
+                    } else {
+                      // handle error if URL can't be opened
+                      print('Could not launch $url');
+                    }
+                  },
                 ),
+
                 SizedBox(height: 8),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),

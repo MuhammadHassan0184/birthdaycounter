@@ -429,7 +429,7 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ),
                     ),
-                    const Expanded(child: Divider(thickness: 1)),
+                    Expanded(child: Divider(thickness: 1)),
                   ],
                 ),
               ),

@@ -26,6 +26,7 @@ dependencies:
   flutter_image_compress: ^2.3.0
   flutter_local_notifications: ^19.5.0
   timezone: ^0.10.1
+  url_launcher: ^6.2.5
 
 dev_dependencies:
   flutter_test:

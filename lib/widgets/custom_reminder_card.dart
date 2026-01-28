@@ -44,7 +44,7 @@ class CustomReminderCard extends StatelessWidget {
               ),
               child: reminder.imageUrl != null && reminder.imageUrl!.isNotEmpty
                   ? Image.file(File(reminder.imageUrl!), fit: BoxFit.cover)
-                  : Image.asset("assets/imageicon.png", fit: BoxFit.cover),
+                  : Image.asset("assets/imagei.png", fit: BoxFit.cover),
             ),
             const SizedBox(width: 10),
             Expanded(

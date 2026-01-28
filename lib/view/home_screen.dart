@@ -8,7 +8,6 @@
 // import 'package:birthdaycounter/models/reminder_model.dart';
 // import 'package:birthdaycounter/widgets/custom_drawer.dart';
 // import 'package:birthdaycounter/config/Colors/colors.dart';
-// import 'package:get/instance_manager.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_svg/svg.dart';
 // import 'package:get/get.dart';
@@ -22,11 +21,9 @@
 
 // class _HomeScreenState extends State<HomeScreen> {
 //   final ReminderController reminderCtrl = Get.put(ReminderController());
-//   String selectedChip = "All"; // default selected
+
+//   String selectedChip = "All"; // top chips selection
 //   List<String> chips = ["All", "Birthday", "Engagement", "Anniversary"];
-
-//   final ReminderService reminderService = ReminderService();
-
 //   String searchText = "";
 
 //   @override
@@ -36,13 +33,10 @@
 //       drawer: CustomDrawer(),
 //       appBar: AppBar(
 //         backgroundColor: AppColors.primary,
-
 //         leading: Builder(
 //           builder: (context) {
 //             return GestureDetector(
-//               onTap: () {
-//                 Scaffold.of(context).openDrawer();
-//               },
+//               onTap: () => Scaffold.of(context).openDrawer(),
 //               child: Container(
 //                 width: 42,
 //                 height: 42,
@@ -59,7 +53,6 @@
 //             );
 //           },
 //         ),
-
 //         title: Text(
 //           "Birthday Reminder",
 //           style: TextStyle(
@@ -69,7 +62,6 @@
 //           ),
 //         ),
 //         centerTitle: true,
-
 //         actions: [
 //           Container(
 //             width: 42,
@@ -84,11 +76,10 @@
 //           ),
 //         ],
 //       ),
-
 //       body: Column(
 //         children: [
 //           SizedBox(height: 5),
-//           // chips
+//           // Top Chips
 //           SingleChildScrollView(
 //             scrollDirection: Axis.horizontal,
 //             child: Padding(
@@ -130,7 +121,7 @@
 //             ),
 //           ),
 //           SizedBox(height: 5),
-//           // searchBar
+//           // Search bar and filter icon
 //           Padding(
 //             padding: const EdgeInsets.symmetric(horizontal: 15),
 //             child: Row(
@@ -144,18 +135,16 @@
 //                     },
 //                   ),
 //                 ),
-
 //                 IconButton(
 //                   onPressed: () {
-//                     // your action here
+//                     _showFilterBottomSheet(context);
 //                   },
 //                   icon: SvgPicture.asset(
-//                     "assets/filtericon.svg", //  your SVG file
+//                     "assets/filtericon.svg",
 //                     width: 30,
 //                     height: 30,
 //                     colorFilter: ColorFilter.mode(
-//                       AppColors
-//                           .black, // optional, applies color to monochrome SVG
+//                       AppColors.black,
 //                       BlendMode.srcIn,
 //                     ),
 //                   ),
@@ -164,7 +153,7 @@
 //             ),
 //           ),
 //           SizedBox(height: 7),
-//           // remindercard
+//           // Reminder Cards
 //           Expanded(
 //             child: StreamBuilder<List<Reminder>>(
 //               stream: ReminderService().getReminders(),
@@ -176,21 +165,21 @@
 //                 if (!snapshot.hasData || snapshot.data!.isEmpty) {
 //                   return Center(child: Image.asset("assets/fileimg.png"));
 //                 }
-//                 // Center(
-//                 //   child: SvgPicture.asset(
-//                 //     "assets/empty.svg",
-//                 //     width: 200, // optional
-//                 //     height: 200, // optional
-//                 //   ),
-//                 // );
-//                 // final reminders = snapshot.data!;
+
 //                 final reminders = snapshot.data!.where((reminder) {
 //                   final name = reminder.name.toLowerCase();
 //                   final type = reminder.reminderType.toLowerCase();
 
-//                   // 🔍 search by name OR type
-//                   return name.contains(searchText) || type.contains(searchText);
+//                   final searchMatch =
+//                       name.contains(searchText) || type.contains(searchText);
+
+//                   final filterMatch =
+//                       selectedChip == "All" ||
+//                       selectedChip == reminder.reminderType;
+
+//                   return searchMatch && filterMatch;
 //                 }).toList();
+
 //                 if (reminders.isEmpty) {
 //                   return Center(
 //                     child: Text(
@@ -213,51 +202,96 @@
 //               },
 //             ),
 //           ),
-
-//           SizedBox(height: 5),
-//           // Expanded(child: Center(child: Image.asset("assets/fileimg.png")))
 //         ],
 //       ),
-//       floatingActionButton: Container(
-//         width: 60, // adjust size
-//         height: 60,
-//         decoration: BoxDecoration(
-//           shape: BoxShape.circle,
-//           gradient: LinearGradient(
-//             colors: [
-//               Color(0xFF9B8CE6),
-//               AppColors.primary,
-//             ], // your gradient colors
-//             begin: Alignment.topLeft,
-//             end: Alignment.bottomRight,
-//           ),
-//           boxShadow: [
-//             BoxShadow(
-//               color: Colors.black26,
-//               blurRadius: 6,
-//               offset: Offset(0, 3),
-//             ),
-//           ],
-//         ),
-//         child: RawMaterialButton(
-//           shape: CircleBorder(),
-//           onPressed: () {
-//             Get.toNamed(AppRoutesName.addReminder);
-//           },
-//           child: Icon(Icons.add, color: AppColors.white, size: 30),
-//         ),
+//   floatingActionButton: Container(
+//     width: 60,
+//     height: 60,
+//     decoration: BoxDecoration(
+//       shape: BoxShape.circle,
+//       gradient: LinearGradient(
+//         colors: [Color(0xFF9B8CE6), AppColors.primary],
+//         begin: Alignment.topLeft,
+//         end: Alignment.bottomRight,
 //       ),
+//       boxShadow: [
+//         BoxShadow(
+//           color: Colors.black26,
+//           blurRadius: 6,
+//           offset: Offset(0, 3),
+//         ),
+//       ],
+//     ),
+//     child: RawMaterialButton(
+//       shape: CircleBorder(),
+//       onPressed: () {
+//         Get.toNamed(AppRoutesName.addReminder);
+//       },
+//       child: Icon(Icons.add, color: AppColors.white, size: 30),
+//     ),
+//   ),
+// );
+//   }
+
+// ignore_for_file: deprecated_member_use
+
+//   void _showFilterBottomSheet(BuildContext context) {
+//     showModalBottomSheet(
+//       context: context,
+//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+//       builder: (context) {
+//         return Padding(
+//           padding: const EdgeInsets.all(15),
+//           child: Column(
+//             mainAxisSize: MainAxisSize.min,
+//             children: [
+//               Text(
+//                 "Filter by Type",
+//                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+//               ),
+//               SizedBox(height: 15),
+//               Wrap(
+//                 spacing: 10,
+//                 children: chips.map((type) {
+//                   final isSelected = selectedChip == type;
+//                   return FilterChip(
+//                     label: Text(type),
+//                     selected: isSelected,
+//                     onSelected: (selected) {
+//                       setState(() {
+//                         selectedChip = selected ? type : selectedChip;
+//                       });
+//                     },
+//                   );
+//                 }).toList(),
+//               ),
+//               SizedBox(height: 20),
+//               ElevatedButton(
+//                 style: ElevatedButton.styleFrom(
+//                   backgroundColor: AppColors.primary,
+//                   shape: RoundedRectangleBorder(
+//                     borderRadius: BorderRadius.circular(30),
+//                   ),
+//                   minimumSize: Size(double.infinity, 45),
+//                 ),
+//                 onPressed: () => Navigator.pop(context),
+//                 child: Text(
+//                   "Apply Filter",
+//                   style: TextStyle(color: AppColors.white),
+//                 ),
+//               ),
+//               SizedBox(height: 10),
+//             ],
+//           ),
+//         );
+//       },
 //     );
 //   }
 // }
-// ignore_for_file: unnecessary_import, deprecated_member_use
-
+import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/controllers/reminder_controller.dart';
 import 'package:birthdaycounter/widgets/custom_reminder_card.dart';
-import 'package:birthdaycounter/Services/reminder_service.dart';
 import 'package:birthdaycounter/widgets/custom_search_bar.dart';
-import 'package:birthdaycounter/config/Routes/routes_name.dart';
-import 'package:birthdaycounter/models/reminder_model.dart';
 import 'package:birthdaycounter/widgets/custom_drawer.dart';
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:flutter/material.dart';
@@ -275,14 +309,16 @@ class _HomeScreenState extends State<HomeScreen> {
   final ReminderController reminderCtrl = Get.put(ReminderController());
 
   String selectedChip = "All"; // top chips selection
+  String selectedFilter = "All"; // bottom sheet filter selection
   List<String> chips = ["All", "Birthday", "Engagement", "Anniversary"];
+  List<String> filters = ["All", "Today", "Upcoming Week", "Upcoming Month"];
   String searchText = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      drawer: CustomDrawer(),
+      drawer: const CustomDrawer(),
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         leading: Builder(
@@ -330,7 +366,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: [
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           // Top Chips
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -355,8 +391,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: isSelected ? Colors.white : AppColors.grey,
                           ),
                         ),
-                        backgroundColor:
-                            isSelected ? AppColors.primary : Colors.white,
+                        backgroundColor: isSelected
+                            ? AppColors.primary
+                            : Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                           side: BorderSide(
@@ -371,7 +408,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           // Search bar and filter icon
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -403,54 +440,66 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-          SizedBox(height: 7),
+          const SizedBox(height: 7),
           // Reminder Cards
           Expanded(
-            child: StreamBuilder<List<Reminder>>(
-              stream: ReminderService().getReminders(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                }
+            child: Obx(() {
+              // Start from filteredReminders as base
+              List reminders = List.from(reminderCtrl.filteredReminders);
 
-                if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Center(child: Image.asset("assets/fileimg.png"));
-                }
+              // Apply top chip filter
+              if (selectedChip != "All") {
+                reminders = reminders
+                    .where((r) => r.reminderType == selectedChip)
+                    .toList();
+              }
 
-                final reminders = snapshot.data!.where((reminder) {
-                  final name = reminder.name.toLowerCase();
-                  final type = reminder.reminderType.toLowerCase();
-
-                  final searchMatch =
-                      name.contains(searchText) || type.contains(searchText);
-
-                  final filterMatch =
-                      selectedChip == "All" || selectedChip == reminder.reminderType;
-
-                  return searchMatch && filterMatch;
+              // Apply bottom sheet filter
+              final now = DateTime.now();
+              if (selectedFilter == "Today") {
+                reminders = reminders.where((r) {
+                  final d = reminderCtrl.combineDateTime(r.date, r.time);
+                  return d.year == now.year &&
+                      d.month == now.month &&
+                      d.day == now.day;
                 }).toList();
+              } else if (selectedFilter == "Upcoming Week") {
+                final start = now.add(Duration(days: 1));
+                final end = now.add(Duration(days: 7));
+                reminders = reminders.where((r) {
+                  final d = reminderCtrl.combineDateTime(r.date, r.time);
+                  return d.isAfter(start.subtract(Duration(seconds: 1))) &&
+                      d.isBefore(end.add(Duration(days: 1)));
+                }).toList();
+              } else if (selectedFilter == "Upcoming Month") {
+                final endOfMonth = DateTime(now.year, now.month + 1, 0);
+                reminders = reminders.where((r) {
+                  final d = reminderCtrl.combineDateTime(r.date, r.time);
+                  return d.isAfter(now.subtract(Duration(seconds: 1))) &&
+                      d.isBefore(endOfMonth.add(Duration(days: 1)));
+                }).toList();
+              }
 
-                if (reminders.isEmpty) {
-                  return Center(
-                    child: Text(
-                      "No result found",
-                      style: TextStyle(
-                        color: AppColors.grey,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 17,
-                      ),
-                    ),
-                  );
-                }
+              // Apply search filter
+              if (searchText.isNotEmpty) {
+                reminders = reminders.where((r) {
+                  final name = r.name.toLowerCase();
+                  final type = r.reminderType.toLowerCase();
+                  return name.contains(searchText) || type.contains(searchText);
+                }).toList();
+              }
 
-                return ListView.builder(
-                  itemCount: reminders.length,
-                  itemBuilder: (context, index) {
-                    return CustomReminderCard(reminder: reminders[index]);
-                  },
-                );
-              },
-            ),
+              if (reminders.isEmpty) {
+                return Center(child: Image.asset("assets/fileimg.png"));
+              }
+
+              return ListView.builder(
+                itemCount: reminders.length,
+                itemBuilder: (context, index) {
+                  return CustomReminderCard(reminder: reminders[index]);
+                },
+              );
+            }),
           ),
         ],
       ),
@@ -465,7 +514,11 @@ class _HomeScreenState extends State<HomeScreen> {
             end: Alignment.bottomRight,
           ),
           boxShadow: [
-            BoxShadow(color: Colors.black26, blurRadius: 6, offset: Offset(0, 3))
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 6,
+              offset: Offset(0, 3),
+            ),
           ],
         ),
         child: RawMaterialButton(
@@ -489,37 +542,80 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text("Filter by Type",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-              SizedBox(height: 15),
-              Wrap(
-                spacing: 10,
-                children: chips.map((type) {
-                  final isSelected = selectedChip == type;
-                  return FilterChip(
-                    label: Text(type),
-                    selected: isSelected,
-                    onSelected: (selected) {
-                      setState(() {
-                        selectedChip = selected ? type : selectedChip;
-                      });
-                    },
-                  );
-                }).toList(),
+              const Text(
+                "Filter Reminders",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
-                  minimumSize: Size(double.infinity, 45),
+              const SizedBox(height: 10),
+              // Vertical list
+              Flexible(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: filters.length,
+                  itemBuilder: (context, index) {
+                    String filter = filters[index];
+                    bool isSelected = selectedFilter == filter;
+
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedFilter = filter;
+                          });
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 12,
+                            horizontal: 15,
+                          ),
+                          decoration: BoxDecoration(
+                            color: isSelected
+                                ? AppColors.primary
+                                : AppColors.primary.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: AppColors.primary,
+                              width: 1.5,
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                filter == "Today"
+                                    ? Icons.today
+                                    : filter == "Upcoming Week"
+                                    ? Icons.date_range
+                                    : filter == "Upcoming Month"
+                                    ? Icons.calendar_month
+                                    : Icons.clear_all,
+                                size: 24,
+                                color: isSelected
+                                    ? Colors.white
+                                    : AppColors.primary,
+                              ),
+                              SizedBox(width: 15),
+                              Expanded(
+                                child: Text(
+                                  filter,
+                                  style: TextStyle(
+                                    color: isSelected
+                                        ? Colors.white
+                                        : AppColors.primary,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
-                onPressed: () => Navigator.pop(context),
-                child:
-                    Text("Apply Filter", style: TextStyle(color: AppColors.white)),
               ),
-              SizedBox(height: 10),
             ],
           ),
         );

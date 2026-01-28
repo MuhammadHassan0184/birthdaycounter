@@ -9,41 +9,43 @@ class Onboarding3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                Image.asset(
-                  "assets/top3.png",
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-                Container(
-                  width: 300,
-                  height: 270,
-                  child: SizedBox(
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  Image.asset(
+                    "assets/top3.png",
                     width: double.infinity,
-                    height: 300, // specify height
-                    child: SvgPicture.asset(
-                      "assets/onboard3.svg",
-                      fit: BoxFit.contain,
+                    fit: BoxFit.cover,
+                  ),
+                  Container(
+                    width: 300,
+                    height: 270,
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 300, // specify height
+                      child: SvgPicture.asset(
+                        "assets/onboard3.svg",
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
-                ),
-
-                SizedBox(height: 10),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: Text(
-                    "Never forget a birthday that matters.",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    textAlign: TextAlign.center,
+        
+                  SizedBox(height: 10),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: Text(
+                      "Never forget a birthday that matters.",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

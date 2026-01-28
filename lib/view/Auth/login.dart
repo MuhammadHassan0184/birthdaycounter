@@ -3,7 +3,9 @@
 import 'package:birthdaycounter/Services/auth_service.dart';
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
+import 'package:birthdaycounter/controllers/AuthControllers/forgot_password_controller.dart';
 import 'package:birthdaycounter/controllers/AuthControllers/login_controller.dart';
+import 'package:birthdaycounter/view/Auth/forgot_password_ui.dart';
 import 'package:birthdaycounter/view/home_screen.dart';
 import 'package:birthdaycounter/widgets/custom_button.dart';
 import 'package:birthdaycounter/widgets/custom_form_field.dart';
@@ -21,6 +23,8 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final LoginController _loginController = LoginController();
+  final ForgotPasswordController forgotPasswordController =
+      ForgotPasswordController();
 
   @override
   Widget build(BuildContext context) {
@@ -77,8 +81,17 @@ class _LoginState extends State<Login> {
                 controller: _loginController.passwordController,
               ),
             ),
+            SizedBox(height: 10),
 
-            SizedBox(height: 25),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: ForgotPasswordText(
+                emailController:
+                    _loginController.emailController, // or loginController
+              ),
+            ),
+
+            SizedBox(height: 15),
 
             /// LOGIN BUTTON
             CustomButton(
