@@ -293,6 +293,7 @@ class CustomDrawer extends StatelessWidget {
                         );
                       }
                     },
+                    title: '',
                   ),
                 ),
 

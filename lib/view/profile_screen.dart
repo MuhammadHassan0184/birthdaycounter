@@ -167,7 +167,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50),
-                child: CustomButton(label: "Save", onTap: _updateProfile),
+                child: CustomButton(
+                  label: "Save",
+                  onTap: _updateProfile,
+                  title: '',
+                ),
               ),
             ],
           ),

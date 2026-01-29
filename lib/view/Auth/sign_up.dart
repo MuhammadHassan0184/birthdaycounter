@@ -409,7 +409,7 @@ class _SignUpState extends State<SignUp> {
                       },
                     ),
                   );
-                },
+                }, title: '',
               ),
 
               const SizedBox(height: 25),

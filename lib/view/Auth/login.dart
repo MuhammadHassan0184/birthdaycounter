@@ -1,15 +1,14 @@
 // ignore_for_file: unnecessary_import, use_build_context_synchronously
 
-import 'package:birthdaycounter/Services/auth_service.dart';
-import 'package:birthdaycounter/config/Colors/colors.dart';
-import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/controllers/AuthControllers/forgot_password_controller.dart';
 import 'package:birthdaycounter/controllers/AuthControllers/login_controller.dart';
-import 'package:birthdaycounter/view/Auth/forgot_password_ui.dart';
-import 'package:birthdaycounter/view/home_screen.dart';
-import 'package:birthdaycounter/widgets/custom_button.dart';
-import 'package:birthdaycounter/widgets/custom_form_field.dart';
 import 'package:birthdaycounter/widgets/custom_google_login.dart';
+import 'package:birthdaycounter/config/Routes/routes_name.dart';
+import 'package:birthdaycounter/widgets/custom_form_field.dart';
+import 'package:birthdaycounter/Services/auth_service.dart';
+import 'package:birthdaycounter/widgets/custom_button.dart';
+import 'package:birthdaycounter/config/Colors/colors.dart';
+import 'package:birthdaycounter/view/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -83,20 +82,39 @@ class _LoginState extends State<Login> {
             ),
             SizedBox(height: 10),
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: ForgotPasswordText(
-                emailController:
-                    _loginController.emailController, // or loginController
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 20),
+            //   child: ForgotPasswordScreen(
+            //     emailController:
+            //         _loginController.emailController, // or loginController
+            //   ),
+            // ),
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(AppRoutesName.forgotPasswordScreen);
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      "Forgot Password?",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        color: AppColors.grey,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-
             SizedBox(height: 15),
 
             /// LOGIN BUTTON
             CustomButton(
               label: "Login",
-              onTap: () => _loginController.login(context),
+              onTap: () => _loginController.login(context), title: '',
             ),
 
             SizedBox(height: 25),

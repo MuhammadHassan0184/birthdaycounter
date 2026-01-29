@@ -1,4 +1,5 @@
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
+import 'package:birthdaycounter/view/Auth/forgot_password_screen.dart';
 import 'package:birthdaycounter/view/Auth/login.dart';
 import 'package:birthdaycounter/view/Auth/sign_up.dart';
 import 'package:birthdaycounter/view/Onboarding/slider/OnboardingSlider.dart';
@@ -30,6 +31,10 @@ class AppRoutes {
     GetPage(
       name: AppRoutesName.login,
       page: () => Login(),
+    ),
+    GetPage(
+      name: AppRoutesName.forgotPasswordScreen,
+      page: () => ForgotPasswordScreen(),
     ),
     GetPage(
       name: AppRoutesName.homeScreen,

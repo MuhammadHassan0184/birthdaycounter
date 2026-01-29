@@ -1,33 +1,90 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../config/Colors/colors.dart';
 
-class ForgotPasswordController {
-  // Optional: you can pass context if you want to show SnackBars here
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+class ForgotPasswordController extends GetxController {
+  TextEditingController emailController = TextEditingController();
+  RxBool loading = false.obs;
 
-  Future<void> sendPasswordResetEmail({
-    required String email,
-    required BuildContext context,
-  }) async {
+  Future<void> sendResetLink() async {
+    if (emailController.text.trim().isEmpty) {
+      Get.snackbar("Error", "Please enter your email");
+      return;
+    }
+
     try {
-      if (email.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Please enter your email")),
-        );
-        return;
-      }
+      loading.value = true;
 
-      await _auth.sendPasswordResetEmail(email: email.trim());
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Password reset email sent to $email")),
+      await FirebaseAuth.instance.sendPasswordResetEmail(
+        email: emailController.text.trim(),
       );
-    } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("Error: ${e.toString()}")));
+
+      loading.value = false;
+
+      // ✅ SUCCESS POPUP
+      Get.dialog(
+        Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.mark_email_read, color: AppColors.primary, size: 60),
+
+                SizedBox(height: 15),
+
+                Text(
+                  "Check your email",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+
+                SizedBox(height: 8),
+
+                Text(
+                  "We have sent a password reset link to your email. "
+                  "Please check your inbox or spam folder.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: AppColors.grey),
+                ),
+
+                SizedBox(height: 20),
+
+                ElevatedButton(
+                  onPressed: () {
+                    Get.back(); // close dialog
+                    Get.back(); // back to login
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                    child: Text(
+                      "OK",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        barrierDismissible: false,
+      );
+    } on FirebaseAuthException catch (e) {
+      loading.value = false;
+
+      Get.snackbar("Error", e.message ?? "Something went wrong");
     }
   }
 }

@@ -278,7 +278,7 @@ class _AddReminderState extends State<AddReminder> {
                     }
 
                     Get.back();
-                  },
+                  }, title: '',
                 ),
               ),
 
