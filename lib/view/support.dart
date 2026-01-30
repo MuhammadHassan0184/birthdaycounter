@@ -1,75 +1,67 @@
 // ignore_for_file: deprecated_member_use
 
-import 'dart:convert';
-import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/widgets/custom_button.dart';
+import 'package:birthdaycounter/config/Colors/colors.dart';
+import 'package:mailer/smtp_server.dart';
 import 'package:flutter/material.dart';
+import 'package:mailer/mailer.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 
 class Support extends StatelessWidget {
   Support({super.key});
 
+  // Controllers
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController messageController = TextEditingController();
 
+  // ================= SEND EMAIL USING SMTP =================
   Future<void> sendSupportEmail() async {
-    const serviceId = 'YOUR_SERVICE_ID';
-    const templateId = 'YOUR_TEMPLATE_ID';
-    const publicKey = 'YOUR_PUBLIC_KEY';
+    final String username = 'your_email@gmail.com'; // sender email
+    final String password = 'your_app_password'; // Gmail App Password
 
-    final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
+    final smtpServer = gmail(username, password);
+
+    final message = Message()
+      ..from = Address(username, 'Support App')
+      ..recipients.add('info@thewebconcept.com') // your support email
+      ..subject = 'Support Message'
+      ..text =
+          '''
+Name: ${nameController.text}
+Email: ${emailController.text}
+
+Message:
+${messageController.text}
+''';
 
     try {
-      final response = await http.post(
-        url,
-        headers: {
-          'origin': 'http://localhost',
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode({
-          'service_id': serviceId,
-          'template_id': templateId,
-          'user_id': publicKey,
-          'template_params': {
-            'user_name': nameController.text,
-            'user_email': emailController.text,
-            'message': messageController.text,
-          },
-        }),
+      await send(message, smtpServer);
+      Get.snackbar(
+        "Success",
+        "Message sent successfully",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
       );
 
-      if (response.statusCode == 200) {
-        Get.snackbar(
-          "Success",
-          "Your message has been sent",
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
-        );
-
-        nameController.clear();
-        emailController.clear();
-        messageController.clear();
-      } else {
-        Get.snackbar(
-          "Error",
-          "Failed to send message",
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
-      }
-    } catch (e) {
+      nameController.clear();
+      emailController.clear();
+      messageController.clear();
+    } on MailerException catch (e) {
       Get.snackbar(
         "Error",
-        "Something went wrong",
+        "Message failed to send: ${e.toString()}",
+        snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,
         colorText: Colors.white,
+        duration: const Duration(seconds: 6),
       );
     }
   }
 
+  // ================= INPUT DECORATION =================
   InputDecoration _inputDecoration(String hint) {
     return InputDecoration(
       hintText: hint,
@@ -95,6 +87,7 @@ class Support extends StatelessWidget {
     );
   }
 
+  // ================= UI =================
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,6 +112,7 @@ class Support extends StatelessWidget {
           children: [
             const SizedBox(height: 20),
 
+            // Name
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
@@ -129,6 +123,7 @@ class Support extends StatelessWidget {
 
             const SizedBox(height: 15),
 
+            // Email
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
@@ -140,6 +135,7 @@ class Support extends StatelessWidget {
 
             const SizedBox(height: 15),
 
+            // Message (MULTILINE)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
@@ -151,6 +147,7 @@ class Support extends StatelessWidget {
 
             const SizedBox(height: 25),
 
+            // Send Button
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),
               child: CustomButton(
@@ -163,6 +160,7 @@ class Support extends StatelessWidget {
                     Get.snackbar(
                       "Error",
                       "All fields are required",
+                      snackPosition: SnackPosition.BOTTOM,
                       backgroundColor: Colors.red,
                       colorText: Colors.white,
                     );
@@ -172,7 +170,6 @@ class Support extends StatelessWidget {
                 },
               ),
             ),
-
             const SizedBox(height: 30),
           ],
         ),
