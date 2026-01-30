@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import '../../config/Colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../config/Colors/colors.dart';
 
 class ForgotPasswordController extends GetxController {
   TextEditingController emailController = TextEditingController();

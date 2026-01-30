@@ -8,6 +8,7 @@ import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -194,7 +195,13 @@ class CustomDrawer extends StatelessWidget {
                     "Share",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  onTap: () {},
+                  onTap: () async {
+                    // This opens the native share sheet
+                    await Share.share(
+                      "Check out this awesome app: https://play.google.com/store/apps/details?id=com.example.birthdaycounter",
+                      subject: "Birthday Counter App",
+                    );
+                  },
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
