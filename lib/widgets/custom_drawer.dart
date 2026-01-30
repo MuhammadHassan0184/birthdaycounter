@@ -137,7 +137,9 @@ class CustomDrawer extends StatelessWidget {
                     "Support",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(AppRoutesName.support);
+                  },
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),

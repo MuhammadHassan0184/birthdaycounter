@@ -13,4 +13,5 @@ class AppRoutesName {
   static const String celebrityPreview = "/CelebrityPreview";
   static const String privacyPolicy = "/PrivacyPolicy";
   static const String profileScreen = "/ProfileScreen";
+  static const String support = "/Support";
 }

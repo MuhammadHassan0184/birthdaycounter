@@ -285,10 +285,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           decoration: BoxDecoration(
                             color: isSelected
                                 ? AppColors.primary
-                                : AppColors.primary.withOpacity(0.1),
+                                : AppColors.white,
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                              color: AppColors.primary,
+                              color:  AppColors.black.withOpacity(0.1),
                               width: 1.5,
                             ),
                           ),
@@ -305,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 size: 24,
                                 color: isSelected
                                     ? Colors.white
-                                    : AppColors.primary,
+                                    : AppColors.grey,
                               ),
                               SizedBox(width: 15),
                               Expanded(
@@ -314,7 +314,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   style: TextStyle(
                                     color: isSelected
                                         ? Colors.white
-                                        : AppColors.primary,
+                                        : AppColors.grey,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
                                   ),

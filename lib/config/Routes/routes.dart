@@ -11,6 +11,7 @@ import 'package:birthdaycounter/view/preview_reminder.dart';
 import 'package:birthdaycounter/view/privacy_policy.dart';
 import 'package:birthdaycounter/view/profile_screen.dart';
 import 'package:birthdaycounter/view/splash/splash_screen.dart';
+import 'package:birthdaycounter/view/support.dart';
 import 'package:birthdaycounter/view/wishes_screen.dart';
 import 'package:get/get.dart';
 
@@ -67,6 +68,10 @@ class AppRoutes {
     GetPage(
       name: AppRoutesName.profileScreen,
       page: () => ProfileScreen(),
+    ),
+    GetPage(
+      name: AppRoutesName.support,
+      page: () => Support(),
     ),
   ];
 }
