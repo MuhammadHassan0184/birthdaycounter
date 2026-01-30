@@ -6,6 +6,7 @@ import 'package:birthdaycounter/widgets/custom_search_bar.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/widgets/custom_drawer.dart';
 import 'package:birthdaycounter/config/Colors/colors.dart';
+import 'package:birthdaycounter/widgets/popup/custom_comming_soon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -63,16 +64,22 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         centerTitle: true,
         actions: [
-          Container(
-            width: 42,
-            height: 42,
-            margin: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.yellow, width: 2),
+          GestureDetector(
+            onTap: () {
+              showComingSoonDialog(context);
+            },
+
+            child: Container(
+              width: 42,
+              height: 42,
+              margin: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                shape: BoxShape.circle,
+                border: Border.all(color: AppColors.yellow, width: 2),
+              ),
+              child: Center(child: Image.asset("assets/king.png")),
             ),
-            child: Center(child: Image.asset("assets/king.png")),
           ),
         ],
       ),
@@ -288,7 +295,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 : AppColors.white,
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                              color:  AppColors.black.withOpacity(0.1),
+                              color: AppColors.black.withOpacity(0.1),
                               width: 1.5,
                             ),
                           ),

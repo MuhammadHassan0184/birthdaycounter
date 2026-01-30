@@ -1,12 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/widgets/custom_button.dart';
-import 'package:birthdaycounter/config/Colors/colors.dart';
-import 'package:mailer/smtp_server.dart';
 import 'package:flutter/material.dart';
-import 'package:mailer/mailer.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Support extends StatelessWidget {
   Support({super.key});
@@ -16,47 +15,29 @@ class Support extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController messageController = TextEditingController();
 
-  // ================= SEND EMAIL USING SMTP =================
+  // ================= SEND EMAIL USING MAILTO =================
   Future<void> sendSupportEmail() async {
-    final String username = 'your_email@gmail.com'; // sender email
-    final String password = 'your_app_password'; // Gmail App Password
+    final String name = nameController.text.trim();
+    final String email = emailController.text.trim();
+    final String message = messageController.text.trim();
 
-    final smtpServer = gmail(username, password);
+    final Uri emailUri = Uri(
+      scheme: 'mailto',
+      path: 'info@thewebconcept.com',
+      query: Uri.encodeQueryComponent(
+        'subject=Support Message&body=Name: $name\nEmail: $email\n\nMessage:\n$message',
+      ),
+    );
 
-    final message = Message()
-      ..from = Address(username, 'Support App')
-      ..recipients.add('info@thewebconcept.com') // your support email
-      ..subject = 'Support Message'
-      ..text =
-          '''
-Name: ${nameController.text}
-Email: ${emailController.text}
-
-Message:
-${messageController.text}
-''';
-
-    try {
-      await send(message, smtpServer);
-      Get.snackbar(
-        "Success",
-        "Message sent successfully",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
-      );
-
-      nameController.clear();
-      emailController.clear();
-      messageController.clear();
-    } on MailerException catch (e) {
+    if (await canLaunchUrl(emailUri)) {
+      await launchUrl(emailUri);
+    } else {
       Get.snackbar(
         "Error",
-        "Message failed to send: ${e.toString()}",
+        "No email app found to send message",
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,
         colorText: Colors.white,
-        duration: const Duration(seconds: 6),
       );
     }
   }
@@ -170,6 +151,7 @@ ${messageController.text}
                 },
               ),
             ),
+
             const SizedBox(height: 30),
           ],
         ),

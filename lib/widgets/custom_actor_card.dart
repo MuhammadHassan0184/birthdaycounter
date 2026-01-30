@@ -54,7 +54,7 @@ class _CustomActorCardState extends State<CustomActorCard> {
               height: 55,
               clipBehavior: Clip.antiAlias,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-              child: Image.asset("assets/my.jpg", fit: BoxFit.cover),
+              child: Image.asset("assets/imagei.png", fit: BoxFit.cover),
             ),
       
             SizedBox(width: 12),
@@ -65,7 +65,7 @@ class _CustomActorCardState extends State<CustomActorCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Ralph Edwards",
+                    "Muhammad Hassan",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),

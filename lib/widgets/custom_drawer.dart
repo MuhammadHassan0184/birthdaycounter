@@ -3,6 +3,7 @@
 import 'package:birthdaycounter/Services/auth_service.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/widgets/custom_button.dart';
+import 'package:birthdaycounter/widgets/popup/custom_comming_soon.dart';
 import 'package:flutter/material.dart';
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:flutter_svg/svg.dart';
@@ -43,56 +44,61 @@ class CustomDrawer extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 5),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  padding: EdgeInsets.all(15),
-                  width: double.infinity,
-                  height: 98,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    gradient: LinearGradient(
-                      colors: [
-                        AppColors.primary,
-                        AppColors.primary.withOpacity(0.6),
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      stops: [0.75, 2],
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Unlock to Pro",
-                            style: TextStyle(
-                              color: AppColors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
-                          Text(
-                            "Enjoy all benefits without\nany restrictions",
-                            style: TextStyle(color: AppColors.white),
-                          ),
+                GestureDetector(
+                  onTap: () {
+                    showComingSoonDialog(context);
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 15),
+                    padding: EdgeInsets.all(15),
+                    width: double.infinity,
+                    height: 98,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      gradient: LinearGradient(
+                        colors: [
+                          AppColors.primary,
+                          AppColors.primary.withOpacity(0.6),
                         ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        stops: [0.75, 2],
                       ),
-
-                      Container(
-                        width: 42,
-                        height: 42,
-                        margin: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: AppColors.white,
-                          shape: BoxShape.circle,
-                          border: Border.all(color: AppColors.yellow, width: 2),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Unlock to Pro",
+                              style: TextStyle(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                            Text(
+                              "Enjoy all benefits without\nany restrictions",
+                              style: TextStyle(color: AppColors.white),
+                            ),
+                          ],
                         ),
-                        child: Center(child: Image.asset("assets/king.png")),
-                      ),
-                    ],
+                  
+                        Container(
+                          width: 42,
+                          height: 42,
+                          margin: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: AppColors.white,
+                            shape: BoxShape.circle,
+                            border: Border.all(color: AppColors.yellow, width: 2),
+                          ),
+                          child: Center(child: Image.asset("assets/king.png")),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(height: 10),
