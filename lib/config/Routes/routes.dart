@@ -13,6 +13,7 @@ import 'package:birthdaycounter/view/profile_screen.dart';
 import 'package:birthdaycounter/view/splash/splash_screen.dart';
 import 'package:birthdaycounter/view/support.dart';
 import 'package:birthdaycounter/view/wishes_screen.dart';
+import 'package:birthdaycounter/widgets/popup/share_template.dart';
 import 'package:get/get.dart';
 
 class AppRoutes {
@@ -72,6 +73,10 @@ class AppRoutes {
     GetPage(
       name: AppRoutesName.support,
       page: () => Support(),
+    ),
+    GetPage(
+      name: AppRoutesName.reminderShareCard,
+      page: () => ReminderShareCard(),
     ),
   ];
 }

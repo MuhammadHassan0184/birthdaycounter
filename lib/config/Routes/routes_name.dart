@@ -14,4 +14,5 @@ class AppRoutesName {
   static const String privacyPolicy = "/PrivacyPolicy";
   static const String profileScreen = "/ProfileScreen";
   static const String support = "/Support";
+  static const String reminderShareCard = "/ReminderShareCard";
 }

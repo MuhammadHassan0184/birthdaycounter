@@ -322,6 +322,7 @@ class ReminderController extends GetxController {
     _reminderListener?.cancel();
     super.onClose();
   }
+  
 
   /// 🔄 Start Firestore listener for specific user
   void _startReminderListener(String uid) {
