@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+  
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -211,10 +212,10 @@ class _HomeScreenState extends State<HomeScreen> {
               if (reminders.isEmpty) {
                 return Center(
                   child: SvgPicture.asset(
-                      "assets/emty.svg",
-                      width: 70,
-                      height: 70,
-                    ),
+                    "assets/emty.svg",
+                    width: 70,
+                    height: 70,
+                  ),
                 );
                 // Center(child: Image.asset("assets/fileimg.png"));
               }

@@ -17,37 +17,34 @@ class Support extends StatelessWidget {
 
   // ================= SEND EMAIL USING MAILTO (FIXED) =================
   Future<void> sendSupportEmail() async {
-  final String name = nameController.text.trim();
-  final String email = emailController.text.trim();
-  final String message = messageController.text.trim();
+    final String name = nameController.text.trim();
+    final String email = emailController.text.trim();
+    final String message = messageController.text.trim();
 
-  final Uri emailUri = Uri(
-    scheme: 'mailto',
-    path: 'info@thewebconcept.com',
-    queryParameters: {
-      'subject': 'Support Message',
-      'body':
-          'Name: $name\n'
-          'Email: $email\n\n'
-          'Message:\n$message',
-    },
-  );
+    final Uri emailUri = Uri(
+      scheme: 'mailto',
+      path: 'info@thewebconcept.com',
+      queryParameters: {
+        'subject': 'Support Message',
+        'body':
+            'Name: $name\n'
+            'Email: $email\n\n'
+            'Message:\n$message',
+      },
+    );
 
-  try {
-    await launchUrl(
-      emailUri,
-      mode: LaunchMode.externalApplication,
-    );
-  } catch (e) {
-    Get.snackbar(
-      "Error",
-      "No email app found to send message",
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.red,
-      colorText: Colors.white,
-    );
+    try {
+      await launchUrl(emailUri, mode: LaunchMode.externalApplication);
+    } catch (e) {
+      Get.snackbar(
+        "Error",
+        "No email app found to send message",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
   }
-}
 
   // ================= INPUT DECORATION =================
   InputDecoration _inputDecoration(String hint) {

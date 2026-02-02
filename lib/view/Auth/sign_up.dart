@@ -233,6 +233,8 @@
 // ignore_for_file: unnecessary_import, use_build_context_synchronously, unused_field
 
 import 'package:birthdaycounter/controllers/AuthControllers/signup_controller.dart';
+import 'package:birthdaycounter/view/notification_permission.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../controllers/AuthControllers/google_login_controller.dart';
 import 'package:birthdaycounter/widgets/custom_google_login.dart';
 import 'package:birthdaycounter/widgets/custom_form_field.dart';
@@ -258,6 +260,15 @@ class _SignUpState extends State<SignUp> {
   final GoogleLoginController _googleLoginController = GoogleLoginController();
 
   final _loginkey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      checkNotificationPermissionOnce(context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -409,7 +420,8 @@ class _SignUpState extends State<SignUp> {
                       },
                     ),
                   );
-                }, title: '',
+                },
+                title: '',
               ),
 
               const SizedBox(height: 25),
@@ -484,5 +496,15 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     );
+  }
+}
+
+Future<void> checkNotificationPermissionOnce(BuildContext context) async {
+  final prefs = await SharedPreferences.getInstance();
+  final alreadyAsked = prefs.getBool('notification_asked') ?? false;
+
+  if (!alreadyAsked) {
+    await NotificationPermission.request(context);
+    await prefs.setBool('notification_asked', true);
   }
 }
