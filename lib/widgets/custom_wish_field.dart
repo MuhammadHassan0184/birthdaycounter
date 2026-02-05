@@ -32,6 +32,7 @@ Widget wishField({required TextEditingController controller}) {
             height: 20,
             colorFilter: ColorFilter.mode(AppColors.primary, BlendMode.srcIn),
           ),
+          
         ),
         suffixIcon:
             IconButton(

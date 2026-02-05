@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Poppins',
         textTheme: GoogleFonts.poppinsTextTheme(),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
+      ),    
       home: SplashWrapper(initialPayload: initialPayload),
       getPages: AppRoutes.routes,
     );
@@ -75,9 +75,17 @@ class _SplashWrapperState extends State<SplashWrapper> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 3), () {
-      _handleNavigation();
-    });
+    // If app was launched from a notification (cold start), handle
+    // navigation immediately. Otherwise show splash for 3 seconds.
+    if (widget.initialPayload != null && widget.initialPayload!.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _handleNavigation();
+      });
+    } else {
+      Future.delayed(const Duration(seconds: 3), () {
+        _handleNavigation();
+      });
+    }
   }
 
   void _handleNavigation() {

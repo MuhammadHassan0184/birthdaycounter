@@ -74,7 +74,7 @@ class _CustomActorCardState extends State<CustomActorCard> {
                   SizedBox(height: 4),
       
                   Text(
-                    "02-10-2001",
+                    "06-11-2006",
                     style: TextStyle(fontSize: 12, color: AppColors.grey),
                   ),
       
