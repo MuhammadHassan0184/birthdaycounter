@@ -192,10 +192,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       d.isBefore(end.add(Duration(days: 1)));
                 }).toList();
               } else if (selectedFilter == "Upcoming Month") {
+                final start = now.add(Duration(days: 1));
                 final endOfMonth = DateTime(now.year, now.month + 1, 0);
                 reminders = reminders.where((r) {
                   final d = reminderCtrl.combineDateTime(r.date, r.time);
-                  return d.isAfter(now.subtract(Duration(seconds: 1))) &&
+                  return d.isAfter(start.subtract(Duration(seconds: 1))) &&
                       d.isBefore(endOfMonth.add(Duration(days: 1)));
                 }).toList();
               }
