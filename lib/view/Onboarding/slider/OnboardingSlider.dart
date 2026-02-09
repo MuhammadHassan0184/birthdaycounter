@@ -103,7 +103,7 @@ class _OnboardingSliderState extends State<OnboardingSlider> {
                 GestureDetector(
                   onTap: () {
                     if (currentIndex == pages.length - 1) {
-                      Get.toNamed(AppRoutesName.signup);
+                      Get.toNamed(AppRoutesName.login);
                     } else {
                       _controller.nextPage(
                         duration: Duration(milliseconds: 300),
