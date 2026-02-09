@@ -384,6 +384,45 @@ class _SignUpState extends State<SignUp> {
               const SizedBox(height: 25),
 
               /// SIGNUP BUTTON
+              // CustomButton(
+              //   label: "Signup",
+              //   onTap: () async {
+              //     // 🔥 THIS triggers field-level errors
+              //     if (!_loginkey.currentState!.validate()) {
+              //       return;
+              //     }
+
+              //     // 1️⃣ Signup user
+              //     await _signupController.signup(context);
+
+              //     final user = FirebaseAuth.instance.currentUser;
+
+              //     if (user == null) return;
+
+              //     // 2️⃣ Save user data
+              //     await FirebaseFirestore.instance
+              //         .collection('users')
+              //         .doc(user.uid)
+              //         .set({
+              //           'fullName': _signupController.fullNameController.text
+              //               .trim(),
+              //           'email': _signupController.emailController.text.trim(),
+              //         });
+
+              //     // 3️⃣ Navigate
+              //     Navigator.pushReplacement(
+              //       context,
+              //       PageRouteBuilder(
+              //         transitionDuration: const Duration(milliseconds: 500),
+              //         pageBuilder: (_, __, ___) => const HomeScreen(),
+              //         transitionsBuilder: (_, animation, __, child) {
+              //           return FadeTransition(opacity: animation, child: child);
+              //         },
+              //       ),
+              //     );
+              //   },
+              //   title: '',
+              // ),
               CustomButton(
                 label: "Signup",
                 onTap: () async {
@@ -409,17 +448,8 @@ class _SignUpState extends State<SignUp> {
                         'email': _signupController.emailController.text.trim(),
                       });
 
-                  // 3️⃣ Navigate
-                  Navigator.pushReplacement(
-                    context,
-                    PageRouteBuilder(
-                      transitionDuration: const Duration(milliseconds: 500),
-                      pageBuilder: (_, __, ___) => const HomeScreen(),
-                      transitionsBuilder: (_, animation, __, child) {
-                        return FadeTransition(opacity: animation, child: child);
-                      },
-                    ),
-                  );
+                  // 3️⃣ Navigate to Login screen (instead of HomeScreen)
+                  Get.offAllNamed(AppRoutesName.login);
                 },
                 title: '',
               ),

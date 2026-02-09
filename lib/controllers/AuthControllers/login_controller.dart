@@ -39,6 +39,8 @@
 //           ),
 //         );
 
+// ignore_for_file: use_build_context_synchronously
+
 //         // ✅ Navigate to HomeScreen
 //         Navigator.pushReplacement(
 //           context,
@@ -92,7 +94,7 @@ class LoginController {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              "Welcome back ${userCredential.user!.email}",
+              "Welcome ${userCredential.user!.email}",
               style: const TextStyle(color: Colors.white),
             ),
             backgroundColor: AppColors.primary,
