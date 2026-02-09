@@ -86,12 +86,12 @@
 // }
 // ignore_for_file: avoid_print
 
-import 'dart:convert';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:get/get.dart';
-import 'package:birthdaycounter/config/Routes/routes_name.dart';
+import 'dart:convert';
 
 class NotificationService {
   static final FlutterLocalNotificationsPlugin _plugin =

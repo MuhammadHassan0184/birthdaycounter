@@ -1,16 +1,16 @@
 // ignore_for_file: deprecated_member_use, unnecessary_import, use_build_context_synchronously, avoid_print
 
-import 'package:birthdaycounter/Services/auth_service.dart';
-import 'package:birthdaycounter/config/Routes/routes_name.dart';
-import 'package:birthdaycounter/widgets/custom_button.dart';
 import 'package:birthdaycounter/widgets/popup/custom_comming_soon.dart';
-import 'package:flutter/material.dart';
+import 'package:birthdaycounter/config/Routes/routes_name.dart';
+import 'package:birthdaycounter/Services/auth_service.dart';
+import 'package:birthdaycounter/widgets/custom_button.dart';
 import 'package:birthdaycounter/config/Colors/colors.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-import 'package:get/utils.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/utils.dart';
+import 'package:get/get.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -85,7 +85,7 @@ class CustomDrawer extends StatelessWidget {
                             ),
                           ],
                         ),
-                  
+
                         Container(
                           width: 42,
                           height: 42,
@@ -93,7 +93,10 @@ class CustomDrawer extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: AppColors.white,
                             shape: BoxShape.circle,
-                            border: Border.all(color: AppColors.yellow, width: 2),
+                            border: Border.all(
+                              color: AppColors.yellow,
+                              width: 2,
+                            ),
                           ),
                           child: Center(child: Image.asset("assets/king.png")),
                         ),
@@ -177,18 +180,21 @@ class CustomDrawer extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Divider(),
                 ),
-                ListTile(
-                  leading: SvgPicture.asset(
-                    "assets/privacy.svg",
-                    color: AppColors.primary,
+                Padding(
+                  padding: const EdgeInsets.only(left: 3),
+                  child: ListTile(
+                    leading: SvgPicture.asset(
+                      "assets/privacy.svg",
+                      color: AppColors.primary,
+                    ),
+                    title: Text(
+                      "Privacy Policy",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    onTap: () {
+                      Get.toNamed(AppRoutesName.privacyPolicy);
+                    },
                   ),
-                  title: Text(
-                    "Privacy Policy",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  onTap: () {
-                    Get.toNamed(AppRoutesName.privacyPolicy);
-                  },
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -215,28 +221,31 @@ class CustomDrawer extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Divider(),
                 ),
-                ListTile(
-                  leading: SvgPicture.asset(
-                    "assets/moreapp.svg",
-                    color: AppColors.primary,
+                Padding(
+                  padding: const EdgeInsets.only(left: 2),
+                  child: ListTile(
+                    leading: SvgPicture.asset(
+                      "assets/moreapp.svg",
+                      color: AppColors.primary,
+                    ),
+                    title: const Text(
+                      "More Apps",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    onTap: () async {
+                      const url =
+                          'https://play.google.com/store/apps/developer?id=samz+creation';
+                      if (await canLaunchUrl(Uri.parse(url))) {
+                        await launchUrl(
+                          Uri.parse(url),
+                          mode: LaunchMode.externalApplication,
+                        );
+                      } else {
+                        // handle error if URL can't be opened
+                        print('Could not launch $url');
+                      }
+                    },
                   ),
-                  title: const Text(
-                    "More Apps",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  onTap: () async {
-                    const url =
-                        'https://play.google.com/store/apps/developer?id=samz+creation';
-                    if (await canLaunchUrl(Uri.parse(url))) {
-                      await launchUrl(
-                        Uri.parse(url),
-                        mode: LaunchMode.externalApplication,
-                      );
-                    } else {
-                      // handle error if URL can't be opened
-                      print('Could not launch $url');
-                    }
-                  },
                 ),
 
                 SizedBox(height: 8),
