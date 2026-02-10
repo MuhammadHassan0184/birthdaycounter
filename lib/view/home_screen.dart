@@ -1,6 +1,7 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, use_build_context_synchronously
 
 import 'package:birthdaycounter/controllers/reminder_controller.dart';
+import 'package:birthdaycounter/view/notification_permission.dart';
 import 'package:birthdaycounter/widgets/custom_reminder_card.dart';
 import 'package:birthdaycounter/widgets/custom_search_bar.dart';
 import 'package:birthdaycounter/config/Routes/routes_name.dart';
@@ -10,10 +11,10 @@ import 'package:birthdaycounter/widgets/popup/custom_comming_soon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-  
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -27,6 +28,15 @@ class _HomeScreenState extends State<HomeScreen> {
   List<String> chips = ["All", "Birthday", "Engagement", "Anniversary"];
   List<String> filters = ["All", "Today", "Upcoming Week", "Upcoming Month"];
   String searchText = "";
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      checkNotificationPermissionOnce(context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -349,5 +359,15 @@ class _HomeScreenState extends State<HomeScreen> {
         );
       },
     );
+  }
+
+  Future<void> checkNotificationPermissionOnce(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    final alreadyAsked = prefs.getBool('notification_asked') ?? false;
+
+    if (!alreadyAsked) {
+      await NotificationPermission.request(context);
+      await prefs.setBool('notification_asked', true);
+    }
   }
 }

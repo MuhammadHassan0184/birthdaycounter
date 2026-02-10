@@ -233,8 +233,6 @@
 // ignore_for_file: unnecessary_import, use_build_context_synchronously, unused_field
 
 import 'package:birthdaycounter/controllers/AuthControllers/signup_controller.dart';
-import 'package:birthdaycounter/view/notification_permission.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../controllers/AuthControllers/google_login_controller.dart';
 import 'package:birthdaycounter/widgets/custom_google_login.dart';
 import 'package:birthdaycounter/widgets/custom_form_field.dart';
@@ -266,7 +264,7 @@ class _SignUpState extends State<SignUp> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      checkNotificationPermissionOnce(context);
+      // checkNotificationPermissionOnce(context);
     });
   }
 
@@ -381,48 +379,8 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
 
-              const SizedBox(height: 25),
+              SizedBox(height: 25),
 
-              /// SIGNUP BUTTON
-              // CustomButton(
-              //   label: "Signup",
-              //   onTap: () async {
-              //     // 🔥 THIS triggers field-level errors
-              //     if (!_loginkey.currentState!.validate()) {
-              //       return;
-              //     }
-
-              //     // 1️⃣ Signup user
-              //     await _signupController.signup(context);
-
-              //     final user = FirebaseAuth.instance.currentUser;
-
-              //     if (user == null) return;
-
-              //     // 2️⃣ Save user data
-              //     await FirebaseFirestore.instance
-              //         .collection('users')
-              //         .doc(user.uid)
-              //         .set({
-              //           'fullName': _signupController.fullNameController.text
-              //               .trim(),
-              //           'email': _signupController.emailController.text.trim(),
-              //         });
-
-              //     // 3️⃣ Navigate
-              //     Navigator.pushReplacement(
-              //       context,
-              //       PageRouteBuilder(
-              //         transitionDuration: const Duration(milliseconds: 500),
-              //         pageBuilder: (_, __, ___) => const HomeScreen(),
-              //         transitionsBuilder: (_, animation, __, child) {
-              //           return FadeTransition(opacity: animation, child: child);
-              //         },
-              //       ),
-              //     );
-              //   },
-              //   title: '',
-              // ),
               CustomButton(
                 label: "Signup",
                 onTap: () async {
@@ -529,12 +487,12 @@ class _SignUpState extends State<SignUp> {
   }
 }
 
-Future<void> checkNotificationPermissionOnce(BuildContext context) async {
-  final prefs = await SharedPreferences.getInstance();
-  final alreadyAsked = prefs.getBool('notification_asked') ?? false;
+// Future<void> checkNotificationPermissionOnce(BuildContext context) async {
+//   final prefs = await SharedPreferences.getInstance();
+//   final alreadyAsked = prefs.getBool('notification_asked') ?? false;
 
-  if (!alreadyAsked) {
-    await NotificationPermission.request(context);
-    await prefs.setBool('notification_asked', true);
-  }
-}
+//   if (!alreadyAsked) {
+//     await NotificationPermission.request(context);
+//     await prefs.setBool('notification_asked', true);
+//   }
+// }
