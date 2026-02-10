@@ -385,18 +385,21 @@ class _SignUpState extends State<SignUp> {
                 label: "Signup",
                 onTap: () async {
                   // 🔥 THIS triggers field-level errors
-                  if (!_loginkey.currentState!.validate()) {
+                  if (!(_loginkey.currentState?.validate() ?? false)) {
                     return;
                   }
 
                   // 1️⃣ Signup user
                   await _signupController.signup(context);
 
+                  // If this widget was disposed during signup navigation, stop.
+                  if (!mounted) return;
+
                   final user = FirebaseAuth.instance.currentUser;
 
                   if (user == null) return;
 
-                  // 2️⃣ Save user data
+                  // 2️⃣ Save user data (AuthService already writes user, this is defensive)
                   await FirebaseFirestore.instance
                       .collection('users')
                       .doc(user.uid)
@@ -406,7 +409,7 @@ class _SignUpState extends State<SignUp> {
                         'email': _signupController.emailController.text.trim(),
                       });
 
-                  // 3️⃣ Navigate to Login screen (instead of HomeScreen)
+                  // 3️⃣ Navigate to Login screen (view controls navigation)
                   Get.offAllNamed(AppRoutesName.login);
                 },
                 title: '',

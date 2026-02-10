@@ -93,15 +93,11 @@ class SignupController {
         password,
         fullName,
       );
-
       isLoading = false;
 
       if (user != null) {
         _showSnack(context, "Signup successful! Please login.");
-
-        // ✅ Navigate to Login screen instead of HomeScreen
-        Navigator.pushReplacementNamed(context, '/login'); 
-        // Or if using GetX: Get.offAllNamed(AppRoutesName.login);
+        // Navigation moved to the view to avoid continuing actions on a disposed widget.
       } else {
         _showSnack(context, "Signup failed. Try again.");
       }

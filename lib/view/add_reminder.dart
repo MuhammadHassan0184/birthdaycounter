@@ -504,8 +504,9 @@ class _AddReminderState extends State<AddReminder> {
                         return null; // ✅ optional
                       }
 
-                      final emailRegex =
-                          RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                      final emailRegex = RegExp(
+                        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                      );
 
                       if (!emailRegex.hasMatch(value)) {
                         return "Enter a valid email address";
