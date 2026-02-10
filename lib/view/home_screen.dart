@@ -186,30 +186,59 @@ class _HomeScreenState extends State<HomeScreen> {
 
               // Apply bottom sheet filter
               final now = DateTime.now();
+              final today = DateTime(now.year, now.month, now.day);
+
               if (selectedFilter == "Today") {
                 reminders = reminders.where((r) {
                   final d = reminderCtrl.combineDateTime(r.date, r.time);
-                  return d.year == now.year &&
-                      d.month == now.month &&
-                      d.day == now.day;
+                  final rd = DateTime(d.year, d.month, d.day);
+                  return rd == today;
                 }).toList();
               } else if (selectedFilter == "Upcoming Week") {
-                final start = now.add(Duration(days: 1));
-                final end = now.add(Duration(days: 7));
+                final start = today.add(const Duration(days: 1));
+                final end = start.add(const Duration(days: 6));
+
                 reminders = reminders.where((r) {
                   final d = reminderCtrl.combineDateTime(r.date, r.time);
-                  return d.isAfter(start.subtract(Duration(seconds: 1))) &&
-                      d.isBefore(end.add(Duration(days: 1)));
+                  final rd = DateTime(d.year, d.month, d.day);
+                  return !rd.isBefore(start) && !rd.isAfter(end);
                 }).toList();
               } else if (selectedFilter == "Upcoming Month") {
-                final start = now.add(Duration(days: 1));
-                final endOfMonth = DateTime(now.year, now.month + 1, 0);
+                final start = today.add(const Duration(days: 1));
+                final end = start.add(const Duration(days: 29));
+
                 reminders = reminders.where((r) {
                   final d = reminderCtrl.combineDateTime(r.date, r.time);
-                  return d.isAfter(start.subtract(Duration(seconds: 1))) &&
-                      d.isBefore(endOfMonth.add(Duration(days: 1)));
+                  final rd = DateTime(d.year, d.month, d.day);
+                  return !rd.isBefore(start) && !rd.isAfter(end);
                 }).toList();
               }
+
+              // final now = DateTime.now();
+              // if (selectedFilter == "Today") {
+              //   reminders = reminders.where((r) {
+              //     final d = reminderCtrl.combineDateTime(r.date, r.time);
+              //     return d.year == now.year &&
+              //         d.month == now.month &&
+              //         d.day == now.day;
+              //   }).toList();
+              // } else if (selectedFilter == "Upcoming Week") {
+              //   final start = now.add(Duration(days: 1));
+              //   final end = now.add(Duration(days: 7));
+              //   reminders = reminders.where((r) {
+              //     final d = reminderCtrl.combineDateTime(r.date, r.time);
+              //     return d.isAfter(start.subtract(Duration(seconds: 1))) &&
+              //         d.isBefore(end.add(Duration(days: 1)));
+              //   }).toList();
+              // } else if (selectedFilter == "Upcoming Month") {
+              //   final start = now.add(Duration(days: 1));
+              //   final endOfMonth = DateTime(now.year, now.month + 1, 0);
+              //   reminders = reminders.where((r) {
+              //     final d = reminderCtrl.combineDateTime(r.date, r.time);
+              //     return d.isAfter(start.subtract(Duration(seconds: 1))) &&
+              //         d.isBefore(endOfMonth.add(Duration(days: 1)));
+              //   }).toList();
+              // }
 
               // Apply search filter
               if (searchText.isNotEmpty) {
