@@ -381,25 +381,59 @@ class _SignUpState extends State<SignUp> {
 
               SizedBox(height: 25),
 
+              // CustomButton(
+              //   label: "Signup",
+              //   onTap: () async {
+              //     // 🔥 THIS triggers field-level errors
+              //     if (!(_loginkey.currentState?.validate() ?? false)) {
+              //       return;
+              //     }
+
+              //     // 1️⃣ Signup user
+              //     await _signupController.signup(context);
+
+              //     // If this widget was disposed during signup navigation, stop.
+              //     if (!mounted) return;
+
+              //     final user = FirebaseAuth.instance.currentUser;
+
+              //     if (user == null) return;
+
+              //     // 2️⃣ Save user data (AuthService already writes user, this is defensive)
+              //     await FirebaseFirestore.instance
+              //         .collection('users')
+              //         .doc(user.uid)
+              //         .set({
+              //           'fullName': _signupController.fullNameController.text
+              //               .trim(),
+              //           'email': _signupController.emailController.text.trim(),
+              //         });
+
+              //     // 3️⃣ Navigate to Login screen (view controls navigation)
+              //     Get.offAllNamed(AppRoutesName.login);
+              //   },
+              //   title: '',
+              // ),
               CustomButton(
                 label: "Signup",
                 onTap: () async {
-                  // 🔥 THIS triggers field-level errors
-                  if (!(_loginkey.currentState?.validate() ?? false)) {
+                  // 1️⃣ Validate form
+                  if (!(_loginkey.currentState?.validate() ?? false)) return;
+
+                  // 2️⃣ Signup user
+                  await _signupController.signup(context);
+
+                  // Stop if widget disposed
+                  if (!mounted) return;
+
+                  // ✅ Only proceed if user is created
+                  final user = FirebaseAuth.instance.currentUser;
+                  if (user == null) {
+                    // Signup failed or email already exists
                     return;
                   }
 
-                  // 1️⃣ Signup user
-                  await _signupController.signup(context);
-
-                  // If this widget was disposed during signup navigation, stop.
-                  if (!mounted) return;
-
-                  final user = FirebaseAuth.instance.currentUser;
-
-                  if (user == null) return;
-
-                  // 2️⃣ Save user data (AuthService already writes user, this is defensive)
+                  // 3️⃣ Save user data to Firestore
                   await FirebaseFirestore.instance
                       .collection('users')
                       .doc(user.uid)
@@ -409,7 +443,7 @@ class _SignUpState extends State<SignUp> {
                         'email': _signupController.emailController.text.trim(),
                       });
 
-                  // 3️⃣ Navigate to Login screen (view controls navigation)
+                  // 4️⃣ Navigate to Login
                   Get.offAllNamed(AppRoutesName.login);
                 },
                 title: '',
