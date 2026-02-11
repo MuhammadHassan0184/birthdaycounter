@@ -68,6 +68,8 @@
 //           ),
 //         ),
 
+// ignore_for_file: deprecated_member_use, use_build_context_synchronously
+
 //         border: OutlineInputBorder(
 //           borderRadius: BorderRadius.circular(10),
 //           borderSide: BorderSide(

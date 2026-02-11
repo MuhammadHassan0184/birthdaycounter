@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:birthdaycounter/services/auth_service.dart';
 import 'package:birthdaycounter/view/home_screen.dart';
 import 'package:flutter/material.dart';
