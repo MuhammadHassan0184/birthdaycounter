@@ -17,7 +17,6 @@ class Reminder {
 
   int notificationId;
 
-
   Reminder({
     required this.id,
     required this.name,
@@ -35,7 +34,6 @@ class Reminder {
     this.repeatIntervalHours = 1,
 
     required this.notificationId,
-
   });
 
   // Reminder({
@@ -70,7 +68,6 @@ class Reminder {
       'repeatIntervalHours': repeatIntervalHours,
 
       'notificationId': notificationId,
-
     };
   }
 
@@ -95,7 +92,6 @@ class Reminder {
       repeatIntervalHours: map['repeatIntervalHours'] ?? 1,
 
       notificationId: map['notificationId'] ?? 0,
-
     );
   }
 }

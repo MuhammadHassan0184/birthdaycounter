@@ -88,6 +88,8 @@
 //     );
 //   }
 
+// ignore_for_file: avoid_print
+
 //   /// Cancel a notification by id
 //   static Future<void> cancel(int id) async {
 //     await _plugin.cancel(id);
@@ -127,12 +129,10 @@ class NotificationService {
           _initialPayload = details.payload;
 
           try {
-            final Map<String, dynamic> reminderData =
-                jsonDecode(details.payload!);
-            Get.toNamed(
-              AppRoutesName.previewReminder,
-              arguments: reminderData,
+            final Map<String, dynamic> reminderData = jsonDecode(
+              details.payload!,
             );
+            Get.toNamed(AppRoutesName.previewReminder, arguments: reminderData);
           } catch (e) {
             print("Error decoding payload: $e");
           }
@@ -158,8 +158,7 @@ class NotificationService {
     required DateTime dateTime,
     String? payload,
   }) async {
-    final tz.TZDateTime scheduledDate =
-        tz.TZDateTime.from(dateTime, tz.local);
+    final tz.TZDateTime scheduledDate = tz.TZDateTime.from(dateTime, tz.local);
 
     print("🔔 Notification scheduled at: $scheduledDate");
 
@@ -197,8 +196,7 @@ class NotificationService {
     int repeatCount = 0,
     int repeatIntervalHours = 1,
   }) async {
-    final tz.TZDateTime baseTime =
-        tz.TZDateTime.from(dateTime, tz.local);
+    final tz.TZDateTime baseTime = tz.TZDateTime.from(dateTime, tz.local);
 
     print("🔔 Base Notification scheduled at: $baseTime");
 
@@ -216,8 +214,9 @@ class NotificationService {
 
     // Schedule multiple notifications
     for (int i = 0; i <= repeatCount; i++) {
-      final tz.TZDateTime scheduledTime =
-          baseTime.add(Duration(hours: i * repeatIntervalHours));
+      final tz.TZDateTime scheduledTime = baseTime.add(
+        Duration(hours: i * repeatIntervalHours),
+      );
 
       await _plugin.zonedSchedule(
         id + i, // unique id for each repeat

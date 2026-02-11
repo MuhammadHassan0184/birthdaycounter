@@ -1,9 +1,69 @@
-// ignore_for_file: use_build_context_synchronously
+// // ignore_for_file: use_build_context_synchronously
 
-import 'package:birthdaycounter/Services/auth_service.dart';
-import 'package:birthdaycounter/config/Colors/colors.dart'; 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+// import 'package:birthdaycounter/Services/auth_service.dart';
+// import 'package:birthdaycounter/config/Colors/colors.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:flutter/material.dart';
+
+// // class SignupController {
+// //   final AuthService _authService = AuthService();
+
+// //   final emailController = TextEditingController();
+// //   final passwordController = TextEditingController();
+// //   final fullNameController = TextEditingController();
+
+// //   bool isLoading = false;
+
+// //   Future<void> signup(BuildContext context) async {
+// //     final email = emailController.text.trim();
+// //     final password = passwordController.text.trim();
+// //     final fullName = fullNameController.text.trim();
+
+// //     if (email.isEmpty || password.isEmpty || fullName.isEmpty) {
+// //       _showSnack(context, "Please fill all fields.");
+// //       return;
+// //     }
+
+// //     try {
+// //       isLoading = true;
+
+// //       // Create user
+// //       User? user = await _authService.signUp(
+// //         email,
+// //         password,
+// //         fullName,
+// //       );
+
+// //       isLoading = false;
+
+// //       if (user != null) {
+// //         _showSnack(context, "Signup successful!");
+
+// //         Navigator.pushReplacement(
+// //           context,
+// //           MaterialPageRoute(builder: (_) => const HomeScreen()),
+// //         );
+// //       } else {
+// //         _showSnack(context, "Signup failed. Try again.");
+// //       }
+// //     } catch (e) {
+// //       isLoading = false;
+// //       _showSnack(context, e.toString());
+// //     }
+// //   }
+
+// //   void _showSnack(BuildContext context, String msg) {
+// //     ScaffoldMessenger.of(context).showSnackBar(
+// //       SnackBar(
+// //         content: Text(
+// //           msg,
+// //           style: const TextStyle(color: Colors.white),
+// //         ),
+// //         backgroundColor: AppColors.primary, // ✅ primary theme color
+// //       ),
+// //     );
+// //   }
+// // }
 
 // class SignupController {
 //   final AuthService _authService = AuthService();
@@ -15,42 +75,45 @@ import 'package:flutter/material.dart';
 //   bool isLoading = false;
 
 //   Future<void> signup(BuildContext context) async {
-//     final email = emailController.text.trim();
-//     final password = passwordController.text.trim();
-//     final fullName = fullNameController.text.trim();
+//   final email = emailController.text.trim();
+//   final password = passwordController.text.trim();
+//   final fullName = fullNameController.text.trim();
 
-//     if (email.isEmpty || password.isEmpty || fullName.isEmpty) {
-//       _showSnack(context, "Please fill all fields.");
-//       return;
-//     }
-
-//     try {
-//       isLoading = true;
-
-//       // Create user
-//       User? user = await _authService.signUp(
-//         email,
-//         password,
-//         fullName,
-//       );
-
-//       isLoading = false;
-
-//       if (user != null) {
-//         _showSnack(context, "Signup successful!");
-
-//         Navigator.pushReplacement(
-//           context,
-//           MaterialPageRoute(builder: (_) => const HomeScreen()),
-//         );
-//       } else {
-//         _showSnack(context, "Signup failed. Try again.");
-//       }
-//     } catch (e) {
-//       isLoading = false;
-//       _showSnack(context, e.toString());
-//     }
+//   if (email.isEmpty || password.isEmpty || fullName.isEmpty) {
+//     _showSnack(context, "Please fill all fields.");
+//     return;
 //   }
+
+//   try {
+//     isLoading = true;
+
+//     // Create user
+//     User? user = await _authService.signUp(
+//       email,
+//       password,
+//       fullName,
+//     );
+//     isLoading = false;
+
+//     if (user != null) {
+//       _showSnack(context, "Signup successful! Please login.");
+//       // Navigation moved to the view
+//     } else {
+//       _showSnack(context, "Signup failed. Try again.");
+//     }
+//   } on FirebaseAuthException catch (e) {
+//     isLoading = false;
+
+//     if (e.code == 'email-already-in-use') {
+//       _showSnack(context, "This email is already registered. Please login.");
+//     } else {
+//       _showSnack(context, e.message ?? "Signup failed.");
+//     }
+//   } catch (e) {
+//     isLoading = false;
+//     _showSnack(context, e.toString());
+//   }
+// }
 
 //   void _showSnack(BuildContext context, String msg) {
 //     ScaffoldMessenger.of(context).showSnackBar(
@@ -59,18 +122,24 @@ import 'package:flutter/material.dart';
 //           msg,
 //           style: const TextStyle(color: Colors.white),
 //         ),
-//         backgroundColor: AppColors.primary, // ✅ primary theme color
+//         backgroundColor: AppColors.primary,
 //       ),
 //     );
 //   }
 // }
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:birthdaycounter/Services/auth_service.dart';
+import 'package:flutter/material.dart';
+import 'package:birthdaycounter/config/Colors/colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignupController {
   final AuthService _authService = AuthService();
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final fullNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController fullNameController = TextEditingController();
 
   bool isLoading = false;
 
@@ -87,19 +156,24 @@ class SignupController {
     try {
       isLoading = true;
 
-      // Create user
-      User? user = await _authService.signUp(
-        email,
-        password,
-        fullName,
-      );
+      final user = await _authService.signUp(email, password, fullName);
       isLoading = false;
 
       if (user != null) {
-        _showSnack(context, "Signup successful! Please login.");
-        // Navigation moved to the view to avoid continuing actions on a disposed widget.
+        _showSnack(context, "Signup successful! You can now login.");
+        // Do NOT move to login automatically
       } else {
         _showSnack(context, "Signup failed. Try again.");
+      }
+    } on FirebaseAuthException catch (e) {
+      isLoading = false;
+
+      if (e.code == 'email-already-in-use') {
+        // Friendly message, stop signup, stay on screen
+        _showSnack(context, "This email is already registered. Please login.");
+        return;
+      } else {
+        _showSnack(context, e.message ?? "Signup failed.");
       }
     } catch (e) {
       isLoading = false;
@@ -110,11 +184,9 @@ class SignupController {
   void _showSnack(BuildContext context, String msg) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          msg,
-          style: const TextStyle(color: Colors.white),
-        ),
+        content: Text(msg, style: const TextStyle(color: Colors.white)),
         backgroundColor: AppColors.primary,
+        duration: const Duration(seconds: 2),
       ),
     );
   }
