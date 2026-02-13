@@ -14,6 +14,8 @@ class ReminderController extends GetxController {
   var reminders = <Reminder>[].obs;
   var filteredReminders = <Reminder>[].obs;
 
+  var customWishes = <String>[].obs;
+
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   StreamSubscription<User?>? _authListener;
@@ -67,6 +69,24 @@ class ReminderController extends GetxController {
     _authListener?.cancel();
     _reminderListener?.cancel();
     super.onClose();
+  }
+
+  void addCustomWish(String wishText) {
+    if (wishText.trim().isEmpty) return;
+
+    // Add to observable list
+    customWishes.add(wishText);
+
+    // Optional: clear the input field
+    wishController.clear();
+
+    // Notify user
+    Get.snackbar(
+      "Success",
+      "Wish added successfully",
+      backgroundColor: AppColors.primary,
+      colorText: Colors.white,
+    );
   }
 
   /// 🔄 Start Firestore listener for specific user
@@ -300,27 +320,6 @@ class ReminderController extends GetxController {
           repeatCount: 3,
           repeatIntervalHours: 1,
         );
-
-        // await NotificationService.scheduleNotification(
-        //   id: reminder.id.hashCode,
-        //   title: "Reminder: ${name.value}",
-        //   body: wish.value.isEmpty ? "You have an event today" : wish.value,
-        //   dateTime: scheduledDateTime,
-        //   payload: jsonEncode({
-        //     // Must use 'payload', not 'payloadle' or anything else
-        //     'id': reminder.id,
-        //     'name': name.value,
-        //     'relationship': relationship.value,
-        //     'phone': phone.value,
-        //     'email': email.value,
-        //     'reminderType': reminderType.value,
-        //     'date': date.value,
-        //     'time': time.value,
-        //     'wish': wish.value,
-        //     'imageUrl': imagePath.value,
-        //     'remainingDays': calculateRemainingDays(date.value),
-        //   }),
-        // );
       }
 
       Get.snackbar(

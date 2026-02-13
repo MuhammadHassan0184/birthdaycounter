@@ -612,7 +612,7 @@ class _AddReminderState extends State<AddReminder> {
                   ),
                 ),
 
-                const SizedBox(height: 20),
+                SizedBox(height: 20),
               ],
             ),
           ),

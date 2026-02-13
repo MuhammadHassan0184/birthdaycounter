@@ -32,16 +32,17 @@ Widget wishField({required TextEditingController controller}) {
             height: 20,
             colorFilter: ColorFilter.mode(AppColors.primary, BlendMode.srcIn),
           ),
-          
         ),
-        suffixIcon:
-            IconButton(
-              onPressed: () {
-                Get.toNamed(AppRoutesName.wishesScreen);
-              },
-              icon: Icon(Icons.add),
-            ),
-            
+        suffixIcon: IconButton(
+          onPressed: () {
+            final reminderCtrl = Get.find<ReminderController>();
+            reminderCtrl.addCustomWish(reminderCtrl.wishController.text);
+
+            // Navigate to Wishes Screen
+            Get.toNamed(AppRoutesName.wishesScreen);
+          },
+          icon: Icon(Icons.add),
+        ),
 
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),

@@ -20,24 +20,6 @@ class _WishesScreenState extends State<WishesScreen> {
   String selectedChip = "All";
   final List<String> chips = ["All", "Birthday", "Engagement", "Anniversary"];
 
-  // /// ✅ Default wishes by type
-  // final Map<String, List<String>> defaultWishes = {
-  //   "Birthday": [
-  //     "Happy Birthday! 🎉 Wishing you a day full of joy and laughter.",
-  //     "May your birthday bring you success, happiness, and good health 🎂",
-  //     "Another year older, another year more amazing 🎈",
-  //   ],
-  //   "Anniversary": [
-  //     "Happy Anniversary! 💖 Wishing you many more years of love.",
-  //     "Cheers to another beautiful year together 🥂",
-  //     "Your love story keeps getting better every year 💍",
-  //   ],
-  //   "Engagement": [
-  //     "Congratulations on your engagement! 💍",
-  //     "Wishing you a lifetime of love and happiness 💖",
-  //     "So happy for you both on your engagement ✨",
-  //   ],
-  // };
   /// ✅ Default wishes by type (15+ each)
   final Map<String, List<String>> defaultWishes = {
     "Birthday": [
@@ -206,33 +188,75 @@ class _WishesScreenState extends State<WishesScreen> {
             SizedBox(height: 5),
 
             /// 🔹 Wishes List
+            // Expanded(
+            //   child: wishes.isEmpty
+            //       ? Center(child: Text("No wishes for this category"))
+            //       : ListView.builder(
+            //           itemCount: wishes.length,
+            //           itemBuilder: (context, index) {
+            //             final item = wishes[index];
+
+            //             return CustomWishesCard(
+            //               label: item["type"]!,
+            //               description: item["wish"]!,
+            //               onAdd: () {
+            //                 /// ✅ Auto-fill wish in AddReminder
+            //                 reminderCtrl.wishController.text = item["wish"]!;
+            //                 reminderCtrl.wish.value = item["wish"]!;
+
+            //                 /// ✅ Optional: auto-fill reminder type
+            //                 reminderCtrl.reminderTypeController.text =
+            //                     item["type"]!;
+            //                 reminderCtrl.reminderType.value = item["type"]!;
+
+            //                 /// Go back to AddReminder
+            //                 Get.back();
+            //               },
+            //             );
+            //           },
+            //         ),
+            // ),
             Expanded(
-              child: wishes.isEmpty
-                  ? Center(child: Text("No wishes for this category"))
-                  : ListView.builder(
-                      itemCount: wishes.length,
-                      itemBuilder: (context, index) {
-                        final item = wishes[index];
+              child: Obx(() {
+                final reminderCtrl = Get.find<ReminderController>();
 
-                        return CustomWishesCard(
-                          label: item["type"]!,
-                          description: item["wish"]!,
-                          onAdd: () {
-                            /// ✅ Auto-fill wish in AddReminder
-                            reminderCtrl.wishController.text = item["wish"]!;
-                            reminderCtrl.wish.value = item["wish"]!;
+                // Merge predefined wishes with custom wishes
+                final allWishes = [
+                  ...wishes, // existing predefined wishes
+                  ...reminderCtrl.customWishes.map(
+                    (wish) => {"type": "Custom", "wish": wish},
+                  ),
+                ];
 
-                            /// ✅ Optional: auto-fill reminder type
-                            reminderCtrl.reminderTypeController.text =
-                                item["type"]!;
-                            reminderCtrl.reminderType.value = item["type"]!;
+                if (allWishes.isEmpty) {
+                  return Center(child: Text("No wishes for this category"));
+                }
 
-                            /// Go back to AddReminder
-                            Get.back();
-                          },
-                        );
+                return ListView.builder(
+                  itemCount: allWishes.length,
+                  itemBuilder: (context, index) {
+                    final item = allWishes[index];
+
+                    return CustomWishesCard(
+                      label: item["type"]!,
+                      description: item["wish"]!,
+                      onAdd: () {
+                        /// ✅ Auto-fill wish in AddReminder
+                        reminderCtrl.wishController.text = item["wish"]!;
+                        reminderCtrl.wish.value = item["wish"]!;
+
+                        /// ✅ Optional: auto-fill reminder type
+                        reminderCtrl.reminderTypeController.text =
+                            item["type"]!;
+                        reminderCtrl.reminderType.value = item["type"]!;
+
+                        /// Go back to AddReminder
+                        Get.back();
                       },
-                    ),
+                    );
+                  },
+                );
+              }),
             ),
 
             SizedBox(height: 10),
