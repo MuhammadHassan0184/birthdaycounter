@@ -371,21 +371,56 @@ class ReminderController extends GetxController {
     }
   }
 
+  // DateTime _combineDateTime(String date, String time) {
+  //   final dateParts = date.split('/');
+  //   final month = int.parse(dateParts[0]);
+  //   final day = int.parse(dateParts[1]);
+  //   final year = int.parse(dateParts[2]);
+
+  //   final timeParts = time.split(' ');
+  //   final hm = timeParts[0].split(':');
+  //   int hour = int.parse(hm[0]);
+  //   final minute = int.parse(hm[1]);
+
+  //   if (timeParts[1] == 'PM' && hour != 12) hour += 12;
+  //   if (timeParts[1] == 'AM' && hour == 12) hour = 0;
+
+  //   return DateTime(year, month, day, hour, minute);
+  // }
   DateTime _combineDateTime(String date, String time) {
-    final dateParts = date.split('/');
-    final month = int.parse(dateParts[0]);
-    final day = int.parse(dateParts[1]);
-    final year = int.parse(dateParts[2]);
+    try {
+      // ---- DATE ----
+      final dateParts = date.split('/');
+      if (dateParts.length < 3) {
+        throw Exception("Invalid date format");
+      }
 
-    final timeParts = time.split(' ');
-    final hm = timeParts[0].split(':');
-    int hour = int.parse(hm[0]);
-    final minute = int.parse(hm[1]);
+      final month = int.tryParse(dateParts[0]) ?? 1;
+      final day = int.tryParse(dateParts[1]) ?? 1;
+      final year = int.tryParse(dateParts[2]) ?? DateTime.now().year;
 
-    if (timeParts[1] == 'PM' && hour != 12) hour += 12;
-    if (timeParts[1] == 'AM' && hour == 12) hour = 0;
+      // ---- TIME ----
+      final timeParts = time.split(' ');
 
-    return DateTime(year, month, day, hour, minute);
+      final hm = timeParts[0].split(':');
+      if (hm.length < 2) {
+        throw Exception("Invalid time format");
+      }
+
+      int hour = int.tryParse(hm[0]) ?? 0;
+      final minute = int.tryParse(hm[1]) ?? 0;
+
+      // Handle AM/PM safely
+      if (timeParts.length > 1) {
+        if (timeParts[1] == 'PM' && hour != 12) hour += 12;
+        if (timeParts[1] == 'AM' && hour == 12) hour = 0;
+      }
+
+      return DateTime(year, month, day, hour, minute);
+    } catch (e) {
+      // Fallback to current time if something wrong
+      return DateTime.now();
+    }
   }
 
   // int calculateRemainingDays(String dateStr) {
