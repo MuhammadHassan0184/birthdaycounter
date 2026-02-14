@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Poppins',
         textTheme: GoogleFonts.poppinsTextTheme(),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),    
+      ),
       home: SplashWrapper(initialPayload: initialPayload),
       getPages: AppRoutes.routes,
     );
@@ -96,7 +96,7 @@ class _SplashWrapperState extends State<SplashWrapper> {
           widget.initialPayload!,
         );
         Get.offNamed(AppRoutesName.previewReminder, arguments: reminderData);
-        return; 
+        return;
       } catch (e) {
         print("Error decoding initial payload: $e");
       }

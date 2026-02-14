@@ -34,9 +34,12 @@ class AuthService {
       }
 
       return user;
-    } catch (e) {
-      throw Exception(e.toString());
-    }
+    } on FirebaseAuthException {
+  rethrow; // 🔥 Keep original Firebase error
+} catch (e) {
+  throw Exception("Signup failed. Please try again.");
+}
+
   }
 
   // -----------------------------
