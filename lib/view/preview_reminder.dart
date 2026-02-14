@@ -7,6 +7,7 @@ import 'package:birthdaycounter/config/Routes/routes_name.dart';
 import 'package:birthdaycounter/config/Colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/services.dart';
 
 class PreviewReminder extends StatefulWidget {
   final String? payload; // 🔹 optional payload from notification
@@ -227,7 +228,55 @@ class _PreviewReminderState extends State<PreviewReminder> {
                       ),
                     ),
                     const SizedBox(height: 7),
-                    Text(reminderData['wish'] ?? "Your wish will appear here"),
+                    // Text(reminderData['wish'] ?? "Your wish will appear here"),
+                    GestureDetector(
+                      onLongPress: () {
+                        final wishText =
+                            reminderData['wish'] ??
+                            "Your wish will appear here";
+
+                        Clipboard.setData(ClipboardData(text: wishText));
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            behavior: SnackBarBehavior.floating,
+                            backgroundColor:
+                                AppColors.primary, // your theme color
+                            elevation: 6,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 10,
+                            ),
+                            duration: const Duration(seconds: 2),
+                            content: Row(
+                              children: [
+                                const Icon(
+                                  Icons.copy,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                                const SizedBox(width: 10),
+                                const Expanded(
+                                  child: Text(
+                                    "Wish copied to clipboard",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        reminderData['wish'] ?? "Your wish will appear here",
+                      ),
+                    ),
                   ],
                 ),
               ),
