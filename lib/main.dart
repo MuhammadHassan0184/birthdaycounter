@@ -29,7 +29,7 @@ void main() async {
     print("Firebase Init Error: $e");
   }
 
-  await NotificationService.init(); // 🔥 REQUIRED
+  await NotificationService.init(); // REQUIRED
 
   // Get payload if app was launched from notification
   final String? initialPayload = await NotificationService.getInitialPayload();

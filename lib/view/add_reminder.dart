@@ -555,7 +555,7 @@ class _AddReminderState extends State<AddReminder> {
                   child: wishField(controller: reminderCtrl.wishController),
                 ),
 
-                const SizedBox(height: 20),
+                SizedBox(height: 20),
 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 50),
